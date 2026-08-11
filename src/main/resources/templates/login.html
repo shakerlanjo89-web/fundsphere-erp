@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>FundSphere ERP | Login</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            overflow: hidden;
+        }
+
+        .wrapper {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+        }
+
+
+        /* ================= LEFT SIDE ================= */
+
+        .left-side {
+
+            width: 50%;
+            height: 100vh;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #0877d1,
+                    #08a6c9,
+                    #0bbf65
+                );
+
+            color: white;
+
+            display: flex;
+            flex-direction: column;
+
+            justify-content: space-between;
+
+            padding: 20px 45px;
+
+            overflow: hidden;
+        }
+
+
+        /* ================= TOP ================= */
+
+        .top-area {
+            text-align: center;
+        }
+
+        .time {
+
+            font-size: 28px;
+
+            font-weight: bold;
+
+            line-height: 1.1;
+        }
+
+        .date {
+
+            margin-top: 5px;
+
+            font-size: 14px;
+
+            opacity: .95;
+        }
+
+
+        /* ================= CENTER ================= */
+
+        .center-area {
+
+            text-align: center;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+        }
+
+
+        .logo {
+
+            width: 82px;
+
+            height: 82px;
+
+            object-fit: contain;
+
+            background: white;
+
+            padding: 4px;
+
+            border-radius: 9px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .welcome {
+
+            margin: 0 0 3px;
+
+            color: #ffe600;
+
+            font-size: 18px;
+
+            font-style: italic;
+
+            font-weight: bold;
+        }
+
+
+        .title {
+
+            margin: 0;
+
+            font-size: 38px;
+
+            letter-spacing: .5px;
+
+            font-weight: 700;
+        }
+
+
+        .tagline {
+
+            margin-top: 7px;
+
+            font-size: 15px;
+
+            font-weight: 500;
+        }
+
+
+        /* ================= FEATURES ================= */
+
+        .feature-box {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 12px;
+
+            max-width: 620px;
+
+            width: 100%;
+
+            margin: 0 auto;
+        }
+
+
+        .feature-card {
+
+            background:
+                rgba(255,255,255,.13);
+
+            border:
+                1px solid rgba(255,255,255,.16);
+
+            border-radius: 11px;
+
+            padding: 13px 12px;
+
+            min-height: 68px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 12px;
+
+            text-align: left;
+
+            transition: .2s;
+        }
+
+
+        .feature-card:hover {
+
+            background:
+                rgba(255,255,255,.20);
+
+            transform: translateY(-1px);
+        }
+
+
+        .feature-card span {
+
+            font-size: 27px;
+
+            flex-shrink: 0;
+        }
+
+
+        .feature-card-content {
+            text-align: left;
+        }
+
+
+        .feature-card p {
+
+            margin: 0;
+
+            font-size: 15px;
+
+            font-weight: bold;
+        }
+
+
+        .feature-card small {
+
+            display: block;
+
+            margin-top: 3px;
+
+            font-size: 10px;
+
+            opacity: .85;
+        }
+
+
+        .feature-card.full {
+
+            grid-column: 1 / 3;
+
+            justify-content: center;
+        }
+
+
+        /* ================= FOOTER ================= */
+
+        .bottom-area {
+
+            text-align: center;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+
+            font-weight: 500;
+        }
+
+
+        .bottom-area p {
+
+            margin: 1px 0;
+        }
+
+
+        .bottom-area strong {
+
+            font-weight: 700;
+        }
+
+
+        /* ================= RIGHT SIDE ================= */
+
+        .right-side {
+
+            width: 50%;
+
+            height: 100vh;
+
+            background: #f8fafc;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 25px;
+
+            overflow: hidden;
+        }
+
+
+        /* ================= LOGIN CARD ================= */
+
+        .login-card {
+
+            width: 440px;
+
+            max-width: 100%;
+
+            background: white;
+
+            padding: 30px 35px;
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 8px 30px rgba(0,0,0,.08);
+        }
+
+
+        .avatar {
+
+            width: 66px;
+
+            height: 66px;
+
+            border-radius: 50%;
+
+            background: #0877d1;
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 30px;
+
+            margin: 0 auto 10px;
+        }
+
+
+        .login-card h2 {
+
+            text-align: center;
+
+            color: #075da8;
+
+            margin: 0;
+
+            font-size: 25px;
+        }
+
+
+        .subtitle {
+
+            text-align: center;
+
+            color: #777;
+
+            font-size: 13px;
+
+            margin-top: 5px;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* ================= MESSAGES ================= */
+
+        .message {
+
+            padding: 10px 12px;
+
+            border-radius: 7px;
+
+            text-align: center;
+
+            margin-bottom: 15px;
+
+            font-size: 13px;
+        }
+
+
+        .error {
+
+            background: #fee2e2;
+
+            color: #b91c1c;
+
+            border: 1px solid #fecaca;
+        }
+
+
+        .success {
+
+            background: #dcfce7;
+
+            color: #15803d;
+
+            border: 1px solid #bbf7d0;
+        }
+
+
+        /* ================= INPUT ================= */
+
+        .input-box {
+
+            margin-bottom: 15px;
+        }
+
+
+        .input-box label {
+
+            display: block;
+
+            margin-bottom: 6px;
+
+            color: #374151;
+
+            font-size: 14px;
+
+            font-weight: bold;
+        }
+
+
+        .input-box input {
+
+            width: 100%;
+
+            height: 47px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 8px;
+
+            padding: 0 14px;
+
+            font-size: 14px;
+
+            outline: none;
+        }
+
+
+        .input-box input:focus {
+
+            border-color: #0877d1;
+
+            box-shadow:
+                0 0 0 3px rgba(8,119,209,.10);
+        }
+
+
+        /* ================= PASSWORD ================= */
+
+        .password-box {
+
+            position: relative;
+        }
+
+
+        .password-box input {
+
+            padding-right: 45px;
+        }
+
+
+        #togglePassword {
+
+            position: absolute;
+
+            right: 14px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            cursor: pointer;
+
+            font-size: 17px;
+        }
+
+
+        /* ================= OPTIONS ================= */
+
+        .options {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 17px;
+
+            font-size: 12px;
+        }
+
+
+        .remember {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            color: #555;
+        }
+
+
+        .remember input {
+
+            width: auto;
+
+            height: auto;
+        }
+
+
+        .forgot {
+
+            color: #0877d1;
+
+            text-decoration: none;
+        }
+
+
+        /* ================= BUTTONS ================= */
+
+        .login-btn {
+
+            width: 100%;
+
+            height: 48px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: #12b85a;
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+
+        .login-btn:hover {
+
+            background: #0d9d4c;
+        }
+
+
+        .divider {
+
+            text-align: center;
+
+            margin: 14px 0;
+
+            color: #999;
+
+            font-size: 12px;
+        }
+
+
+        .member-btn {
+
+            width: 100%;
+
+            height: 48px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: #2563c7;
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            display: block;
+
+            text-align: center;
+
+            text-decoration: none;
+
+            line-height: 48px;
+        }
+
+
+        .member-btn:hover {
+
+            background: #1d4fa5;
+        }
+
+
+        .version {
+
+            text-align: center;
+
+            color: #999;
+
+            font-size: 11px;
+
+            margin-top: 15px;
+        }
+
+
+        /* ================= DESKTOP FIT ================= */
+
+        @media (min-width: 851px) {
+
+            .left-side {
+
+                padding: 18px 38px;
+            }
+
+
+            .center-area {
+
+                margin: 0;
+            }
+
+
+            .feature-box {
+
+                max-width: 620px;
+
+                gap: 10px;
+            }
+
+
+            .feature-card {
+
+                min-height: 70px;
+
+                padding: 11px;
+            }
+
+
+            .right-side {
+
+                padding: 20px 30px;
+            }
+
+
+            .login-card {
+
+                max-width: 440px;
+
+                padding: 27px 32px;
+            }
+
+        }
+
+
+        /* ================= SMALL SCREEN ================= */
+
+        @media (max-width: 850px) {
+
+            body {
+
+                overflow: auto;
+            }
+
+
+            .wrapper {
+
+                height: auto;
+
+                min-height: 100vh;
+
+                flex-direction: column;
+            }
+
+
+            .left-side {
+
+                width: 100%;
+
+                height: auto;
+
+                min-height: 620px;
+
+                padding: 25px 20px;
+            }
+
+
+            .right-side {
+
+                width: 100%;
+
+                height: auto;
+
+                min-height: 500px;
+
+                padding: 25px 15px;
+            }
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            .title {
+
+                font-size: 29px;
+            }
+
+
+            .logo {
+
+                width: 75px;
+
+                height: 75px;
+            }
+
+
+            .feature-card {
+
+                min-height: 65px;
+
+                padding: 9px;
+            }
+
+
+            .feature-card span {
+
+                font-size: 22px;
+            }
+
+
+            .feature-card p {
+
+                font-size: 13px;
+            }
+
+
+            .feature-card small {
+
+                display: none;
+            }
+
+
+            .login-card {
+
+                padding: 25px 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="wrapper">
+
+
+    <!-- ================================================= -->
+    <!-- LEFT SIDE -->
+    <!-- ================================================= -->
+
+    <section class="left-side">
+
+
+        <div class="top-area">
+
+            <div id="time" class="time">
+                00:00:00
+            </div>
+
+            <div id="date" class="date">
+                Loading...
+            </div>
+
+        </div>
+
+
+        <div class="center-area">
+
+
+            <img
+                th:src="@{/images/logo.png}"
+                class="logo"
+                alt="FundSphere ERP Logo">
+
+
+            <h3 class="welcome">
+                Welcome To
+            </h3>
+
+
+            <h1 class="title">
+                FundSphere ERP
+            </h1>
+
+
+            <p class="tagline">
+                Save • Support • Grow Together
+            </p>
+
+
+        </div>
+
+
+        <div class="feature-box">
+
+
+            <div class="feature-card">
+
+                <span>👥</span>
+
+                <div class="feature-card-content">
+
+                    <p>
+                        Members
+                    </p>
+
+                    <small>
+                        Manage members & profiles
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <span>💰</span>
+
+                <div class="feature-card-content">
+
+                    <p>
+                        Funds
+                    </p>
+
+                    <small>
+                        Track funds & accounts
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <span>📊</span>
+
+                <div class="feature-card-content">
+
+                    <p>
+                        Reports
+                    </p>
+
+                    <small>
+                        Financial reports & analysis
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <span>📁</span>
+
+                <div class="feature-card-content">
+
+                    <p>
+                        Projects
+                    </p>
+
+                    <small>
+                        Manage projects & tasks
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="feature-card full">
+
+                <span>🔒</span>
+
+                <div class="feature-card-content">
+
+                    <p>
+                        Secure Login
+                    </p>
+
+                    <small>
+                        Protected & secure access
+                    </small>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="bottom-area">
+
+            <p>
+                Powered by
+                <strong>Shakir Ul Rehman</strong>
+            </p>
+
+            <p>
+                Dua Digital Studio
+                &nbsp; | &nbsp;
+                <strong>+92 321 2837377</strong>
+            </p>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- ================================================= -->
+    <!-- RIGHT SIDE -->
+    <!-- ================================================= -->
+
+    <section class="right-side">
+
+
+        <div class="login-card">
+
+
+            <div class="avatar">
+                👤
+            </div>
+
+
+            <h2>
+                Admin Login
+            </h2>
+
+
+            <div class="subtitle">
+                Secure Administrator Login
+            </div>
+
+
+            <!-- ERROR -->
+
+            <div
+                th:if="${param.error}"
+                class="message error">
+
+                ❌ Invalid username or password.
+
+            </div>
+
+
+            <!-- LOGOUT -->
+
+            <div
+                th:if="${param.logout}"
+                class="message success">
+
+                ✅ You have been successfully logged out.
+
+            </div>
+
+
+            <!-- LOGIN FORM -->
+
+            <form
+                th:action="@{/login}"
+                method="post">
+
+
+                <div class="input-box">
+
+                    <label for="username">
+                        Username
+                    </label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Enter Username"
+                        autocomplete="username"
+                        required>
+
+                </div>
+
+
+                <div class="input-box">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+
+                    <div class="password-box">
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter Password"
+                            autocomplete="current-password"
+                            required>
+
+
+                        <span
+                            id="togglePassword">
+
+                            👁
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="options">
+
+
+                    <label class="remember">
+
+                        <input
+                            type="checkbox"
+                            name="remember-me">
+
+                        Remember Me
+
+                    </label>
+
+
+                    <a
+                        href="#"
+                        class="forgot"
+                        onclick="return false;">
+
+                        Forgot Password?
+
+                    </a>
+
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="login-btn">
+
+                    🔐 Login
+
+                </button>
+
+
+                <div class="divider">
+                    OR
+                </div>
+
+
+                <!-- MEMBER LOGIN -->
+
+                <a
+                    href="/member-login"
+                    class="member-btn">
+
+                    👤 Member Login
+
+                </a>
+
+
+                <div class="version">
+                    Version 2.0
+                </div>
+
+
+            </form>
+
+
+        </div>
+
+
+    </section>
+
+
+</div>
+
+
+
+<script>
+
+
+    /* ================= CLOCK ================= */
+
+    function updateClock() {
+
+        const now = new Date();
+
+        let hours = now.getHours();
+
+        let minutes = now.getMinutes();
+
+        let seconds = now.getSeconds();
+
+
+        const ampm =
+            hours >= 12 ? "PM" : "AM";
+
+
+        hours =
+            hours % 12 || 12;
+
+
+        hours =
+            String(hours).padStart(2, "0");
+
+        minutes =
+            String(minutes).padStart(2, "0");
+
+        seconds =
+            String(seconds).padStart(2, "0");
+
+
+        document.getElementById("time").innerText =
+            hours + ":" +
+            minutes + ":" +
+            seconds + " " +
+            ampm;
+
+
+        document.getElementById("date").innerText =
+            now.toLocaleDateString(
+                "en-US",
+                {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric"
+                }
+            );
+
+    }
+
+
+    updateClock();
+
+    setInterval(updateClock, 1000);
+
+
+
+    /* ================= PASSWORD ================= */
+
+    const togglePassword =
+        document.getElementById("togglePassword");
+
+
+    const password =
+        document.getElementById("password");
+
+
+    togglePassword.addEventListener(
+        "click",
+        function () {
+
+            if (password.type === "password") {
+
+                password.type = "text";
+
+                togglePassword.innerText = "🙈";
+
+            } else {
+
+                password.type = "password";
+
+                togglePassword.innerText = "👁";
+
+            }
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>

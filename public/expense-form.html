@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title th:text="${expense.id != null ? 'Edit Expense | FundSphere ERP' : 'Add Expense | FundSphere ERP'}">
+        Expense | FundSphere ERP
+    </title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        .page {
+            max-width: 1050px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .header {
+            background: #0877d1;
+            color: white;
+            padding: 24px 30px;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 26px;
+        }
+
+        .header p {
+            margin: 7px 0 0;
+            opacity: .9;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,.08);
+        }
+
+        .section {
+            margin-bottom: 28px;
+        }
+
+        .section-title {
+            color: #0877d1;
+            font-size: 18px;
+            font-weight: bold;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .field {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #0877d1;
+        }
+
+        input[readonly] {
+            background: #f1f5f9;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .expense-number {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            color: #075da8;
+            padding: 12px;
+            border-radius: 7px;
+            font-weight: bold;
+        }
+
+        .amount-box {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            padding: 14px;
+            border-radius: 7px;
+            color: #15803d;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        button,
+        .cancel-btn {
+            border: none;
+            padding: 12px 24px;
+            border-radius: 7px;
+            font-size: 15px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .save-btn {
+            background: #0877d1;
+            color: white;
+        }
+
+        .save-btn:hover {
+            background: #075da8;
+        }
+
+        .cancel-btn {
+            background: #6b7280;
+            color: white;
+        }
+
+        @media(max-width:700px) {
+
+            .row {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="page">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <h1 th:text="${expense.id != null ? 'Edit Expense' : 'Add Expense'}">
+            Add Expense
+        </h1>
+
+        <p>
+            FundSphere ERP — Expense Management
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+
+        <form th:action="@{/expense/save}"
+              th:object="${expense}"
+              method="post">
+
+
+            <!-- IMPORTANT FOR EDIT -->
+
+            <input type="hidden"
+                   th:field="*{id}">
+
+            <input type="hidden"
+                   th:field="*{expenseNo}">
+
+
+            <!-- ================================= -->
+            <!-- EXPENSE INFORMATION -->
+            <!-- ================================= -->
+
+            <div class="section">
+
+                <div class="section-title">
+                    Expense Information
+                </div>
+
+
+                <div class="row">
+
+
+                    <!-- EXPENSE NUMBER -->
+
+                    <div class="field">
+
+                        <label>
+                            Expense Number
+                        </label>
+
+                        <div class="expense-number"
+                             th:text="${expense.expenseNo != null ? expense.expenseNo : 'Auto Generated on Save'}">
+
+                            Auto Generated on Save
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- DATE -->
+
+                    <div class="field">
+
+                        <label for="expenseDate">
+                            Expense Date
+                        </label>
+
+                        <input type="date"
+                               id="expenseDate"
+                               th:field="*{expenseDate}"
+                               required>
+
+                    </div>
+
+                </div>
+
+
+                <div class="row">
+
+
+                    <!-- EXPENSE TYPE -->
+
+                    <div class="field">
+
+                        <label for="expenseType">
+                            Expense Type
+                        </label>
+
+                        <select id="expenseType"
+                                th:field="*{expenseType}"
+                                required>
+
+                            <option value="">
+                                -- Select Expense Type --
+                            </option>
+
+                            <option value="Office Expense">
+                                Office Expense
+                            </option>
+
+                            <option value="Salary">
+                                Salary
+                            </option>
+
+                            <option value="Transport">
+                                Transport
+                            </option>
+
+                            <option value="Food">
+                                Food
+                            </option>
+
+                            <option value="Utilities">
+                                Utilities
+                            </option>
+
+                            <option value="Stationery">
+                                Stationery
+                            </option>
+
+                            <option value="Project Expense">
+                                Project Expense
+                            </option>
+
+                            <option value="Bank Charges">
+                                Bank Charges
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- FUND TYPE -->
+
+                    <div class="field">
+
+                        <label for="fundType">
+                            Fund Type
+                        </label>
+
+                        <select id="fundType"
+                                th:field="*{fundType}"
+                                required>
+
+                            <option value="">
+                                -- Select Fund --
+                            </option>
+
+                            <option value="Business Fund">
+                                Business Fund
+                            </option>
+
+                            <option value="Emergency Fund">
+                                Emergency Fund
+                            </option>
+
+                            <option value="Education Fund">
+                                Education Fund
+                            </option>
+
+                            <option value="Welfare Fund">
+                                Welfare Fund
+                            </option>
+
+                            <option value="Administration Fund">
+                                Administration Fund
+                            </option>
+
+                            <option value="General Fund">
+                                General Fund
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="field">
+
+                    <label for="description">
+                        Description
+                    </label>
+
+                    <input type="text"
+                           id="description"
+                           th:field="*{description}"
+                           placeholder="Enter expense description"
+                           required>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================================= -->
+            <!-- PAYMENT INFORMATION -->
+            <!-- ================================= -->
+
+            <div class="section">
+
+                <div class="section-title">
+                    Payment Information
+                </div>
+
+
+                <div class="row">
+
+
+                    <!-- AMOUNT -->
+
+                    <div class="field">
+
+                        <label for="amount">
+                            Expense Amount (Rs.)
+                        </label>
+
+                        <input type="number"
+                               id="amount"
+                               th:field="*{amount}"
+                               step="0.01"
+                               min="0"
+                               placeholder="0.00"
+                               required
+                               oninput="showAmount()">
+
+                        <div class="amount-box">
+
+                            Amount:
+                            Rs.
+                            <span id="amountDisplay">
+                                0.00
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PAYMENT METHOD -->
+
+                    <div class="field">
+
+                        <label for="paymentMethod">
+                            Payment Method
+                        </label>
+
+                        <select id="paymentMethod"
+                                th:field="*{paymentMethod}"
+                                required>
+
+                            <option value="Cash">
+                                Cash
+                            </option>
+
+                            <option value="Bank">
+                                Bank
+                            </option>
+
+                            <option value="JazzCash">
+                                JazzCash
+                            </option>
+
+                            <option value="EasyPaisa">
+                                EasyPaisa
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PAID TO -->
+
+                <div class="field">
+
+                    <label for="paidTo">
+                        Paid To
+                    </label>
+
+                    <input type="text"
+                           id="paidTo"
+                           th:field="*{paidTo}"
+                           placeholder="Person / Vendor / Organization">
+
+                </div>
+
+            </div>
+
+
+            <!-- ================================= -->
+            <!-- REMARKS -->
+            <!-- ================================= -->
+
+            <div class="section">
+
+                <div class="section-title">
+                    Remarks
+                </div>
+
+                <textarea
+                    th:field="*{remarks}"
+                    placeholder="Enter additional remarks..."></textarea>
+
+            </div>
+
+
+            <!-- ================================= -->
+            <!-- BUTTONS -->
+            <!-- ================================= -->
+
+            <div class="buttons">
+
+                <button type="submit"
+                        class="save-btn"
+                        th:text="${expense.id != null ? 'Update Expense' : 'Save Expense'}">
+
+                    Save Expense
+
+                </button>
+
+
+                <a href="/expenses"
+                   class="cancel-btn">
+
+                    Cancel
+
+                </a>
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function showAmount() {
+
+    const amount =
+        parseFloat(
+            document.getElementById("amount").value
+        ) || 0;
+
+    document.getElementById("amountDisplay").innerText =
+        amount.toFixed(2);
+}
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        const dateField =
+            document.getElementById("expenseDate");
+
+        if (!dateField.value) {
+
+            const today =
+                new Date()
+                    .toISOString()
+                    .split("T")[0];
+
+            dateField.value = today;
+        }
+
+        showAmount();
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

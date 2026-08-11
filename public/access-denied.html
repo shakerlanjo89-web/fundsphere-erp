@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        FundSphere ERP | Access Restricted
+    </title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eef6ff,
+                    #f8fafc
+                );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color: #1f2937;
+        }
+
+
+        .container {
+
+            width: 100%;
+
+            max-width: 560px;
+
+            padding: 20px;
+        }
+
+
+        .card {
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 45px 35px;
+
+            text-align: center;
+
+            box-shadow:
+                0 10px 35px
+                rgba(0,0,0,.10);
+
+            border:
+                1px solid #e5e7eb;
+        }
+
+
+        .logo {
+
+            width: 85px;
+
+            height: 85px;
+
+            object-fit: contain;
+
+            background: white;
+
+            border-radius: 14px;
+
+            padding: 7px;
+
+            border:
+                1px solid #e5e7eb;
+
+            margin-bottom: 20px;
+        }
+
+
+        .lock-icon {
+
+            width: 70px;
+
+            height: 70px;
+
+            margin: 0 auto 20px;
+
+            border-radius: 50%;
+
+            background: #fee2e2;
+
+            color: #dc2626;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 34px;
+        }
+
+
+        h1 {
+
+            margin: 0;
+
+            color: #075da8;
+
+            font-size: 27px;
+        }
+
+
+        .subtitle {
+
+            margin-top: 10px;
+
+            color: #64748b;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+        }
+
+
+        .message {
+
+            margin-top: 25px;
+
+            padding: 18px;
+
+            background: #eff6ff;
+
+            border:
+                1px solid #bfdbfe;
+
+            border-radius: 10px;
+
+            color: #334155;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+        }
+
+
+        .contact-title {
+
+            margin-top: 25px;
+
+            font-size: 13px;
+
+            color: #64748b;
+        }
+
+
+        .company {
+
+            margin-top: 7px;
+
+            color: #075da8;
+
+            font-size: 19px;
+
+            font-weight: bold;
+        }
+
+
+        .person {
+
+            margin-top: 5px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            color: #334155;
+        }
+
+
+        .phone {
+
+            display: inline-block;
+
+            margin-top: 8px;
+
+            color: #15803d;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            text-decoration: none;
+        }
+
+
+        .buttons {
+
+            margin-top: 28px;
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .btn {
+
+            display: inline-block;
+
+            padding: 11px 20px;
+
+            border-radius: 8px;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            font-weight: bold;
+        }
+
+
+        .btn-dashboard {
+
+            background: #0877d1;
+
+            color: white;
+        }
+
+
+        .btn-back {
+
+            background: #e2e8f0;
+
+            color: #334155;
+        }
+
+
+        .footer {
+
+            margin-top: 25px;
+
+            padding-top: 15px;
+
+            border-top:
+                1px solid #e5e7eb;
+
+            color: #94a3b8;
+
+            font-size: 11px;
+        }
+
+
+        @media(max-width:500px) {
+
+            .card {
+
+                padding: 35px 20px;
+            }
+
+
+            h1 {
+
+                font-size: 23px;
+            }
+
+
+            .company {
+
+                font-size: 17px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <div class="card">
+
+
+        <!-- =================================================
+             LOGO
+             ================================================= -->
+
+        <img
+            src="/images/logo.png"
+            alt="FundSphere ERP"
+            class="logo">
+
+
+        <!-- =================================================
+             LOCK ICON
+             ================================================= -->
+
+        <div class="lock-icon">
+
+            🔒
+
+        </div>
+
+
+        <!-- =================================================
+             TITLE
+             ================================================= -->
+
+        <h1>
+
+            Access Restricted
+
+        </h1>
+
+
+        <div class="subtitle">
+
+            You do not have permission to access this module.
+
+        </div>
+
+
+        <!-- =================================================
+             MESSAGE
+             ================================================= -->
+
+        <div class="message">
+
+            This section is restricted according to your
+            user role and access permissions.
+
+            <br>
+
+            If you believe you should have access to this
+            section, please contact the system administrator.
+
+        </div>
+
+
+        <!-- =================================================
+             CONTACT
+             ================================================= -->
+
+        <div class="contact-title">
+
+            Please contact Admin
+
+        </div>
+
+
+        <div class="company">
+
+            DUA Digital Studio
+
+        </div>
+
+
+        <div class="person">
+
+            Shakir Ul Rehman
+
+        </div>
+
+
+        <a
+            href="tel:+923212837377"
+            class="phone">
+
+            📞 +92 321 2837377
+
+        </a>
+
+
+        <!-- =================================================
+             BUTTONS
+             ================================================= -->
+
+        <div class="buttons">
+
+
+            <a
+                href="/dashboard"
+                class="btn btn-dashboard">
+
+                ← Back to Dashboard
+
+            </a>
+
+
+            <a
+                href="javascript:history.back()"
+                class="btn btn-back">
+
+                Go Back
+
+            </a>
+
+
+        </div>
+
+
+        <!-- =================================================
+             FOOTER
+             ================================================= -->
+
+        <div class="footer">
+
+            FundSphere ERP
+            <br>
+            Management System
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

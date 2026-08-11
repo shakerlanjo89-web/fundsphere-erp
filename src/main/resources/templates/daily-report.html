@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>FundSphere ERP | Daily Report</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        .page {
+            max-width: 1400px;
+            margin: 25px auto;
+            padding: 0 18px;
+        }
+
+        .header {
+            background: #0877d1;
+            color: white;
+            padding: 24px 28px;
+            border-radius: 12px 12px 0 0;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 27px;
+        }
+
+        .header p {
+            margin: 7px 0 0;
+            opacity: .9;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 9px;
+        }
+
+        .btn {
+            border: none;
+            padding: 10px 17px;
+            border-radius: 7px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .back-btn {
+            background: #075da8;
+            color: white;
+        }
+
+        .print-btn {
+            background: white;
+            color: #0877d1;
+        }
+
+        .content {
+            background: white;
+            padding: 25px;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,.08);
+        }
+
+        .filter-box {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .filter-title {
+            color: #075da8;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .date-form {
+            display: flex;
+            gap: 10px;
+            align-items: end;
+            flex-wrap: wrap;
+        }
+
+        .field label {
+            display: block;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        .field input {
+            padding: 10px 11px;
+            border: 1px solid #cbd5e1;
+            border-radius: 7px;
+            font-size: 14px;
+        }
+
+        .apply-btn {
+            background: #0877d1;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 7px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .clear-btn {
+            background: #6b7280;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 7px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .report-heading {
+            text-align: center;
+            margin: 20px 0 25px;
+        }
+
+        .report-heading h2 {
+            margin: 0;
+            color: #075da8;
+        }
+
+        .report-heading p {
+            margin: 7px 0 0;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 18px;
+            background: #f8fafc;
+        }
+
+        .card-title {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .card-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #075da8;
+        }
+
+        .green {
+            color: #15803d;
+        }
+
+        .red {
+            color: #dc2626;
+        }
+
+        .purple {
+            color: #7c3aed;
+        }
+
+        .section-title {
+            font-size: 19px;
+            font-weight: bold;
+            color: #075da8;
+            margin: 28px 0 15px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1050px;
+        }
+
+        th {
+            background: #f1f5f9;
+            color: #374151;
+            padding: 12px;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        td {
+            padding: 11px;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 12px;
+        }
+
+        .amount {
+            font-weight: bold;
+        }
+
+        .income {
+            color: #15803d;
+            font-weight: bold;
+        }
+
+        .withdrawal {
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 30px;
+            color: #6b7280;
+        }
+
+        .footer {
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid #e5e7eb;
+
+            display: flex;
+            justify-content: space-between;
+
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        @media(max-width:1100px) {
+
+            .cards {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media(max-width:700px) {
+
+            .page {
+                margin: 10px auto;
+                padding: 0 8px;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-buttons {
+                width: 100%;
+            }
+
+            .btn {
+                flex: 1;
+                text-align: center;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .date-form {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .field input {
+                width: 100%;
+            }
+        }
+
+        @media print {
+
+            body {
+                background: white;
+            }
+
+            .page {
+                max-width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            .header {
+                border-radius: 0;
+            }
+
+            .header-buttons,
+            .filter-box {
+                display: none;
+            }
+
+            .content {
+                box-shadow: none;
+                padding: 10px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="page">
+
+    <!-- ================= HEADER ================= -->
+
+    <div class="header">
+
+        <div>
+
+            <h1>Daily Financial Report</h1>
+
+            <p>
+                FundSphere ERP — Daily Transaction Analysis
+            </p>
+
+        </div>
+
+        <div class="header-buttons">
+
+            <a href="/reports"
+               class="btn back-btn">
+                ← Reports
+            </a>
+
+            <button type="button"
+                    onclick="window.print()"
+                    class="btn print-btn">
+                🖨 Print
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="content">
+
+
+        <!-- ================= FILTER ================= -->
+
+        <div class="filter-box">
+
+            <div class="filter-title">
+                Daily Report Filter
+            </div>
+
+            <form method="get"
+                  action="/reports/daily"
+                  class="date-form">
+
+                <div class="field">
+
+                    <label>
+                        Select Date
+                    </label>
+
+                    <input type="date"
+                           name="date"
+                           th:value="${selectedDate}">
+
+                </div>
+
+                <button type="submit"
+                        class="apply-btn">
+                    View Report
+                </button>
+
+                <a href="/reports/daily"
+                   class="clear-btn">
+                    Clear
+                </a>
+
+            </form>
+
+        </div>
+
+
+        <!-- ================= TITLE ================= -->
+
+        <div class="report-heading">
+
+            <h2>
+                Daily Report
+            </h2>
+
+            <p>
+
+                <span th:if="${selectedDate != null and !selectedDate.isEmpty()}"
+                      th:text="'Date: ' + ${selectedDate}">
+                </span>
+
+                <span th:if="${selectedDate == null or selectedDate.isEmpty()}">
+                    All Dates
+                </span>
+
+            </p>
+
+        </div>
+
+
+        <!-- ================= SUMMARY ================= -->
+
+        <div class="cards">
+
+
+            <!-- CONTRIBUTIONS -->
+
+            <div class="card">
+
+                <div class="card-title">
+                    Contributions
+                </div>
+
+                <div class="card-value green"
+                     th:text="${'Rs. ' + ((#aggregates.sum(contributions.![amount]) ?: 0))}">
+                    Rs. 0.00
+                </div>
+
+            </div>
+
+
+            <!-- EXPENSES -->
+
+            <div class="card">
+
+                <div class="card-title">
+                    Expenses
+                </div>
+
+                <div class="card-value red"
+                     th:text="${'Rs. ' + ((#aggregates.sum(expenses.![amount]) ?: 0))}">
+                    Rs. 0.00
+                </div>
+
+            </div>
+
+
+            <!-- BUSINESS -->
+
+            <div class="card">
+
+                <div class="card-title">
+                    Business Transactions
+                </div>
+
+                <div class="card-value purple"
+                     th:text="${#lists.size(businessFunds)}">
+                    0
+                </div>
+
+            </div>
+
+
+            <!-- EMERGENCY -->
+
+            <div class="card">
+
+                <div class="card-title">
+                    Emergency Transactions
+                </div>
+
+                <div class="card-value"
+                     th:text="${#lists.size(emergencyTransactions)}">
+                    0
+                </div>
+
+            </div>
+
+
+            <!-- TOTAL RECORDS -->
+
+            <div class="card">
+
+                <div class="card-title">
+                    Total Records
+                </div>
+
+                <div class="card-value"
+                     th:text="${#lists.size(contributions)
+                                + #lists.size(expenses)
+                                + #lists.size(businessFunds)
+                                + #lists.size(emergencyTransactions)}">
+                    0
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= CONTRIBUTIONS ================= -->
+
+        <div class="section-title">
+            Contribution Transactions
+        </div>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                <tr>
+
+                    <th>Date</th>
+                    <th>Receipt No.</th>
+                    <th>Member Code</th>
+                    <th>Member Name</th>
+                    <th>Amount</th>
+                    <th>Payment</th>
+
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                <tr th:each="c : ${contributions}">
+
+                    <td th:text="${c.contributionDate}">
+                        -
+                    </td>
+
+                    <td th:text="${c.receiptNo}">
+                        -
+                    </td>
+
+                    <td th:text="${c.memberCode}">
+                        -
+                    </td>
+
+                    <td th:text="${c.memberName}">
+                        -
+                    </td>
+
+                    <td class="income"
+                        th:text="${'Rs. ' + (c.amount ?: 0)}">
+                        Rs. 0.00
+                    </td>
+
+                    <td th:text="${c.paymentMethod}">
+                        -
+                    </td>
+
+                </tr>
+
+
+                <tr th:if="${#lists.isEmpty(contributions)}">
+
+                    <td colspan="6"
+                        class="empty">
+
+                        No contribution records found.
+
+                    </td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- ================= EXPENSES ================= -->
+
+        <div class="section-title">
+            Expense Transactions
+        </div>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                <tr>
+
+                    <th>Date</th>
+                    <th>Expense No.</th>
+                    <th>Type</th>
+                    <th>Fund</th>
+                    <th>Description</th>
+                    <th>Paid To</th>
+                    <th>Payment</th>
+                    <th>Amount</th>
+
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                <tr th:each="e : ${expenses}">
+
+                    <td th:text="${e.expenseDate}">
+                        -
+                    </td>
+
+                    <td th:text="${e.expenseNo}">
+                        -
+                    </td>
+
+                    <td th:text="${e.expenseType}">
+                        -
+                    </td>
+
+                    <td th:text="${e.fundType}">
+                        -
+                    </td>
+
+                    <td th:text="${e.description}">
+                        -
+                    </td>
+
+                    <td th:text="${e.paidTo}">
+                        -
+                    </td>
+
+                    <td th:text="${e.paymentMethod}">
+                        -
+                    </td>
+
+                    <td class="withdrawal"
+                        th:text="${'Rs. ' + (e.amount ?: 0)}">
+                        Rs. 0.00
+                    </td>
+
+                </tr>
+
+
+                <tr th:if="${#lists.isEmpty(expenses)}">
+
+                    <td colspan="8"
+                        class="empty">
+
+                        No expense records found.
+
+                    </td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- ================= BUSINESS FUND ================= -->
+
+        <div class="section-title">
+            Business Fund Transactions
+        </div>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                <tr>
+
+                    <th>Date</th>
+                    <th>Transaction No.</th>
+                    <th>Type</th>
+                    <th>Member Code</th>
+                    <th>Member Name</th>
+                    <th>Description</th>
+                    <th>Payment</th>
+                    <th>Amount</th>
+
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                <tr th:each="b : ${businessFunds}">
+
+                    <td th:text="${b.transactionDate}">
+                        -
+                    </td>
+
+                    <td th:text="${b.transactionNo}">
+                        -
+                    </td>
+
+                    <td th:text="${b.transactionType}">
+                        -
+                    </td>
+
+                    <td th:text="${b.memberCode}">
+                        -
+                    </td>
+
+                    <td th:text="${b.memberName}">
+                        -
+                    </td>
+
+                    <td th:text="${b.description}">
+                        -
+                    </td>
+
+                    <td th:text="${b.paymentMethod}">
+                        -
+                    </td>
+
+                    <td class="amount"
+                        th:text="${'Rs. ' + (b.amount ?: 0)}">
+                        Rs. 0.00
+                    </td>
+
+                </tr>
+
+
+                <tr th:if="${#lists.isEmpty(businessFunds)}">
+
+                    <td colspan="8"
+                        class="empty">
+
+                        No business fund transactions found.
+
+                    </td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- ================= EMERGENCY FUND ================= -->
+
+        <div class="section-title">
+            Emergency Fund Transactions
+        </div>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                <tr>
+
+                    <th>Date</th>
+                    <th>Transaction No.</th>
+                    <th>Type</th>
+                    <th>Member Code</th>
+                    <th>Member Name</th>
+                    <th>Description</th>
+                    <th>Paid To</th>
+                    <th>Payment</th>
+                    <th>Amount</th>
+
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                <tr th:each="e : ${emergencyTransactions}">
+
+                    <td th:text="${e.transactionDate}">
+                        -
+                    </td>
+
+                    <td th:text="${e.transactionNo}">
+                        -
+                    </td>
+
+                    <td th:text="${e.transactionType}">
+                        -
+                    </td>
+
+                    <td th:text="${e.memberCode}">
+                        -
+                    </td>
+
+                    <td th:text="${e.memberName}">
+                        -
+                    </td>
+
+                    <td th:text="${e.description}">
+                        -
+                    </td>
+
+                    <td th:text="${e.paidTo}">
+                        -
+                    </td>
+
+                    <td th:text="${e.paymentMethod}">
+                        -
+                    </td>
+
+                    <td class="amount"
+                        th:text="${'Rs. ' + (e.amount ?: 0)}">
+                        Rs. 0.00
+                    </td>
+
+                </tr>
+
+
+                <tr th:if="${#lists.isEmpty(emergencyTransactions)}">
+
+                    <td colspan="9"
+                        class="empty">
+
+                        No emergency fund transactions found.
+
+                    </td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- ================= FOOTER ================= -->
+
+        <div class="footer">
+
+            <span>
+                FundSphere ERP
+            </span>
+
+            <span>
+                Daily Financial Report
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

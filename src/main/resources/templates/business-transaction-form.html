@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>FundSphere ERP | Business Transaction</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        .page {
+            max-width: 900px;
+            margin: 25px auto;
+            padding: 0 18px;
+        }
+
+        .header {
+            background: #0877d1;
+            color: white;
+            padding: 24px 28px;
+            border-radius: 12px 12px 0 0;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 26px;
+        }
+
+        .header p {
+            margin: 7px 0 0;
+            opacity: .9;
+            font-size: 14px;
+        }
+
+        .back-btn {
+            background: #075da8;
+            color: white;
+            text-decoration: none;
+            padding: 10px 17px;
+            border-radius: 7px;
+            font-weight: bold;
+        }
+
+        .content {
+            background: white;
+            padding: 28px;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,.08);
+        }
+
+        .error {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #b91c1c;
+            padding: 13px;
+            border-radius: 7px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .field label {
+            display: block;
+            margin-bottom: 7px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #374151;
+        }
+
+        .field input,
+        .field select,
+        .field textarea {
+            width: 100%;
+            padding: 11px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 7px;
+            font-size: 14px;
+            background: white;
+        }
+
+        .field textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .field input:focus,
+        .field select:focus,
+        .field textarea:focus {
+            outline: none;
+            border-color: #0877d1;
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        .total-box {
+            margin-top: 20px;
+            padding: 17px;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            text-align: center;
+            color: #075da8;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+            border-top: 1px solid #e5e7eb;
+            padding-top: 22px;
+        }
+
+        .save-btn {
+            border: none;
+            background: #0877d1;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 7px;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .cancel-btn {
+            background: #6b7280;
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 7px;
+            font-weight: bold;
+        }
+
+        .help {
+            margin-top: 20px;
+            padding: 14px;
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+            border-radius: 7px;
+            color: #9a3412;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        @media(max-width:700px) {
+
+            .page {
+                margin: 10px auto;
+                padding: 0 8px;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .content {
+                padding: 18px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: auto;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            .save-btn,
+            .cancel-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="page">
+
+    <div class="header">
+
+        <div>
+
+            <h1>
+                📊 Business Transaction
+            </h1>
+
+            <p>
+                FundSphere ERP — Purchase, Sale & Business Expense
+            </p>
+
+        </div>
+
+        <a href="/business-accounting"
+           class="back-btn">
+
+            ← Business Accounting
+
+        </a>
+
+    </div>
+
+
+    <div class="content">
+
+
+        <!-- ERROR -->
+
+        <div
+            th:if="${errorMessage != null}"
+            class="error"
+            th:text="${errorMessage}">
+
+            Error
+
+        </div>
+
+
+        <form
+            th:action="@{/business-accounting/save}"
+            th:object="${businessTransaction}"
+            method="post">
+
+
+            <input
+                type="hidden"
+                th:field="*{id}">
+
+
+            <!-- =====================================
+                 TRANSACTION INFORMATION
+                 ===================================== -->
+
+            <div class="grid">
+
+
+                <!-- TYPE -->
+
+                <div class="field">
+
+                    <label>
+                        Transaction Type *
+                    </label>
+
+                    <select
+                        th:field="*{transactionType}"
+                        required
+                        onchange="transactionTypeChanged()">
+
+                        <option value="">
+                            -- Select Type --
+                        </option>
+
+                        <option value="PURCHASE">
+                            Purchase
+                        </option>
+
+                        <option value="SALE">
+                            Sale
+                        </option>
+
+                        <option value="EXPENSE">
+                            Business Expense
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- DATE -->
+
+                <div class="field">
+
+                    <label>
+                        Date *
+                    </label>
+
+                    <input
+                        type="date"
+                        th:field="*{transactionDate}"
+                        required>
+
+                </div>
+
+
+                <!-- TRANSACTION NO -->
+
+                <div class="field">
+
+                    <label>
+                        Transaction No
+                    </label>
+
+                    <input
+                        type="text"
+                        th:field="*{transactionNo}"
+                        placeholder="Auto generated if blank">
+
+                </div>
+
+
+                <!-- ITEM -->
+
+                <div class="field">
+
+                    <label>
+                        Item / Description *
+                    </label>
+
+                    <input
+                        type="text"
+                        th:field="*{itemName}"
+                        placeholder="e.g. Wheat, Rice, Solar Panel"
+                        required>
+
+                </div>
+
+
+                <!-- MEMBER CODE -->
+
+                <div class="field">
+
+                    <label>
+                        Member Code
+                    </label>
+
+                    <input
+                        type="text"
+                        th:field="*{memberCode}"
+                        placeholder="Optional">
+
+                </div>
+
+
+                <!-- MEMBER NAME -->
+
+                <div class="field">
+
+                    <label>
+                        Member Name
+                    </label>
+
+                    <input
+                        type="text"
+                        th:field="*{memberName}"
+                        placeholder="Optional">
+
+                </div>
+
+
+                <!-- QUANTITY -->
+
+                <div class="field">
+
+                    <label>
+                        Quantity *
+                    </label>
+
+                    <input
+                        type="number"
+                        id="quantity"
+                        th:field="*{quantity}"
+                        min="0.01"
+                        step="0.01"
+                        required
+                        oninput="calculateTotal()">
+
+                </div>
+
+
+                <!-- UNIT PRICE -->
+
+                <div class="field">
+
+                    <label>
+                        Unit Price *
+                    </label>
+
+                    <input
+                        type="number"
+                        id="unitPrice"
+                        th:field="*{unitPrice}"
+                        min="0"
+                        step="0.01"
+                        required
+                        oninput="calculateTotal()">
+
+                </div>
+
+
+                <!-- PAYMENT -->
+
+                <div class="field">
+
+                    <label>
+                        Payment Method
+                    </label>
+
+                    <select
+                        th:field="*{paymentMethod}">
+
+                        <option value="">
+                            -- Select --
+                        </option>
+
+                        <option value="Cash">
+                            Cash
+                        </option>
+
+                        <option value="Bank">
+                            Bank
+                        </option>
+
+                        <option value="Online">
+                            Online
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="field full">
+
+                    <label>
+                        Description
+                    </label>
+
+                    <textarea
+                        th:field="*{description}"
+                        placeholder="Transaction details..."></textarea>
+
+                </div>
+
+
+                <!-- REMARKS -->
+
+                <div class="field full">
+
+                    <label>
+                        Remarks
+                    </label>
+
+                    <textarea
+                        th:field="*{remarks}"
+                        placeholder="Additional remarks..."></textarea>
+
+                </div>
+
+            </div>
+
+
+            <!-- TOTAL -->
+
+            <div class="total-box">
+
+                Total Amount:
+                Rs.
+                <span id="totalAmount">
+                    0.00
+                </span>
+
+            </div>
+
+
+            <!-- HELP -->
+
+            <div class="help">
+
+                <strong>Accounting Logic:</strong>
+
+                <br>
+
+                Purchase → Stock increases.
+
+                <br>
+
+                Sale → Stock decreases and profit is calculated
+                from the actual purchase cost.
+
+                <br>
+
+                Business Expense → deducted from Net Profit.
+
+                <br>
+
+                Sale quantity cannot exceed available stock.
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="buttons">
+
+                <button
+                    type="submit"
+                    class="save-btn">
+
+                    💾 Save Transaction
+
+                </button>
+
+
+                <a
+                    href="/business-accounting"
+                    class="cancel-btn">
+
+                    Cancel
+
+                </a>
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function calculateTotal() {
+
+    const quantity =
+        parseFloat(
+            document.getElementById(
+                "quantity"
+            ).value
+        ) || 0;
+
+
+    const unitPrice =
+        parseFloat(
+            document.getElementById(
+                "unitPrice"
+            ).value
+        ) || 0;
+
+
+    const total =
+        quantity * unitPrice;
+
+
+    document.getElementById(
+        "totalAmount"
+    ).innerText =
+        total.toFixed(2);
+}
+
+
+function transactionTypeChanged() {
+
+    const type =
+        document.querySelector(
+            '[name="transactionType"]'
+        ).value;
+
+
+    const item =
+        document.querySelector(
+            '[name="itemName"]'
+        );
+
+
+    if (type === "EXPENSE") {
+
+        item.placeholder =
+            "Business expense description";
+
+    } else {
+
+        item.placeholder =
+            "e.g. Wheat, Rice, Solar Panel";
+    }
+}
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        calculateTotal();
+
+        transactionTypeChanged();
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>FundSphere ERP | Login</title>
+
+    <link rel="stylesheet"
+          href="/css/style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="wrapper">
+
+
+    <!-- =====================================================
+         LEFT SIDE
+         ===================================================== -->
+
+    <section class="left-side">
+
+
+        <!-- TIME -->
+
+        <div class="top-area">
+
+            <div id="time"
+                 class="time">
+
+                00:00:00
+
+            </div>
+
+
+            <div id="date"
+                 class="date">
+
+                Loading...
+
+            </div>
+
+        </div>
+
+
+        <!-- CENTER -->
+
+        <div class="center-area">
+
+
+            <img
+                src="/images/logo.png"
+                class="logo"
+                alt="FundSphere ERP Logo">
+
+
+            <h3 class="welcome">
+
+                Welcome To
+
+            </h3>
+
+
+            <h1 class="title">
+
+                FundSphere ERP
+
+            </h1>
+
+
+            <p class="tagline">
+
+                Save • Support • Grow Together
+
+            </p>
+
+        </div>
+
+
+        <!-- FEATURES -->
+
+        <div class="feature-box">
+
+
+            <div class="feature-card">
+
+                <span>👥</span>
+
+                <p>Members</p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <span>💰</span>
+
+                <p>Funds</p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <span>📊</span>
+
+                <p>Reports</p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <span>📁</span>
+
+                <p>Projects</p>
+
+            </div>
+
+
+            <div class="feature-card full">
+
+                <span>🔒</span>
+
+                <p>Secure Login</p>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- FOOTER -->
+
+        <div class="bottom-area">
+
+
+            <p>
+
+                Powered by
+
+                <strong>
+                    Shakir Ul Rehman
+                </strong>
+
+            </p>
+
+
+            <p>
+
+                Dua Digital Studio
+
+            </p>
+
+
+            <p>
+
+                +92 321 2837377
+
+            </p>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         RIGHT SIDE - ADMIN LOGIN
+         ===================================================== -->
+
+    <section class="right-side">
+
+
+        <div class="login-card">
+
+
+            <!-- AVATAR -->
+
+            <div class="avatar">
+
+                👤
+
+            </div>
+
+
+            <!-- TITLE -->
+
+            <h2>
+
+                Admin Login
+
+            </h2>
+
+
+            <p class="login-subtitle">
+
+                Secure Administrator Access
+
+            </p>
+
+
+
+            <!-- LOGIN ERROR -->
+
+            <div
+                id="loginError"
+                class="login-message error"
+                style="display:none;">
+
+                ❌ Invalid username or password.
+
+            </div>
+
+
+
+            <!-- LOGOUT MESSAGE -->
+
+            <div
+                id="logoutMessage"
+                class="login-message success"
+                style="display:none;">
+
+                ✅ You have been logged out successfully.
+
+            </div>
+
+
+
+            <!-- LOGIN FORM -->
+
+            <form
+                action="/login"
+                method="post"
+                id="loginForm">
+
+
+                <!-- USERNAME -->
+
+                <div class="input-box">
+
+
+                    <label for="username">
+
+                        Username
+
+                    </label>
+
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Enter Username"
+                        autocomplete="username"
+                        required>
+
+
+                </div>
+
+
+
+                <!-- PASSWORD -->
+
+                <div class="input-box">
+
+
+                    <label for="password">
+
+                        Password
+
+                    </label>
+
+
+                    <div class="password-box">
+
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter Password"
+                            autocomplete="current-password"
+                            required>
+
+
+                        <span
+                            id="togglePassword"
+                            title="Show / Hide Password">
+
+                            👁
+
+                        </span>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- OPTIONS -->
+
+                <div class="options">
+
+
+                    <label class="remember">
+
+
+                        <input
+                            type="checkbox"
+                            name="remember-me">
+
+
+                        Remember Me
+
+
+                    </label>
+
+
+                    <span class="forgot">
+
+                        Forgot Password?
+
+                    </span>
+
+
+                </div>
+
+
+
+                <!-- LOGIN BUTTON -->
+
+                <button
+                    type="submit"
+                    class="login-btn">
+
+                    🔐 Login
+
+                </button>
+
+
+
+                <!-- DIVIDER -->
+
+                <div class="divider">
+
+                    <span>
+
+                        OR
+
+                    </span>
+
+                </div>
+
+
+
+                <!-- MEMBER LOGIN -->
+
+                <button
+                    type="button"
+                    class="member-btn"
+                    onclick="memberLogin()">
+
+                    👤 Member Login
+
+                </button>
+
+
+
+                <!-- VERSION -->
+
+                <div class="version">
+
+                    FundSphere ERP
+
+                    <br>
+
+                    Fund Management & Administration System
+
+                </div>
+
+
+            </form>
+
+
+        </div>
+
+
+    </section>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+     ===================================================== -->
+
+<script>
+
+
+/* =====================================================
+   CLOCK
+   ===================================================== */
+
+function updateClock() {
+
+
+    const now = new Date();
+
+
+    const hours =
+        String(now.getHours()).padStart(2, "0");
+
+
+    const minutes =
+        String(now.getMinutes()).padStart(2, "0");
+
+
+    const seconds =
+        String(now.getSeconds()).padStart(2, "0");
+
+
+    const timeElement =
+        document.getElementById("time");
+
+
+    if (timeElement) {
+
+        timeElement.innerText =
+            hours + ":" +
+            minutes + ":" +
+            seconds;
+
+    }
+
+
+    const dateElement =
+        document.getElementById("date");
+
+
+    if (dateElement) {
+
+
+        dateElement.innerText =
+            now.toLocaleDateString(
+                "en-US",
+                {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric"
+                }
+            );
+
+    }
+
+}
+
+
+updateClock();
+
+
+setInterval(
+    updateClock,
+    1000
+);
+
+
+
+/* =====================================================
+   SHOW / HIDE PASSWORD
+   ===================================================== */
+
+const togglePassword =
+    document.getElementById("togglePassword");
+
+
+const password =
+    document.getElementById("password");
+
+
+if (togglePassword && password) {
+
+
+    togglePassword.addEventListener(
+        "click",
+        function () {
+
+
+            if (password.type === "password") {
+
+
+                password.type =
+                    "text";
+
+
+                togglePassword.innerText =
+                    "🙈";
+
+
+            } else {
+
+
+                password.type =
+                    "password";
+
+
+                togglePassword.innerText =
+                    "👁";
+
+
+            }
+
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   MEMBER LOGIN
+   ===================================================== */
+
+function memberLogin() {
+
+
+    alert(
+        "Member Login module will be activated separately."
+    );
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        FundSphere ERP | Settings
+    </title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        .page {
+            max-width: 1100px;
+            margin: 25px auto;
+            padding: 0 18px;
+        }
+
+        /* ================= HEADER ================= */
+
+        .header {
+            background: #0877d1;
+            color: white;
+            padding: 24px 28px;
+            border-radius: 12px 12px 0 0;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 27px;
+        }
+
+        .header p {
+            margin: 7px 0 0;
+            opacity: .9;
+        }
+
+        .dashboard-btn {
+            background: #075da8;
+            color: white;
+            text-decoration: none;
+            padding: 10px 17px;
+            border-radius: 7px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* ================= CONTENT ================= */
+
+        .content {
+            background: white;
+            padding: 28px;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,.08);
+        }
+
+        /* ================= ALERT ================= */
+
+        .success {
+            background: #ecfdf5;
+            border: 1px solid #bbf7d0;
+            color: #166534;
+            padding: 13px 15px;
+            border-radius: 7px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .error {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #b91c1c;
+            padding: 13px 15px;
+            border-radius: 7px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        /* ================= SECTION ================= */
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            color: #0877d1;
+            font-size: 19px;
+            font-weight: bold;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* ================= GRID ================= */
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        /* ================= FIELD ================= */
+
+        .field {
+            margin-bottom: 5px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+            color: #374151;
+            font-size: 14px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 11px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 7px;
+            font-size: 14px;
+            background: white;
+        }
+
+        textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #0877d1;
+            box-shadow: 0 0 0 2px rgba(8,119,209,.08);
+        }
+
+        /* ================= LOGO ================= */
+
+        .logo-upload-box {
+            border: 1px solid #cbd5e1;
+            border-radius: 9px;
+            padding: 16px;
+            background: #f8fafc;
+        }
+
+        .logo-preview {
+            width: 110px;
+            height: 110px;
+            object-fit: contain;
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            padding: 7px;
+            margin-bottom: 12px;
+        }
+
+        .no-logo {
+            width: 110px;
+            height: 110px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border: 1px dashed #cbd5e1;
+            border-radius: 10px;
+            color: #9ca3af;
+            font-size: 12px;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .file-input {
+            background: white;
+            padding: 9px;
+        }
+
+        .logo-path {
+            margin-top: 10px;
+            color: #6b7280;
+            font-size: 12px;
+            word-break: break-all;
+        }
+
+        /* ================= PERCENTAGE ================= */
+
+        .percentage-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+        }
+
+        .percentage-box {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 13px;
+        }
+
+        .percentage-box input {
+            text-align: center;
+            font-weight: bold;
+            font-size: 17px;
+        }
+
+        /* ================= TOTAL ================= */
+
+        .total-box {
+            margin-top: 18px;
+            padding: 15px;
+            border-radius: 8px;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            color: #075da8;
+            font-size: 17px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .total-ok {
+            background: #ecfdf5;
+            border-color: #bbf7d0;
+            color: #15803d;
+        }
+
+        .total-error {
+            background: #fef2f2;
+            border-color: #fecaca;
+            color: #dc2626;
+        }
+
+        /* ================= INFO ================= */
+
+        .info {
+            margin-top: 12px;
+            padding: 13px;
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+            color: #9a3412;
+            border-radius: 7px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* ================= SAVE BUTTONS ================= */
+
+        .buttons {
+            display: flex;
+            gap: 12px;
+            border-top: 1px solid #e5e7eb;
+            padding-top: 22px;
+            margin-top: 10px;
+        }
+
+        .save-btn {
+            background: #0877d1;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 7px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .save-btn:hover {
+            background: #075da8;
+        }
+
+        .cancel-btn {
+            background: #6b7280;
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 7px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        /* ================= FACTORY RESET ================= */
+
+        .reset-section {
+            margin-top: 45px;
+        }
+
+        .reset-box {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 9px;
+            padding: 20px;
+        }
+
+        .reset-title {
+            color: #b91c1c;
+            font-size: 19px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .reset-text {
+            color: #7f1d1d;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .reset-list {
+            color: #7f1d1d;
+            margin: 15px 0;
+            line-height: 1.8;
+        }
+
+        .reset-btn {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 7px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .reset-btn:hover {
+            background: #b91c1c;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width:900px) {
+
+            .percentage-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media(max-width:700px) {
+
+            .page {
+                margin: 10px auto;
+                padding: 0 8px;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .content {
+                padding: 18px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .percentage-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            .save-btn,
+            .cancel-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media(max-width:400px) {
+
+            .percentage-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="page">
+
+
+    <!-- ================= HEADER ================= -->
+
+    <div class="header">
+
+        <div>
+
+            <h1>
+                System Settings
+            </h1>
+
+            <p>
+                FundSphere ERP — Organization & Fund Configuration
+            </p>
+
+        </div>
+
+
+        <a
+            href="/dashboard"
+            class="dashboard-btn">
+
+            ← Dashboard
+
+        </a>
+
+    </div>
+
+
+    <div class="content">
+
+
+        <!-- ================= SUCCESS ================= -->
+
+        <div
+            th:if="${param.saved}"
+            class="success">
+
+            ✓ Settings saved successfully.
+
+        </div>
+
+
+        <!-- ================= RESET SUCCESS ================= -->
+
+        <div
+            th:if="${param.reset}"
+            class="success">
+
+            ✓ Factory Reset completed successfully.
+            FundSphere ERP is now in a fresh state.
+
+        </div>
+
+
+        <!-- ================= ERROR ================= -->
+
+        <div
+            th:if="${errorMessage != null}"
+            class="error"
+            th:text="${errorMessage}">
+
+            Error
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- SETTINGS FORM -->
+        <!-- ================================================= -->
+
+        <form
+            th:action="@{/settings/save}"
+            th:object="${setting}"
+            method="post"
+            enctype="multipart/form-data"
+            onsubmit="return validateSettings();">
+
+
+            <input
+                type="hidden"
+                th:field="*{id}">
+
+
+            <!-- ================================================= -->
+            <!-- ORGANIZATION INFORMATION -->
+            <!-- ================================================= -->
+
+            <div class="section">
+
+                <div class="section-title">
+                    Organization Information
+                </div>
+
+
+                <div class="grid">
+
+
+                    <!-- ORGANIZATION NAME -->
+
+                    <div class="field">
+
+                        <label>
+                            Organization Name
+                        </label>
+
+                        <input
+                            type="text"
+                            th:field="*{organizationName}"
+                            placeholder="Enter organization name"
+                            maxlength="255">
+
+                    </div>
+
+
+                    <!-- SHORT NAME -->
+
+                    <div class="field">
+
+                        <label>
+                            Short Name
+                        </label>
+
+                        <input
+                            type="text"
+                            th:field="*{shortName}"
+                            placeholder="Enter short name"
+                            maxlength="100">
+
+                    </div>
+
+
+                    <!-- TAGLINE -->
+
+                    <div
+                        class="field"
+                        style="grid-column:1 / -1;">
+
+                        <label>
+                            Tagline
+                        </label>
+
+                        <input
+                            type="text"
+                            th:field="*{tagline}"
+                            placeholder="Enter organization tagline"
+                            maxlength="255">
+
+                    </div>
+
+
+                    <!-- PHONE -->
+
+                    <div class="field">
+
+                        <label>
+                            Phone
+                        </label>
+
+                        <input
+                            type="text"
+                            th:field="*{phone}"
+                            placeholder="Enter phone number"
+                            maxlength="50">
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+
+                    <div class="field">
+
+                        <label>
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            th:field="*{email}"
+                            placeholder="Enter email address"
+                            maxlength="255">
+
+                    </div>
+
+
+                    <!-- WEBSITE -->
+
+                    <div class="field">
+
+                        <label>
+                            Website
+                        </label>
+
+                        <input
+                            type="text"
+                            th:field="*{website}"
+                            placeholder="https://example.com"
+                            maxlength="255">
+
+                    </div>
+
+
+                    <!-- REGISTRATION NUMBER -->
+
+                    <div class="field">
+
+                        <label>
+                            Registration No.
+                        </label>
+
+                        <input
+                            type="text"
+                            th:field="*{registrationNo}"
+                            placeholder="Enter registration number"
+                            maxlength="100">
+
+                    </div>
+
+
+                    <!-- ADDRESS -->
+
+                    <div
+                        class="field"
+                        style="grid-column:1 / -1;">
+
+                        <label>
+                            Address
+                        </label>
+
+                        <textarea
+                            th:field="*{address}"
+                            placeholder="Enter organization address"
+                            maxlength="1000"></textarea>
+
+                    </div>
+
+
+                    <!-- DISTRICT -->
+
+                    <div class="field">
+
+                        <label>
+                            District
+                        </label>
+
+                        <input
+                            type="text"
+                            th:field="*{district}"
+                            placeholder="Enter district"
+                            maxlength="100">
+
+                    </div>
+
+
+                    <!-- PROVINCE -->
+
+                    <div class="field">
+
+                        <label>
+                            Province
+                        </label>
+
+                        <input
+                            type="text"
+                            th:field="*{province}"
+                            placeholder="Enter province"
+                            maxlength="100">
+
+                    </div>
+
+
+                    <!-- COUNTRY -->
+
+                    <div class="field">
+
+                        <label>
+                            Country
+                        </label>
+
+                        <input
+                            type="text"
+                            th:field="*{country}"
+                            placeholder="Enter country"
+                            maxlength="100">
+
+                    </div>
+
+
+                    <!-- ================================================= -->
+                    <!-- LOGO UPLOAD -->
+                    <!-- ================================================= -->
+
+                    <div
+                        class="field"
+                        style="grid-column:1 / -1;">
+
+                        <label>
+                            Organization Logo
+                        </label>
+
+
+                        <div class="logo-upload-box">
+
+
+                            <!-- CURRENT LOGO -->
+
+                            <div
+                                th:if="${setting.logoPath != null
+                                        && !#strings.isEmpty(setting.logoPath)}">
+
+                                <img
+                                    th:src="${setting.logoPath}"
+                                    alt="Organization Logo"
+                                    class="logo-preview">
+
+                            </div>
+
+
+                            <!-- NO LOGO -->
+
+                            <div
+                                th:unless="${setting.logoPath != null
+                                            && !#strings.isEmpty(setting.logoPath)}"
+                                class="no-logo">
+
+                                No Logo Uploaded
+
+                            </div>
+
+
+                            <!-- FILE -->
+
+                            <input
+                                type="file"
+                                name="logoFile"
+                                id="logoFile"
+                                class="file-input"
+                                accept="image/png,image/jpeg,image/jpg,image/webp">
+
+
+                            <!-- CURRENT PATH -->
+
+                            <div
+                                class="logo-path"
+                                th:if="${setting.logoPath != null
+                                        && !#strings.isEmpty(setting.logoPath)}">
+
+                                Current Logo:
+
+                                <span
+                                    th:text="${setting.logoPath}">
+
+                                    /uploads/logo.png
+
+                                </span>
+
+                            </div>
+
+
+                            <div class="logo-path">
+
+                                Supported formats:
+                                PNG, JPG, JPEG, WEBP
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- ================================================= -->
+            <!-- SYSTEM SETTINGS -->
+            <!-- ================================================= -->
+
+            <div class="section">
+
+                <div class="section-title">
+                    System Settings
+                </div>
+
+
+                <div class="grid">
+
+
+                    <div class="field">
+
+                        <label>
+                            Currency
+                        </label>
+
+                        <select
+                            th:field="*{currency}">
+
+                            <option value="Rs.">
+                                Rs. — Pakistani Rupee
+                            </option>
+
+                            <option value="$">
+                                $ — US Dollar
+                            </option>
+
+                            <option value="£">
+                                £ — British Pound
+                            </option>
+
+                            <option value="€">
+                                € — Euro
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            Date Format
+                        </label>
+
+                        <select
+                            th:field="*{dateFormat}">
+
+                            <option value="yyyy-MM-dd">
+                                YYYY-MM-DD
+                            </option>
+
+                            <option value="dd-MM-yyyy">
+                                DD-MM-YYYY
+                            </option>
+
+                            <option value="dd/MM/yyyy">
+                                DD/MM/YYYY
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================================================= -->
+            <!-- FUND DISTRIBUTION -->
+            <!-- ================================================= -->
+
+            <div class="section">
+
+                <div class="section-title">
+                    Fund Distribution
+                </div>
+
+
+                <div class="percentage-grid">
+
+
+                    <div class="percentage-box">
+
+                        <label>
+                            Business Fund %
+                        </label>
+
+                        <input
+                            type="number"
+                            id="businessPercent"
+                            th:field="*{businessPercent}"
+                            min="0"
+                            max="100"
+                            step="1"
+                            oninput="calculateTotal()">
+
+                    </div>
+
+
+                    <div class="percentage-box">
+
+                        <label>
+                            Emergency Fund %
+                        </label>
+
+                        <input
+                            type="number"
+                            id="emergencyPercent"
+                            th:field="*{emergencyPercent}"
+                            min="0"
+                            max="100"
+                            step="1"
+                            oninput="calculateTotal()">
+
+                    </div>
+
+
+                    <div class="percentage-box">
+
+                        <label>
+                            Education Fund %
+                        </label>
+
+                        <input
+                            type="number"
+                            id="educationPercent"
+                            th:field="*{educationPercent}"
+                            min="0"
+                            max="100"
+                            step="1"
+                            oninput="calculateTotal()">
+
+                    </div>
+
+
+                    <div class="percentage-box">
+
+                        <label>
+                            Welfare Fund %
+                        </label>
+
+                        <input
+                            type="number"
+                            id="welfarePercent"
+                            th:field="*{welfarePercent}"
+                            min="0"
+                            max="100"
+                            step="1"
+                            oninput="calculateTotal()">
+
+                    </div>
+
+
+                    <div class="percentage-box">
+
+                        <label>
+                            Administration %
+                        </label>
+
+                        <input
+                            type="number"
+                            id="administrationPercent"
+                            th:field="*{administrationPercent}"
+                            min="0"
+                            max="100"
+                            step="1"
+                            oninput="calculateTotal()">
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="totalBox"
+                    class="total-box">
+
+                    Total Distribution:
+
+                    <span id="percentageTotal">
+                        0
+                    </span>%
+
+                </div>
+
+
+                <div class="info">
+
+                    <strong>Important:</strong>
+
+                    Fund distribution must always equal
+                    <strong>100%</strong>.
+
+                    <br>
+
+                    The system will not save settings if
+                    the total percentage is not exactly 100%.
+
+                </div>
+
+            </div>
+
+
+            <!-- ================================================= -->
+            <!-- SAVE SETTINGS -->
+            <!-- ================================================= -->
+
+            <div class="buttons">
+
+                <button
+                    type="submit"
+                    class="save-btn">
+
+                    Save Settings
+
+                </button>
+
+
+                <a
+                    href="/dashboard"
+                    class="cancel-btn">
+
+                    Cancel
+
+                </a>
+
+            </div>
+
+
+        </form>
+
+
+        <!-- ================================================= -->
+        <!-- SYSTEM MAINTENANCE -->
+        <!-- ================================================= -->
+
+        <div class="section reset-section">
+
+
+            <div class="section-title">
+
+                System Maintenance
+
+            </div>
+
+
+            <div class="reset-box">
+
+
+                <div class="reset-title">
+
+                    ⚠ Factory Reset
+
+                </div>
+
+
+                <div class="reset-text">
+
+                    Factory Reset will permanently delete
+                    all operational data from FundSphere ERP
+                    and return the system to a fresh state.
+
+                </div>
+
+
+                <div class="reset-list">
+
+                    • Members
+                    <br>
+
+                    • Contributions
+                    <br>
+
+                    • Business Fund Transactions
+                    <br>
+
+                    • Emergency Fund Transactions
+                    <br>
+
+                    • Expenses
+                    <br>
+
+                    • Settings
+                    <br>
+
+                    • Other operational records
+
+                </div>
+
+
+                <div class="reset-text">
+
+                    <strong>
+                        ⚠ WARNING: This action cannot be undone.
+                    </strong>
+
+                    <br><br>
+
+                    Your Admin/Login account is not included
+                    in this reset.
+
+                </div>
+
+
+                <!-- ========================================= -->
+                <!-- RESET FORM -->
+                <!-- ========================================= -->
+
+                <form
+                    th:action="@{/settings/factory-reset}"
+                    method="post"
+                    onsubmit="return confirmFactoryReset();">
+
+
+                    <button
+                        type="submit"
+                        class="reset-btn">
+
+                        ⚠ Factory Reset
+
+                    </button>
+
+
+                </form>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<script>
+
+
+/* =====================================================
+   CALCULATE FUND PERCENTAGE
+   ===================================================== */
+
+function calculateTotal() {
+
+
+    const business =
+        parseInt(
+            document.getElementById(
+                "businessPercent"
+            ).value
+        ) || 0;
+
+
+    const emergency =
+        parseInt(
+            document.getElementById(
+                "emergencyPercent"
+            ).value
+        ) || 0;
+
+
+    const education =
+        parseInt(
+            document.getElementById(
+                "educationPercent"
+            ).value
+        ) || 0;
+
+
+    const welfare =
+        parseInt(
+            document.getElementById(
+                "welfarePercent"
+            ).value
+        ) || 0;
+
+
+    const administration =
+        parseInt(
+            document.getElementById(
+                "administrationPercent"
+            ).value
+        ) || 0;
+
+
+    const total =
+        business
+        + emergency
+        + education
+        + welfare
+        + administration;
+
+
+    document.getElementById(
+        "percentageTotal"
+    ).innerText = total;
+
+
+    const box =
+        document.getElementById(
+            "totalBox"
+        );
+
+
+    box.classList.remove(
+        "total-ok",
+        "total-error"
+    );
+
+
+    if (total === 100) {
+
+        box.classList.add(
+            "total-ok"
+        );
+
+    } else {
+
+        box.classList.add(
+            "total-error"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   VALIDATE SETTINGS
+   ===================================================== */
+
+function validateSettings() {
+
+
+    const business =
+        parseInt(
+            document.getElementById(
+                "businessPercent"
+            ).value
+        ) || 0;
+
+
+    const emergency =
+        parseInt(
+            document.getElementById(
+                "emergencyPercent"
+            ).value
+        ) || 0;
+
+
+    const education =
+        parseInt(
+            document.getElementById(
+                "educationPercent"
+            ).value
+        ) || 0;
+
+
+    const welfare =
+        parseInt(
+            document.getElementById(
+                "welfarePercent"
+            ).value
+        ) || 0;
+
+
+    const administration =
+        parseInt(
+            document.getElementById(
+                "administrationPercent"
+            ).value
+        ) || 0;
+
+
+    const total =
+        business
+        + emergency
+        + education
+        + welfare
+        + administration;
+
+
+    if (total !== 100) {
+
+        alert(
+            "Fund distribution must equal exactly 100%."
+            + "\n\nCurrent total: "
+            + total
+            + "%"
+        );
+
+        return false;
+    }
+
+
+    return true;
+
+}
+
+
+/* =====================================================
+   FACTORY RESET CONFIRMATION
+   ===================================================== */
+
+function confirmFactoryReset() {
+
+
+    const firstConfirm =
+        confirm(
+            "⚠ WARNING!\n\n"
+            + "Factory Reset will permanently delete "
+            + "ALL ERP operational data.\n\n"
+            + "Members\n"
+            + "Contributions\n"
+            + "Business Fund\n"
+            + "Emergency Fund\n"
+            + "Expenses\n"
+            + "Settings\n\n"
+            + "Admin/Login will NOT be deleted.\n\n"
+            + "This action CANNOT be undone.\n\n"
+            + "Do you want to continue?"
+        );
+
+
+    if (!firstConfirm) {
+
+        return false;
+
+    }
+
+
+    const secondConfirm =
+        prompt(
+            "FINAL CONFIRMATION\n\n"
+            + "Type RESET exactly to permanently "
+            + "delete all operational data:"
+        );
+
+
+    if (secondConfirm !== "RESET") {
+
+        alert(
+            "Factory Reset cancelled.\n\n"
+            + "No data was deleted."
+        );
+
+        return false;
+
+    }
+
+
+    return true;
+
+}
+
+
+/* =====================================================
+   PAGE LOAD
+   ===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        calculateTotal();
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

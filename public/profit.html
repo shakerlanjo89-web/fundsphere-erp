@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        FundSphere ERP | Profit Management
+    </title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        .page {
+            max-width: 1500px;
+            margin: 20px auto;
+            padding: 0 18px;
+        }
+
+        /* ================= HEADER ================= */
+
+        .header {
+            background: #0877d1;
+            color: white;
+
+            padding: 23px 27px;
+
+            border-radius: 12px 12px 0 0;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 15px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 27px;
+        }
+
+        .header p {
+            margin: 7px 0 0;
+            font-size: 14px;
+            opacity: .9;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            border: none;
+            text-decoration: none;
+            cursor: pointer;
+
+            padding: 10px 15px;
+
+            border-radius: 7px;
+
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .btn-print {
+            background: white;
+            color: #0877d1;
+        }
+
+        .btn-back {
+            background: #075da8;
+            color: white;
+        }
+
+        /* ================= CONTENT ================= */
+
+        .content {
+            background: white;
+            padding: 25px;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,.07);
+        }
+
+        /* ================= SUMMARY ================= */
+
+        .summary {
+            display: grid;
+
+            grid-template-columns:
+                repeat(6, 1fr);
+
+            gap: 14px;
+
+            margin-bottom: 30px;
+        }
+
+        .summary-card {
+            padding: 18px;
+
+            border: 1px solid #e2e8f0;
+
+            border-radius: 9px;
+
+            background: #f8fafc;
+
+            text-align: center;
+        }
+
+        .summary-label {
+            font-size: 12px;
+            color: #64748b;
+
+            margin-bottom: 9px;
+        }
+
+        .summary-value {
+            font-size: 20px;
+            font-weight: bold;
+
+            color: #075da8;
+        }
+
+        .sales .summary-value {
+            color: #15803d;
+        }
+
+        .purchase .summary-value {
+            color: #2563eb;
+        }
+
+        .cogs .summary-value {
+            color: #ea580c;
+        }
+
+        .gross .summary-value {
+            color: #7c3aed;
+        }
+
+        .expense .summary-value {
+            color: #dc2626;
+        }
+
+        .net .summary-value {
+            color: #15803d;
+        }
+
+        .negative {
+            color: #dc2626 !important;
+        }
+
+        /* ================= SECTION ================= */
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 19px;
+
+            font-weight: bold;
+
+            color: #075da8;
+
+            border-bottom:
+                2px solid #e5e7eb;
+
+            padding-bottom: 10px;
+
+            margin-bottom: 15px;
+        }
+
+        /* ================= PROFIT BOX ================= */
+
+        .profit-box {
+
+            background: #eff6ff;
+
+            border: 1px solid #bfdbfe;
+
+            border-radius: 10px;
+
+            padding: 20px;
+
+            margin-bottom: 25px;
+
+        }
+
+        .profit-box h3 {
+
+            margin: 0 0 10px;
+
+            color: #075da8;
+
+        }
+
+        .profit-equation {
+
+            font-size: 15px;
+
+            line-height: 1.9;
+
+            color: #334155;
+
+        }
+
+        /* ================= TABLE ================= */
+
+        .table-wrapper {
+
+            overflow-x: auto;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 8px;
+
+        }
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 1050px;
+
+        }
+
+        thead {
+
+            background: #075da8;
+
+            color: white;
+
+        }
+
+        th {
+
+            padding: 12px 10px;
+
+            text-align: left;
+
+            font-size: 12px;
+
+            white-space: nowrap;
+
+        }
+
+        td {
+
+            padding: 11px 10px;
+
+            border-bottom:
+                1px solid #e5e7eb;
+
+            font-size: 12px;
+
+        }
+
+        tbody tr:hover {
+
+            background: #f8fafc;
+
+        }
+
+        .investment {
+
+            color: #075da8;
+
+            font-weight: bold;
+
+        }
+
+        .percent {
+
+            color: #7c3aed;
+
+            font-weight: bold;
+
+        }
+
+        .positive {
+
+            color: #15803d;
+
+            font-weight: bold;
+
+        }
+
+        .negative-text {
+
+            color: #dc2626;
+
+            font-weight: bold;
+
+        }
+
+        .expense-share {
+
+            color: #dc2626;
+
+            font-weight: bold;
+
+        }
+
+        .action {
+
+            background: #e0f2fe;
+
+            color: #0369a1;
+
+            padding: 6px 9px;
+
+            border-radius: 5px;
+
+            text-decoration: none;
+
+            font-size: 10px;
+
+            font-weight: bold;
+
+        }
+
+        /* ================= INFO ================= */
+
+        .info-box {
+
+            margin-top: 20px;
+
+            padding: 15px;
+
+            background: #eff6ff;
+
+            border: 1px solid #bfdbfe;
+
+            border-radius: 8px;
+
+            color: #075da8;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+
+        }
+
+        /* ================= EMPTY ================= */
+
+        .empty {
+
+            text-align: center;
+
+            padding: 40px;
+
+            color: #64748b;
+
+        }
+
+        /* ================= PRINT ================= */
+
+        @media print {
+
+            @page {
+
+                size: landscape;
+
+                margin: 10mm;
+
+            }
+
+            body {
+
+                background: white;
+
+            }
+
+            .page {
+
+                max-width: none;
+
+                margin: 0;
+
+                padding: 0;
+
+            }
+
+            .header,
+
+            .no-print {
+
+                display: none !important;
+
+            }
+
+            .content {
+
+                box-shadow: none;
+
+                padding: 0;
+
+            }
+
+            .table-wrapper {
+
+                overflow: visible;
+
+            }
+
+            table {
+
+                min-width: 0;
+
+            }
+
+            th,
+
+            td {
+
+                border: 1px solid #999;
+
+                font-size: 9px;
+
+                padding: 5px;
+
+            }
+
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width:1200px) {
+
+            .summary {
+
+                grid-template-columns:
+                    repeat(3, 1fr);
+
+            }
+
+        }
+
+        @media(max-width:700px) {
+
+            .page {
+
+                margin: 10px auto;
+
+                padding: 0 8px;
+
+            }
+
+            .header {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+            }
+
+            .content {
+
+                padding: 15px;
+
+            }
+
+            .summary {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .header-buttons {
+
+                width: 100%;
+
+            }
+
+            .header-buttons .btn {
+
+                flex: 1;
+
+                text-align: center;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="page">
+
+
+    <!-- ================= HEADER ================= -->
+
+    <div class="header">
+
+        <div>
+
+            <h1>
+                📈 Profit Management
+            </h1>
+
+            <p>
+                FundSphere ERP — Business Profit / Loss & Member Distribution
+            </p>
+
+        </div>
+
+
+        <div class="header-buttons no-print">
+
+            <button
+                type="button"
+                class="btn btn-print"
+                onclick="window.print()">
+
+                🖨 Print / PDF
+
+            </button>
+
+
+            <a
+                href="/dashboard"
+                class="btn btn-back">
+
+                ← Dashboard
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="content">
+
+
+        <!-- ================= SUMMARY ================= -->
+
+        <div class="summary">
+
+
+            <!-- SALES -->
+
+            <div class="summary-card sales">
+
+                <div class="summary-label">
+                    Total Sales
+                </div>
+
+                <div class="summary-value">
+
+                    Rs.
+
+                    <span
+                        th:text="${summary.totalSales}">
+
+                        0
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- PURCHASE -->
+
+            <div class="summary-card purchase">
+
+                <div class="summary-label">
+                    Total Purchases
+                </div>
+
+                <div class="summary-value">
+
+                    Rs.
+
+                    <span
+                        th:text="${summary.totalPurchases}">
+
+                        0
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- COGS -->
+
+            <div class="summary-card cogs">
+
+                <div class="summary-label">
+                    Cost of Goods Sold
+                </div>
+
+                <div class="summary-value">
+
+                    Rs.
+
+                    <span
+                        th:text="${summary.costOfGoodsSold}">
+
+                        0
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- GROSS -->
+
+            <div class="summary-card gross">
+
+                <div class="summary-label">
+                    Gross Profit / Loss
+                </div>
+
+                <div
+                    class="summary-value"
+                    th:classappend="${summary.grossProfitLoss < 0 ? ' negative' : ''}">
+
+                    Rs.
+
+                    <span
+                        th:text="${summary.grossProfitLoss}">
+
+                        0
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- EXPENSE -->
+
+            <div class="summary-card expense">
+
+                <div class="summary-label">
+                    Business Expenses
+                </div>
+
+                <div class="summary-value">
+
+                    Rs.
+
+                    <span
+                        th:text="${summary.businessExpenses}">
+
+                        0
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- NET -->
+
+            <div class="summary-card net">
+
+                <div class="summary-label">
+                    Net Profit / Loss
+                </div>
+
+                <div
+                    class="summary-value"
+                    th:classappend="${summary.netProfitLoss < 0 ? ' negative' : ''}">
+
+                    Rs.
+
+                    <span
+                        th:text="${summary.netProfitLoss}">
+
+                        0
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= PROFIT CALCULATION ================= -->
+
+        <div class="profit-box">
+
+            <h3>
+                📊 Profit Calculation
+            </h3>
+
+            <div class="profit-equation">
+
+                <strong>
+                    Gross Profit / Loss
+                </strong>
+
+                =
+
+                Total Sales − Cost of Goods Sold
+
+                <br>
+
+                <strong>
+                    Net Profit / Loss
+                </strong>
+
+                =
+
+                Gross Profit / Loss − Business Expenses
+
+                <br>
+
+                <strong>
+                    Member Share
+                </strong>
+
+                =
+
+                Member Business Investment ÷
+                Total Business Investment × 100
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= MEMBER PROFIT ================= -->
+
+        <div class="section">
+
+            <div class="section-title">
+
+                👥 Member-wise Profit / Loss Distribution
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                    <tr>
+
+                        <th>
+                            #
+                        </th>
+
+                        <th>
+                            Member Code
+                        </th>
+
+                        <th>
+                            Member Name
+                        </th>
+
+                        <th>
+                            Business Investment
+                        </th>
+
+                        <th>
+                            Investment %
+                        </th>
+
+                        <th>
+                            Profit / Loss Share
+                        </th>
+
+                        <th>
+                            Expense Share
+                        </th>
+
+                        <th>
+                            Net Profit / Loss
+                        </th>
+
+                        <th class="no-print">
+                            Details
+                        </th>
+
+                    </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                    <tr
+                        th:each="m, stat : ${memberProfitSummary}">
+
+
+                        <td
+                            th:text="${stat.count}">
+
+                            1
+
+                        </td>
+
+
+                        <td>
+
+                            <strong
+                                th:text="${m.memberCode}">
+
+                                FSP-001
+
+                            </strong>
+
+                        </td>
+
+
+                        <td
+                            th:text="${m.memberName}">
+
+                            Member
+
+                        </td>
+
+
+                        <td class="investment">
+
+                            Rs.
+
+                            <span
+                                th:text="${m.investment}">
+
+                                0
+
+                            </span>
+
+                        </td>
+
+
+                        <td class="percent">
+
+                            <span
+                                th:text="${#numbers.formatDecimal(m.investmentPercent, 1, 2)}">
+
+                                0.00
+
+                            </span>%
+
+                        </td>
+
+
+                        <td>
+
+                            <span
+                                th:class="${m.profitLossShare >= 0 ? 'positive' : 'negative-text'}">
+
+                                Rs.
+
+                                <span
+                                    th:text="${#numbers.formatDecimal(m.profitLossShare, 1, 2)}">
+
+                                    0.00
+
+                                </span>
+
+                            </span>
+
+                        </td>
+
+
+                        <td class="expense-share">
+
+                            Rs.
+
+                            <span
+                                th:text="${#numbers.formatDecimal(m.expenseShare, 1, 2)}">
+
+                                0.00
+
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <span
+                                th:class="${m.netProfitLoss >= 0 ? 'positive' : 'negative-text'}">
+
+                                Rs.
+
+                                <span
+                                    th:text="${#numbers.formatDecimal(m.netProfitLoss, 1, 2)}">
+
+                                    0.00
+
+                                </span>
+
+                            </span>
+
+                        </td>
+
+
+                        <td class="no-print">
+
+                            <a
+                                th:href="@{/profit/member(memberCode=${m.memberCode})}"
+                                class="action">
+
+                                View
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr
+                        th:if="${memberProfitSummary == null || #lists.isEmpty(memberProfitSummary)}">
+
+                        <td
+                            colspan="9"
+                            class="empty">
+
+                            No member business investment records found.
+
+                            <br><br>
+
+                            Member profit is automatically calculated
+                            from Business Fund investment.
+
+                        </td>
+
+                    </tr>
+
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <!-- ================= INFO ================= -->
+
+            <div class="info-box">
+
+                <strong>
+                    Profit Distribution Rule:
+                </strong>
+
+                <br>
+
+                Member Business Investment is taken only from
+                <strong>Contribution.businessAmount</strong>.
+
+                <br>
+
+                Each member's Investment % is calculated against
+                total Business Investment.
+
+                <br>
+
+                Gross Business Profit/Loss is distributed according
+                to each member's Investment %.
+
+                <br>
+
+                Business Expenses are also distributed according
+                to the same Investment %.
+
+                <br>
+
+                Final Member Net Profit/Loss =
+                Profit/Loss Share − Expense Share.
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

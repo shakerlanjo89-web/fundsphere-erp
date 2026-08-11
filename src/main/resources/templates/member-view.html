@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Member | FundSphere ERP</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        body{
+            font-family:Arial,sans-serif;
+            background:#f5f7fb;
+            margin:0;
+            padding:30px;
+        }
+
+        .card{
+            max-width:900px;
+            margin:auto;
+            background:#fff;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0 5px 15px rgba(0,0,0,.1);
+        }
+
+        h2{
+            color:#0d6efd;
+            margin-bottom:25px;
+        }
+
+        .photo{
+            text-align:center;
+            margin-bottom:25px;
+        }
+
+        .photo img{
+            width:140px;
+            height:140px;
+            border-radius:50%;
+            border:4px solid #0d6efd;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
+
+        td{
+            padding:12px;
+            border-bottom:1px solid #ddd;
+        }
+
+        td:first-child{
+            font-weight:bold;
+            width:220px;
+        }
+
+        .btn{
+            display:inline-block;
+            padding:10px 18px;
+            text-decoration:none;
+            color:#fff;
+            border-radius:6px;
+            margin-top:25px;
+        }
+
+        .back{
+            background:#6c757d;
+        }
+
+        .edit{
+            background:#198754;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h2>Member Profile</h2>
+
+<div class="photo">
+    <img th:if="${member.photoPath != null}"
+     th:src="@{'/uploads/' + ${member.photoPath}}"
+     class="member-photo"
+     alt="Photo">
+
+<img th:unless="${member.photoPath != null}"
+     src="/images/avatar.png"
+     class="member-photo"
+     alt="Photo">
+</div>
+
+<table>
+
+<tr>
+<td>Member Code</td>
+<td th:text="${member.memberCode}"></td>
+</tr>
+
+<tr>
+<td>Full Name</td>
+<td th:text="${member.fullName}"></td>
+</tr>
+
+<tr>
+<td>CNIC</td>
+<td th:text="${member.cnic}"></td>
+</tr>
+
+<tr>
+<td>Mobile</td>
+<td th:text="${member.mobileNumber}"></td>
+</tr>
+
+<tr>
+<td>WhatsApp</td>
+<td th:text="${member.whatsappNumber}"></td>
+</tr>
+
+<tr>
+<td>Father Name</td>
+<td th:text="${member.fatherName}"></td>
+</tr>
+
+<tr>
+<td>Village</td>
+<td th:text="${member.village}"></td>
+</tr>
+
+<tr>
+<td>Taluka</td>
+<td th:text="${member.taluka}"></td>
+</tr>
+
+<tr>
+<td>District</td>
+<td th:text="${member.district}"></td>
+</tr>
+
+<tr>
+<td>Status</td>
+<td th:text="${member.membershipStatus}"></td>
+</tr>
+
+</table>
+
+<a href="/members" class="btn back">
+    <i class="fas fa-arrow-left"></i> Back
+</a>
+
+<a th:href="@{/members/edit/{id}(id=${member.id})}" class="btn edit">
+    <i class="fas fa-pen"></i> Edit
+</a>
+
+</div>
+
+</body>
+</html>

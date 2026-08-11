@@ -1,0 +1,1870 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        FundSphere ERP | Member Dashboard
+    </title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        .page {
+            max-width: 1450px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        /* =====================================================
+           HEADER
+           ===================================================== */
+
+        .header {
+            background: linear-gradient(
+                135deg,
+                #0877d1,
+                #075da8
+            );
+
+            color: white;
+            padding: 22px 25px;
+
+            border-radius: 12px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 20px;
+
+            margin-bottom: 20px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .organization-logo {
+            width: 62px;
+            height: 62px;
+            object-fit: contain;
+            background: white;
+            border-radius: 8px;
+            padding: 5px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 27px;
+        }
+
+        .header p {
+            margin: 6px 0 0;
+            opacity: .9;
+            font-size: 14px;
+        }
+
+        .logout {
+            background: white;
+            color: #075da8;
+            padding: 11px 18px;
+            border-radius: 7px;
+            text-decoration: none;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .logout:hover {
+            background: #eff6ff;
+        }
+
+        /* =====================================================
+           ORGANIZATION
+           ===================================================== */
+
+        .organization-bar {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 12px rgba(0,0,0,.06);
+            text-align: center;
+        }
+
+        .organization-name {
+            color: #075da8;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .organization-contact {
+            margin-top: 5px;
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        /* =====================================================
+           PROFILE
+           ===================================================== */
+
+        .profile {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,.06);
+            margin-bottom: 20px;
+        }
+
+        .profile-title {
+            color: #075da8;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .profile-item {
+            background: #f8fafc;
+            padding: 13px;
+            border-radius: 7px;
+        }
+
+        .profile-item label {
+            display: block;
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 5px;
+        }
+
+        .profile-item strong {
+            font-size: 14px;
+        }
+
+        /* =====================================================
+           MAIN CARDS
+           ===================================================== */
+
+        .cards {
+            display: grid;
+            grid-template-columns:
+                repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px rgba(0,0,0,.06);
+            border-left: 4px solid #0877d1;
+        }
+
+        .card.green {
+            border-left-color: #16a34a;
+        }
+
+        .card.red {
+            border-left-color: #dc2626;
+        }
+
+        .card.purple {
+            border-left-color: #7c3aed;
+        }
+
+        .card.orange {
+            border-left-color: #ea580c;
+        }
+
+        .card-title {
+            color: #64748b;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .card-value {
+            font-size: 22px;
+            font-weight: bold;
+            color: #075da8;
+        }
+
+        .green .card-value {
+            color: #15803d;
+        }
+
+        .red .card-value {
+            color: #dc2626;
+        }
+
+        .purple .card-value {
+            color: #7c3aed;
+        }
+
+        .orange .card-value {
+            color: #ea580c;
+        }
+
+        /* =====================================================
+           SECTION
+           ===================================================== */
+
+        .section {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 12px rgba(0,0,0,.06);
+        }
+
+        .section-title {
+            color: #075da8;
+            font-size: 19px;
+            font-weight: bold;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        /* =====================================================
+           BUSINESS RESULT
+           ===================================================== */
+
+        .result-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .result-box {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 9px;
+            padding: 18px;
+            text-align: center;
+        }
+
+        .result-title {
+            color: #64748b;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .result-value {
+            font-size: 21px;
+            font-weight: bold;
+            color: #075da8;
+        }
+
+        .result-green .result-value {
+            color: #15803d;
+        }
+
+        .result-red .result-value {
+            color: #dc2626;
+        }
+
+        .result-purple .result-value {
+            color: #7c3aed;
+        }
+
+        .result-orange .result-value {
+            color: #ea580c;
+        }
+
+        /* =====================================================
+           INVESTMENT SHARE
+           ===================================================== */
+
+        .share-box {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        .share-title {
+            color: #075da8;
+            font-size: 17px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .share-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .share-item {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #dbeafe;
+        }
+
+        .share-item label {
+            display: block;
+            color: #64748b;
+            font-size: 12px;
+            margin-bottom: 7px;
+        }
+
+        .share-item strong {
+            color: #075da8;
+            font-size: 20px;
+        }
+
+        /* =====================================================
+           FUND GRID
+           ===================================================== */
+
+        .fund-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(5, 1fr);
+            gap: 12px;
+        }
+
+        .fund {
+            background: #f8fafc;
+            padding: 17px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #e5e7eb;
+        }
+
+        .fund-title {
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 7px;
+        }
+
+        .fund-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #075da8;
+        }
+
+        /* =====================================================
+           TABLE
+           ===================================================== */
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 750px;
+        }
+
+        th {
+            background: #075da8;
+            color: white;
+            padding: 11px;
+            text-align: left;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 12px;
+        }
+
+        tr:hover {
+            background: #f8fafc;
+        }
+
+        /* =====================================================
+           BADGES
+           ===================================================== */
+
+        .badge {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .badge-green {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .badge-red {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .badge-blue {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .badge-orange {
+            background: #ffedd5;
+            color: #c2410c;
+        }
+
+        .amount-green {
+            color: #15803d;
+            font-weight: bold;
+        }
+
+        .amount-red {
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        .amount-blue {
+            color: #075da8;
+            font-weight: bold;
+        }
+
+        /* =====================================================
+           INFO
+           ===================================================== */
+
+        .info-box {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            color: #075da8;
+            padding: 15px;
+            border-radius: 8px;
+            line-height: 1.7;
+            font-size: 13px;
+        }
+
+        /* =====================================================
+           EMPTY
+           ===================================================== */
+
+        .empty {
+            text-align: center;
+            padding: 25px;
+            color: #64748b;
+        }
+
+        /* =====================================================
+           FOOTER
+           ===================================================== */
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
+
+        @media(max-width:1100px) {
+
+            .cards {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .profile-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .fund-grid {
+                grid-template-columns:
+                    repeat(3, 1fr);
+            }
+
+            .result-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .share-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width:650px) {
+
+            .page {
+                padding: 10px;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-left {
+                align-items: flex-start;
+            }
+
+            .organization-logo {
+                width: 50px;
+                height: 50px;
+            }
+
+            .logout {
+                width: 100%;
+                text-align: center;
+            }
+
+            .cards,
+            .profile-grid,
+            .fund-grid,
+            .result-grid,
+            .share-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 16px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="page">
+
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <div class="header">
+
+        <div class="header-left">
+
+            <div
+                class="organization-logo"
+                th:if="${organizationLogo != null}">
+
+                <img
+                    th:src="${organizationLogo}"
+                    alt="Organization Logo"
+                    style="width:100%;height:100%;object-fit:contain;">
+
+            </div>
+
+            <div>
+
+                <h1>
+                    Member Dashboard
+                </h1>
+
+                <p>
+
+                    Welcome,
+
+                    <strong
+                        th:text="${member.fullName}">
+                        Member
+                    </strong>
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <a
+            href="/member-logout"
+            class="logout">
+
+            🚪 Logout
+
+        </a>
+
+    </div>
+
+
+    <!-- =====================================================
+         ORGANIZATION INFORMATION
+         ===================================================== -->
+
+    <div
+        class="organization-bar"
+        th:if="${organizationName != null}">
+
+        <div
+            class="organization-name"
+            th:text="${organizationName}">
+
+            FundSphere ERP
+
+        </div>
+
+        <div
+            class="organization-contact"
+            th:if="${organizationPhone != null || organizationEmail != null}">
+
+            <span
+                th:if="${organizationPhone != null}"
+                th:text="${organizationPhone}">
+                Phone
+            </span>
+
+            <span
+                th:if="${organizationPhone != null && organizationEmail != null}">
+                &nbsp; | &nbsp;
+            </span>
+
+            <span
+                th:if="${organizationEmail != null}"
+                th:text="${organizationEmail}">
+                Email
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         MEMBER PROFILE
+         ===================================================== -->
+
+    <div class="profile">
+
+        <div class="profile-title">
+            👤 Member Information
+        </div>
+
+        <div class="profile-grid">
+
+
+            <div class="profile-item">
+
+                <label>
+                    Member Code
+                </label>
+
+                <strong
+                    th:text="${member.memberCode}">
+                    FSP-000001
+                </strong>
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <label>
+                    Full Name
+                </label>
+
+                <strong
+                    th:text="${member.fullName}">
+                    Member Name
+                </strong>
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <label>
+                    Father Name
+                </label>
+
+                <strong
+                    th:text="${member.fatherName}">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <label>
+                    Membership Status
+                </label>
+
+                <strong
+                    th:text="${member.membershipStatus}">
+                    ACTIVE
+                </strong>
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <label>
+                    Mobile
+                </label>
+
+                <strong
+                    th:text="${member.mobileNumber}">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <label>
+                    Joining Date
+                </label>
+
+                <strong
+                    th:text="${member.joiningDate}">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <label>
+                    Occupation
+                </label>
+
+                <strong
+                    th:text="${member.occupation}">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <label>
+                    District
+                </label>
+
+                <strong
+                    th:text="${member.district}">
+                    -
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         MAIN FINANCIAL CARDS
+         ===================================================== -->
+
+    <div class="cards">
+
+
+        <div class="card green">
+
+            <div class="card-title">
+                Total Contributions
+            </div>
+
+            <div class="card-value">
+
+                Rs.
+
+                <span
+                    th:text="${totalContribution}">
+                    0
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-title">
+                Business Investment
+            </div>
+
+            <div class="card-value">
+
+                Rs.
+
+                <span
+                    th:text="${businessInvestment}">
+                    0
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="card purple">
+
+            <div class="card-title">
+                Business Balance
+            </div>
+
+            <div class="card-value">
+
+                Rs.
+
+                <span
+                    th:text="${businessBalance}">
+                    0
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="card green">
+
+            <div class="card-title">
+                My Profit / Loss Share
+            </div>
+
+            <div class="card-value">
+
+                Rs.
+
+                <span
+                    th:text="${memberProfitLossShare != null ? memberProfitLossShare : 0}">
+                    0
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="card orange">
+
+            <div class="card-title">
+                Emergency Fund
+            </div>
+
+            <div class="card-value">
+
+                Rs.
+
+                <span
+                    th:text="${emergencyBalance}">
+                    0
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="card red">
+
+            <div class="card-title">
+                My Business Expense Share
+            </div>
+
+            <div class="card-value">
+
+                Rs.
+
+                <span
+                    th:text="${memberExpenseShare != null ? memberExpenseShare : 0}">
+                    0
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="card red">
+
+            <div class="card-title">
+                Business Withdrawal
+            </div>
+
+            <div class="card-value">
+
+                Rs.
+
+                <span
+                    th:text="${businessWithdrawal}">
+                    0
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="card red">
+
+            <div class="card-title">
+                My Withdrawal Share
+            </div>
+
+            <div class="card-value">
+
+                Rs.
+
+                <span
+                    th:text="${memberWithdrawalShare != null ? memberWithdrawalShare : 0}">
+                    0
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="card purple">
+
+            <div class="card-title">
+                Total Member Balance
+            </div>
+
+            <div class="card-value">
+
+                Rs.
+
+                <span
+                    th:text="${totalBalance}">
+                    0
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         BUSINESS PROFIT / LOSS
+         ===================================================== -->
+
+    <div class="section">
+
+        <div class="section-title">
+            📊 Business Profit / Loss & Member Share
+        </div>
+
+
+        <div class="result-grid">
+
+
+            <div class="result-box">
+
+                <div class="result-title">
+                    Total Business Sales
+                </div>
+
+                <div class="result-value">
+
+                    Rs.
+
+                    <span
+                        th:text="${totalBusinessSales != null ? totalBusinessSales : 0}">
+                        0
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="result-box">
+
+                <div class="result-title">
+                    Cost of Goods Sold
+                </div>
+
+                <div class="result-value">
+
+                    Rs.
+
+                    <span
+                        th:text="${totalCostOfGoodsSold != null ? totalCostOfGoodsSold : 0}">
+                        0
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="result-box">
+
+                <div class="result-title">
+                    Business Expenses
+                </div>
+
+                <div class="result-value">
+
+                    Rs.
+
+                    <span
+                        th:text="${totalBusinessExpenses != null ? totalBusinessExpenses : 0}">
+                        0
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="result-box result-green">
+
+                <div class="result-title">
+                    Net Business Profit / Loss
+                </div>
+
+                <div class="result-value">
+
+                    Rs.
+
+                    <span
+                        th:text="${netBusinessProfitLoss != null ? netBusinessProfitLoss : 0}">
+                        0
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             MEMBER SHARE
+             ================================================= -->
+
+        <div class="share-box">
+
+            <div class="share-title">
+                👤 My Investment & Profit/Loss Share
+            </div>
+
+
+            <div class="share-grid">
+
+
+                <div class="share-item">
+
+                    <label>
+                        My Business Investment
+                    </label>
+
+                    <strong>
+
+                        Rs.
+
+                        <span
+                            th:text="${businessInvestment}">
+                            0
+                        </span>
+
+                    </strong>
+
+                </div>
+
+
+                <div class="share-item">
+
+                    <label>
+                        My Investment Share %
+                    </label>
+
+                    <strong>
+
+                        <span
+                            th:text="${memberInvestmentPercent != null ? memberInvestmentPercent : 0}">
+                            0
+                        </span>%
+
+                    </strong>
+
+                </div>
+
+
+                <div class="share-item">
+
+                    <label>
+                        My Profit / Loss Share
+                    </label>
+
+                    <strong>
+
+                        Rs.
+
+                        <span
+                            th:text="${memberProfitLossShare != null ? memberProfitLossShare : 0}">
+                            0
+                        </span>
+
+                    </strong>
+
+                </div>
+
+
+                <div class="share-item">
+
+                    <label>
+                        My Business Expense Share
+                    </label>
+
+                    <strong>
+
+                        Rs.
+
+                        <span
+                            th:text="${memberExpenseShare != null ? memberExpenseShare : 0}">
+                            0
+                        </span>
+
+                    </strong>
+
+                </div>
+
+
+                <div class="share-item">
+
+                    <label>
+                        My Withdrawal Share
+                    </label>
+
+                    <strong>
+
+                        Rs.
+
+                        <span
+                            th:text="${memberWithdrawalShare != null ? memberWithdrawalShare : 0}">
+                            0
+                        </span>
+
+                    </strong>
+
+                </div>
+
+
+                <div class="share-item">
+
+                    <label>
+                        Net Member Business Result
+                    </label>
+
+                    <strong>
+
+                        Rs.
+
+                        <span
+                            th:text="${memberNetBusinessResult != null ? memberNetBusinessResult : 0}">
+                            0
+                        </span>
+
+                    </strong>
+
+                </div>
+
+
+                <div class="share-item">
+
+                    <label>
+                        Business Investment + Result
+                    </label>
+
+                    <strong>
+
+                        Rs.
+
+                        <span
+                            th:text="${memberBusinessFinalBalance != null ? memberBusinessFinalBalance : businessInvestment}">
+                            0
+                        </span>
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="info-box"
+             style="margin-top:15px;">
+
+            <strong>
+                Calculation Method:
+            </strong>
+
+            <br>
+
+            Member investment is based on the member's
+            actual Business Fund contribution.
+
+            <br>
+
+            Member Investment Share =
+            Member Business Investment ÷ Total Business Investment × 100.
+
+            <br>
+
+            Business profit/loss is calculated from
+            actual Purchase and Sale transactions.
+
+            <br>
+
+            Business expenses are also allocated among
+            members according to their investment share.
+
+            <br>
+
+            Business withdrawal is allocated according
+            to the member's actual investment ratio.
+
+            <br>
+
+            Final member business result =
+            Profit/Loss Share − Business Expense Share.
+
+            <br>
+
+            Final business balance =
+            Investment + Net Business Result − Withdrawal Share.
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         FUND SUMMARY
+         ===================================================== -->
+
+    <div class="section">
+
+        <div class="section-title">
+            💰 Fund Summary
+        </div>
+
+        <div class="fund-grid">
+
+
+            <div class="fund">
+
+                <div class="fund-title">
+                    Business Fund
+                </div>
+
+                <div class="fund-value">
+
+                    Rs.
+
+                    <span
+                        th:text="${businessInvestment}">
+                        0
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="fund">
+
+                <div class="fund-title">
+                    Emergency Fund
+                </div>
+
+                <div class="fund-value">
+
+                    Rs.
+
+                    <span
+                        th:text="${emergencyFund}">
+                        0
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="fund">
+
+                <div class="fund-title">
+                    Education Fund
+                </div>
+
+                <div class="fund-value">
+
+                    Rs.
+
+                    <span
+                        th:text="${educationFund}">
+                        0
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="fund">
+
+                <div class="fund-title">
+                    Welfare Fund
+                </div>
+
+                <div class="fund-value">
+
+                    Rs.
+
+                    <span
+                        th:text="${welfareFund}">
+                        0
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="fund">
+
+                <div class="fund-title">
+                    Administration
+                </div>
+
+                <div class="fund-value">
+
+                    Rs.
+
+                    <span
+                        th:text="${administrationFund}">
+                        0
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         CONTRIBUTIONS
+         ===================================================== -->
+
+    <div class="section">
+
+        <div class="section-title">
+            🧾 My Contributions
+        </div>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                <tr>
+
+                    <th>Date</th>
+                    <th>Receipt No.</th>
+                    <th>Total Amount</th>
+                    <th>Business</th>
+                    <th>Emergency</th>
+                    <th>Education</th>
+                    <th>Welfare</th>
+                    <th>Administration</th>
+
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                <tr
+                    th:each="c : ${contributions}">
+
+                    <td
+                        th:text="${c.contributionDate}">
+                        -
+                    </td>
+
+                    <td
+                        th:text="${c.receiptNo}">
+                        -
+                    </td>
+
+                    <td class="amount-green">
+
+                        Rs.
+
+                        <span
+                            th:text="${c.amount}">
+                            0
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        Rs.
+
+                        <span
+                            th:text="${c.businessAmount}">
+                            0
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        Rs.
+
+                        <span
+                            th:text="${c.emergencyAmount}">
+                            0
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        Rs.
+
+                        <span
+                            th:text="${c.educationAmount}">
+                            0
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        Rs.
+
+                        <span
+                            th:text="${c.welfareAmount}">
+                            0
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        Rs.
+
+                        <span
+                            th:text="${c.administrationAmount}">
+                            0
+                        </span>
+
+                    </td>
+
+                </tr>
+
+
+                <tr
+                    th:if="${#lists.isEmpty(contributions)}">
+
+                    <td
+                        colspan="8"
+                        class="empty">
+
+                        No contribution records found.
+
+                    </td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         BUSINESS TRANSACTIONS
+         ===================================================== -->
+
+    <div class="section">
+
+        <div class="section-title">
+            📈 My Business Fund Transactions
+        </div>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                <tr>
+
+                    <th>Date</th>
+                    <th>Transaction No.</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Payment</th>
+                    <th>Amount</th>
+
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                <tr
+                    th:each="b : ${businessTransactions}">
+
+                    <td
+                        th:text="${b.transactionDate}">
+                        -
+                    </td>
+
+                    <td
+                        th:text="${b.transactionNo}">
+                        -
+                    </td>
+
+                    <td>
+
+                        <span
+                            class="badge badge-blue"
+                            th:text="${b.transactionType}">
+                            Business
+                        </span>
+
+                    </td>
+
+                    <td
+                        th:text="${b.description}">
+                        -
+                    </td>
+
+                    <td
+                        th:text="${b.paymentMethod}">
+                        -
+                    </td>
+
+                    <td class="amount-green">
+
+                        Rs.
+
+                        <span
+                            th:text="${b.amount}">
+                            0
+                        </span>
+
+                    </td>
+
+                </tr>
+
+
+                <tr
+                    th:if="${#lists.isEmpty(businessTransactions)}">
+
+                    <td
+                        colspan="6"
+                        class="empty">
+
+                        No business transactions found.
+
+                    </td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         EMERGENCY TRANSACTIONS
+         ===================================================== -->
+
+    <div class="section">
+
+        <div class="section-title">
+            🆘 My Emergency Fund Transactions
+        </div>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                <tr>
+
+                    <th>Date</th>
+                    <th>Transaction No.</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Payment</th>
+                    <th>Amount</th>
+
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                <tr
+                    th:each="e : ${emergencyTransactions}">
+
+                    <td
+                        th:text="${e.transactionDate}">
+                        -
+                    </td>
+
+                    <td
+                        th:text="${e.transactionNo}">
+                        -
+                    </td>
+
+                    <td>
+
+                        <span
+                            class="badge badge-blue"
+                            th:text="${e.transactionType}">
+                            Emergency
+                        </span>
+
+                    </td>
+
+                    <td
+                        th:text="${e.description}">
+                        -
+                    </td>
+
+                    <td
+                        th:text="${e.paymentMethod}">
+                        -
+                    </td>
+
+                    <td>
+
+                        Rs.
+
+                        <span
+                            th:text="${e.amount}">
+                            0
+                        </span>
+
+                    </td>
+
+                </tr>
+
+
+                <tr
+                    th:if="${#lists.isEmpty(emergencyTransactions)}">
+
+                    <td
+                        colspan="6"
+                        class="empty">
+
+                        No emergency transactions found.
+
+                    </td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         MEMBER ACCOUNTING INFORMATION
+         ===================================================== -->
+
+    <div class="section">
+
+        <div class="section-title">
+            📋 My Account Summary
+        </div>
+
+
+        <div class="info-box">
+
+            <strong>
+                Business Investment:
+            </strong>
+
+            Rs.
+
+            <span
+                th:text="${businessInvestment}">
+                0
+            </span>
+
+            <br>
+
+            <strong>
+                Investment Share:
+            </strong>
+
+            <span
+                th:text="${memberInvestmentPercent != null ? memberInvestmentPercent : 0}">
+                0
+            </span>%
+
+            <br>
+
+            <strong>
+                Profit / Loss Share:
+            </strong>
+
+            Rs.
+
+            <span
+                th:text="${memberProfitLossShare != null ? memberProfitLossShare : 0}">
+                0
+            </span>
+
+            <br>
+
+            <strong>
+                Business Expense Share:
+            </strong>
+
+            Rs.
+
+            <span
+                th:text="${memberExpenseShare != null ? memberExpenseShare : 0}">
+                0
+            </span>
+
+            <br>
+
+            <strong>
+                Business Withdrawal Share:
+            </strong>
+
+            Rs.
+
+            <span
+                th:text="${memberWithdrawalShare != null ? memberWithdrawalShare : 0}">
+                0
+            </span>
+
+            <br>
+
+            <strong>
+                Net Business Result:
+            </strong>
+
+            Rs.
+
+            <span
+                th:text="${memberNetBusinessResult != null ? memberNetBusinessResult : 0}">
+                0
+            </span>
+
+            <br>
+
+            <strong>
+                Final Business Balance:
+            </strong>
+
+            Rs.
+
+            <span
+                th:text="${memberBusinessFinalBalance != null ? memberBusinessFinalBalance : businessInvestment}">
+                0
+            </span>
+
+            <br><br>
+
+            The member's profit/loss, business expense and
+            withdrawal share are calculated according to the
+            member's actual business investment ratio.
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <div class="footer">
+
+        <span
+            th:text="${organizationName != null ? organizationName : 'FundSphere ERP'}">
+
+            FundSphere ERP
+
+        </span>
+
+        —
+        Member Portal
+
+    </div>
+
+
+</div>
+
+</body>
+
+</html>

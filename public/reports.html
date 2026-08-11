@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>FundSphere ERP | Reports</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        .page {
+            max-width: 1250px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .header {
+            background: #0877d1;
+            color: white;
+            padding: 25px 28px;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .header p {
+            margin: 7px 0 0;
+            opacity: .9;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            border: none;
+            padding: 11px 18px;
+            border-radius: 7px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .dashboard-btn {
+            background: #075da8;
+            color: white;
+        }
+
+        .print-btn {
+            background: white;
+            color: #0877d1;
+        }
+
+        .content {
+            background: white;
+            padding: 28px;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,.08);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #075da8;
+            margin-bottom: 18px;
+        }
+
+        .report-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .report-card {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 24px;
+            text-decoration: none;
+            color: #1f2937;
+            transition: .2s;
+        }
+
+        .report-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 18px rgba(0,0,0,.08);
+        }
+
+        .icon {
+            font-size: 34px;
+            margin-bottom: 12px;
+        }
+
+        .report-card h3 {
+            margin: 0 0 8px;
+            color: #075da8;
+            font-size: 18px;
+        }
+
+        .report-card p {
+            margin: 0;
+            color: #6b7280;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .filter-section {
+            margin-top: 35px;
+            padding: 22px;
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+        }
+
+        .filter-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 18px;
+            color: #075da8;
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        .field input,
+        .field select {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #cbd5e1;
+            border-radius: 7px;
+            font-size: 14px;
+        }
+
+        .actions {
+            margin-top: 18px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .generate-btn {
+            background: #0877d1;
+            color: white;
+            border: none;
+            padding: 11px 20px;
+            border-radius: 7px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .clear-btn {
+            background: #6b7280;
+            color: white;
+            padding: 11px 20px;
+            border-radius: 7px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        @media(max-width:900px) {
+
+            .report-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .filter-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+        }
+
+        @media(max-width:600px) {
+
+            .page {
+                margin: 10px auto;
+                padding: 0 8px;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-buttons {
+                width: 100%;
+            }
+
+            .btn {
+                flex: 1;
+                text-align: center;
+            }
+
+            .content {
+                padding: 18px;
+            }
+
+            .report-grid,
+            .filter-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media print {
+
+            .header-buttons,
+            .filter-section {
+                display: none;
+            }
+
+            body {
+                background: white;
+            }
+
+            .page {
+                max-width: 100%;
+                margin: 0;
+            }
+
+            .content {
+                box-shadow: none;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="page">
+
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <div class="header">
+
+        <div>
+
+            <h1>
+                Financial Reports
+            </h1>
+
+            <p>
+                FundSphere ERP — Reports &amp; Analysis
+            </p>
+
+        </div>
+
+
+        <div class="header-buttons">
+
+            <a href="/dashboard"
+               class="btn dashboard-btn">
+
+                ← Dashboard
+
+            </a>
+
+
+            <button
+                type="button"
+                onclick="window.print()"
+                class="btn print-btn">
+
+                🖨 Print
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="content">
+
+
+        <!-- =================================================
+             REPORTS
+             ================================================= -->
+
+        <div class="section-title">
+
+            Available Reports
+
+        </div>
+
+
+        <div class="report-grid">
+
+
+            <!-- FINANCIAL SUMMARY -->
+
+            <a href="/reports/financial"
+               class="report-card">
+
+                <div class="icon">
+                    📊
+                </div>
+
+                <h3>
+                    Financial Summary
+                </h3>
+
+                <p>
+                    Complete income, expense,
+                    fund and balance summary.
+                </p>
+
+            </a>
+
+
+
+            <!-- CONTRIBUTION -->
+
+            <a href="/reports/contributions"
+               class="report-card">
+
+                <div class="icon">
+                    💳
+                </div>
+
+                <h3>
+                    Contribution Report
+                </h3>
+
+                <p>
+                    View member contributions,
+                    dates, amounts and fund distribution.
+                </p>
+
+            </a>
+
+
+
+            <!-- EXPENSE -->
+
+            <a href="/reports/expenses"
+               class="report-card">
+
+                <div class="icon">
+                    💵
+                </div>
+
+                <h3>
+                    Expense Report
+                </h3>
+
+                <p>
+                    View expenses by date,
+                    type, fund and payment method.
+                </p>
+
+            </a>
+
+
+
+            <!-- BUSINESS FUND -->
+
+            <a href="/reports/business-fund"
+               class="report-card">
+
+                <div class="icon">
+                    💼
+                </div>
+
+                <h3>
+                    Business Fund Report
+                </h3>
+
+                <p>
+                    Business income, profit,
+                    withdrawals and balance.
+                </p>
+
+            </a>
+
+
+
+            <!-- EMERGENCY FUND -->
+
+            <a href="/reports/emergency-fund"
+               class="report-card">
+
+                <div class="icon">
+                    ❤️
+                </div>
+
+                <h3>
+                    Emergency Fund Report
+                </h3>
+
+                <p>
+                    Emergency fund income,
+                    withdrawals and current balance.
+                </p>
+
+            </a>
+
+
+
+            <!-- MEMBER -->
+
+            <a href="/reports/member"
+               class="report-card">
+
+                <div class="icon">
+                    👥
+                </div>
+
+                <h3>
+                    Member-wise Report
+                </h3>
+
+                <p>
+                    Complete financial activity
+                    of an individual member.
+                </p>
+
+            </a>
+
+
+
+            <!-- DAILY -->
+
+            <a href="/reports/daily"
+               class="report-card">
+
+                <div class="icon">
+                    📅
+                </div>
+
+                <h3>
+                    Daily Report
+                </h3>
+
+                <p>
+                    View all financial transactions
+                    for a selected date.
+                </p>
+
+            </a>
+
+
+
+            <!-- MONTHLY -->
+
+            <a href="/reports/monthly"
+               class="report-card">
+
+                <div class="icon">
+                    🗓️
+                </div>
+
+                <h3>
+                    Monthly Report
+                </h3>
+
+                <p>
+                    Monthly income, expenses,
+                    funds and balances.
+                </p>
+
+            </a>
+
+
+
+            <!-- LEDGER -->
+
+            <a href="/ledger"
+               class="report-card">
+
+                <div class="icon">
+                    📒
+                </div>
+
+                <h3>
+                    Financial Ledger
+                </h3>
+
+                <p>
+                    Complete debit, credit
+                    and running balance ledger.
+                </p>
+
+            </a>
+
+        </div>
+
+
+
+        <!-- =================================================
+             QUICK REPORT FILTER
+             ================================================= -->
+
+        <div class="filter-section">
+
+            <div class="filter-title">
+
+                Quick Report
+
+            </div>
+
+
+            <form
+                method="get"
+                action="/reports/financial">
+
+
+                <div class="filter-grid">
+
+
+                    <div class="field">
+
+                        <label>
+                            Report Type
+                        </label>
+
+                        <select name="type">
+
+                            <option value="all">
+                                All Transactions
+                            </option>
+
+                            <option value="contribution">
+                                Contributions
+                            </option>
+
+                            <option value="expense">
+                                Expenses
+                            </option>
+
+                            <option value="business">
+                                Business Fund
+                            </option>
+
+                            <option value="emergency">
+                                Emergency Fund
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            From Date
+                        </label>
+
+                        <input
+                            type="date"
+                            name="fromDate">
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            To Date
+                        </label>
+
+                        <input
+                            type="date"
+                            name="toDate">
+
+                    </div>
+
+                </div>
+
+
+                <div class="actions">
+
+                    <button
+                        type="submit"
+                        class="generate-btn">
+
+                        📊 Generate Report
+
+                    </button>
+
+
+                    <a
+                        href="/reports"
+                        class="clear-btn">
+
+                        Clear
+
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+</body>
+
+</html>

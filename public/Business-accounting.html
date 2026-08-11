@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>FundSphere ERP | Business Accounting</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        .page {
+            max-width: 1500px;
+            margin: 22px auto;
+            padding: 0 18px;
+        }
+
+        /* ================= HEADER ================= */
+
+        .header {
+            background: #0877d1;
+            color: white;
+            padding: 23px 27px;
+            border-radius: 12px 12px 0 0;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 27px;
+        }
+
+        .header p {
+            margin: 7px 0 0;
+            font-size: 14px;
+            opacity: .9;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            border: none;
+            text-decoration: none;
+            cursor: pointer;
+            padding: 10px 15px;
+            border-radius: 7px;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #0877d1;
+        }
+
+        .btn-back {
+            background: #075da8;
+            color: white;
+        }
+
+        .btn-purchase {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .btn-sale {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .btn-expense {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .btn-view {
+            background: #e0f2fe;
+            color: #0369a1;
+        }
+
+        .btn-edit {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .btn-delete {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        /* ================= CONTENT ================= */
+
+        .content {
+            background: white;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,.07);
+        }
+
+        /* ================= SUMMARY ================= */
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        .summary-card {
+            padding: 17px;
+            border: 1px solid #e2e8f0;
+            border-radius: 9px;
+            background: #f8fafc;
+            text-align: center;
+        }
+
+        .summary-label {
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .summary-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #075da8;
+        }
+
+        .purchase .summary-value {
+            color: #2563eb;
+        }
+
+        .sale .summary-value {
+            color: #15803d;
+        }
+
+        .expense .summary-value {
+            color: #dc2626;
+        }
+
+        .profit .summary-value {
+            color: #7c3aed;
+        }
+
+        .loss .summary-value {
+            color: #dc2626;
+        }
+
+        /* ================= SECTION ================= */
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 19px;
+            font-weight: bold;
+            color: #075da8;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        /* ================= QUICK ACTIONS ================= */
+
+        .quick-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        /* ================= TABLE ================= */
+
+        .table-wrapper {
+            overflow-x: auto;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1150px;
+        }
+
+        thead {
+            background: #075da8;
+            color: white;
+        }
+
+        th {
+            padding: 12px 10px;
+            text-align: left;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 11px 10px;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 12px;
+            vertical-align: middle;
+        }
+
+        tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .badge-purchase {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .badge-sale {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .badge-expense {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .amount {
+            font-weight: bold;
+        }
+
+        .positive {
+            color: #15803d;
+            font-weight: bold;
+        }
+
+        .negative {
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        .actions {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 5px 8px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        /* ================= MEMBER TABLE ================= */
+
+        .member-table {
+            min-width: 1050px;
+        }
+
+        .investment {
+            color: #075da8;
+            font-weight: bold;
+        }
+
+        .percent {
+            color: #7c3aed;
+            font-weight: bold;
+        }
+
+        .member-profit {
+            color: #15803d;
+            font-weight: bold;
+        }
+
+        .member-expense {
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        /* ================= EMPTY ================= */
+
+        .empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: #64748b;
+        }
+
+        /* ================= INFO ================= */
+
+        .info-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            color: #075da8;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        /* ================= PRINT ================= */
+
+        .print-header {
+            display: none;
+        }
+
+        @media print {
+
+            @page {
+                size: landscape;
+                margin: 10mm;
+            }
+
+            body {
+                background: white;
+            }
+
+            .page {
+                max-width: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .header,
+            .quick-actions,
+            .no-print {
+                display: none !important;
+            }
+
+            .content {
+                box-shadow: none;
+                padding: 0;
+            }
+
+            .print-header {
+                display: block;
+                text-align: center;
+                margin-bottom: 15px;
+            }
+
+            .print-header h1 {
+                margin: 0;
+            }
+
+            .summary {
+                grid-template-columns: repeat(5, 1fr);
+            }
+
+            .table-wrapper {
+                overflow: visible;
+            }
+
+            table {
+                min-width: 0;
+            }
+
+            th,
+            td {
+                border: 1px solid #999;
+                font-size: 9px;
+                padding: 5px;
+            }
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width:1100px) {
+
+            .summary {
+                grid-template-columns:
+                    repeat(3, 1fr);
+            }
+        }
+
+        @media(max-width:700px) {
+
+            .page {
+                margin: 10px auto;
+                padding: 0 8px;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .summary {
+                grid-template-columns: 1fr;
+            }
+
+            .header-buttons,
+            .quick-actions {
+                width: 100%;
+            }
+
+            .header-buttons .btn,
+            .quick-actions .btn {
+                flex: 1;
+                text-align: center;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="page">
+
+
+    <!-- ================= HEADER ================= -->
+
+    <div class="header">
+
+        <div>
+
+            <h1>
+                📊 Business Accounting
+            </h1>
+
+            <p>
+                FundSphere ERP — Purchase, Sales, Expenses & Profit/Loss
+            </p>
+
+        </div>
+
+
+        <div class="header-buttons">
+
+            <button
+                type="button"
+                class="btn btn-primary"
+                onclick="window.print()">
+
+                🖨 Print / PDF
+
+            </button>
+
+
+            <a
+                href="/dashboard"
+                class="btn btn-back">
+
+                ← Dashboard
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="content">
+
+
+        <!-- ================= PRINT HEADER ================= -->
+
+        <div class="print-header">
+
+            <h1>
+                FundSphere ERP
+            </h1>
+
+            <p>
+                Business Accounting Report
+            </p>
+
+        </div>
+
+
+        <!-- ================= QUICK ACTIONS ================= -->
+
+        <div class="quick-actions">
+
+            <a
+                href="/business-accounting/new?type=PURCHASE"
+                class="btn btn-purchase">
+
+                + Purchase
+
+            </a>
+
+
+            <a
+                href="/business-accounting/new?type=SALE"
+                class="btn btn-sale">
+
+                + Sale
+
+            </a>
+
+
+            <a
+                href="/business-accounting/new?type=EXPENSE"
+                class="btn btn-expense">
+
+                + Business Expense
+
+            </a>
+
+        </div>
+
+
+        <!-- ================= SUMMARY ================= -->
+
+        <div class="summary">
+
+
+            <!-- PURCHASE -->
+
+            <div class="summary-card purchase">
+
+                <div class="summary-label">
+                    Total Purchases
+                </div>
+
+                <div class="summary-value">
+
+                    Rs.
+                    <span
+                        th:text="${totalPurchases != null ? totalPurchases : 0}">
+                        0
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- SALES -->
+
+            <div class="summary-card sale">
+
+                <div class="summary-label">
+                    Total Sales
+                </div>
+
+                <div class="summary-value">
+
+                    Rs.
+                    <span
+                        th:text="${totalSales != null ? totalSales : 0}">
+                        0
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- EXPENSE -->
+
+            <div class="summary-card expense">
+
+                <div class="summary-label">
+                    Business Expenses
+                </div>
+
+                <div class="summary-value">
+
+                    Rs.
+                    <span
+                        th:text="${businessExpenses != null ? businessExpenses : 0}">
+                        0
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- GROSS -->
+
+            <div class="summary-card profit">
+
+                <div class="summary-label">
+                    Gross Profit / Loss
+                </div>
+
+                <div
+                    class="summary-value"
+                    th:classappend="${grossProfitLoss != null && grossProfitLoss < 0 ? 'loss' : ''}">
+
+                    Rs.
+                    <span
+                        th:text="${grossProfitLoss != null ? grossProfitLoss : 0}">
+                        0
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- NET -->
+
+            <div class="summary-card profit">
+
+                <div class="summary-label">
+                    Net Profit / Loss
+                </div>
+
+                <div
+                    class="summary-value"
+                    th:classappend="${netProfitLoss != null && netProfitLoss < 0 ? 'loss' : ''}">
+
+                    Rs.
+                    <span
+                        th:text="${netProfitLoss != null ? netProfitLoss : 0}">
+                        0
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- MEMBER BUSINESS DISTRIBUTION -->
+        <!-- ================================================= -->
+
+        <div class="section">
+
+
+            <div class="section-title">
+
+                👥 Member-wise Business Profit / Loss
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table class="member-table">
+
+
+                    <thead>
+
+                    <tr>
+
+                        <th>
+                            #
+                        </th>
+
+                        <th>
+                            Member Code
+                        </th>
+
+                        <th>
+                            Member Name
+                        </th>
+
+                        <th>
+                            Business Investment
+                        </th>
+
+                        <th>
+                            Investment %
+                        </th>
+
+                        <th>
+                            Profit / Loss Share
+                        </th>
+
+                        <th>
+                            Expense Share
+                        </th>
+
+                        <th>
+                            Net Profit / Loss
+                        </th>
+
+                    </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                    <tr
+                        th:each="m, stat : ${memberBusinessSummary}">
+
+
+                        <td
+                            th:text="${stat.count}">
+
+                            1
+
+                        </td>
+
+
+                        <td>
+
+                            <strong
+                                th:text="${m.memberCode}">
+
+                                FSP-001
+
+                            </strong>
+
+                        </td>
+
+
+                        <td
+                            th:text="${m.memberName}">
+
+                            Member
+
+                        </td>
+
+
+                        <td class="investment">
+
+                            Rs.
+                            <span
+                                th:text="${m.investment}">
+
+                                0
+
+                            </span>
+
+                        </td>
+
+
+                        <td class="percent">
+
+                            <span
+                                th:text="${#numbers.formatDecimal(m.investmentPercent, 1, 2)}">
+
+                                0.00
+
+                            </span>%
+
+                        </td>
+
+
+                        <td>
+
+                            <span
+                                th:class="${m.profitLossShare >= 0 ? 'positive' : 'negative'}">
+
+                                Rs.
+                                <span
+                                    th:text="${#numbers.formatDecimal(m.profitLossShare, 1, 2)}">
+
+                                    0.00
+
+                                </span>
+
+                            </span>
+
+                        </td>
+
+
+                        <td class="member-expense">
+
+                            Rs.
+                            <span
+                                th:text="${#numbers.formatDecimal(m.expenseShare, 1, 2)}">
+
+                                0.00
+
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <span
+                                th:class="${m.netProfitLoss >= 0 ? 'member-profit' : 'negative'}">
+
+                                Rs.
+                                <span
+                                    th:text="${#numbers.formatDecimal(m.netProfitLoss, 1, 2)}">
+
+                                    0.00
+
+                                </span>
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr
+                        th:if="${memberBusinessSummary == null || #lists.isEmpty(memberBusinessSummary)}">
+
+                        <td
+                            colspan="8"
+                            class="empty">
+
+                            No member business investment records found.
+
+                            <br>
+
+                            Business investment comes automatically
+                            from Contribution → Business Fund allocation.
+
+                        </td>
+
+                    </tr>
+
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <strong>Investment Rule:</strong>
+
+                Member Business Investment is calculated only from
+                <strong>Contribution.businessAmount</strong>.
+
+                The full contribution is not treated as business investment.
+
+                <br>
+
+                Profit/Loss and Business Expense are distributed according
+                to each member's investment percentage.
+
+            </div>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- TRANSACTIONS -->
+        <!-- ================================================= -->
+
+        <div class="section">
+
+
+            <div class="section-title">
+
+                📋 Business Transactions
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+
+                    <thead>
+
+                    <tr>
+
+                        <th>
+                            #
+                        </th>
+
+                        <th>
+                            Date
+                        </th>
+
+                        <th>
+                            Transaction No
+                        </th>
+
+                        <th>
+                            Type
+                        </th>
+
+                        <th>
+                            Item
+                        </th>
+
+                        <th>
+                            Member
+                        </th>
+
+                        <th>
+                            Quantity
+                        </th>
+
+                        <th>
+                            Unit Price
+                        </th>
+
+                        <th>
+                            Total
+                        </th>
+
+                        <th>
+                            Payment
+                        </th>
+
+                        <th class="no-print">
+                            Actions
+                        </th>
+
+                    </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                    <tr
+                        th:each="t, stat : ${transactions}">
+
+
+                        <td
+                            th:text="${stat.count}">
+
+                            1
+
+                        </td>
+
+
+                        <td
+                            th:text="${t.transactionDate}">
+
+                            2026-08-09
+
+                        </td>
+
+
+                        <td>
+
+                            <strong
+                                th:text="${t.transactionNo}">
+
+                                BT-001
+
+                            </strong>
+
+                        </td>
+
+
+                        <td>
+
+
+                            <span
+                                th:if="${t.transactionType == 'PURCHASE'}"
+                                class="badge badge-purchase">
+
+                                PURCHASE
+
+                            </span>
+
+
+                            <span
+                                th:if="${t.transactionType == 'SALE'}"
+                                class="badge badge-sale">
+
+                                SALE
+
+                            </span>
+
+
+                            <span
+                                th:if="${t.transactionType == 'EXPENSE'}"
+                                class="badge badge-expense">
+
+                                EXPENSE
+
+                            </span>
+
+
+                            <span
+                                th:if="${t.transactionType != 'PURCHASE' && t.transactionType != 'SALE' && t.transactionType != 'EXPENSE'}"
+                                class="badge">
+
+                                <span
+                                    th:text="${t.transactionType}">
+
+                                    OTHER
+
+                                </span>
+
+                            </span>
+
+                        </td>
+
+
+                        <td
+                            th:text="${t.itemName}">
+
+                            Item
+
+                        </td>
+
+
+                        <td>
+
+                            <strong
+                                th:text="${t.memberCode}">
+
+                            </strong>
+
+                            <br>
+
+                            <span
+                                th:text="${t.memberName}">
+
+                            </span>
+
+                        </td>
+
+
+                        <td
+                            th:text="${t.quantity}">
+
+                            0
+
+                        </td>
+
+
+                        <td>
+
+                            Rs.
+                            <span
+                                th:text="${t.unitPrice}">
+
+                                0
+
+                            </span>
+
+                        </td>
+
+
+                        <td class="amount">
+
+                            Rs.
+
+                            <span
+                                th:text="${t.quantity != null && t.unitPrice != null ? t.quantity * t.unitPrice : 0}">
+
+                                0
+
+                            </span>
+
+                        </td>
+
+
+                        <td
+                            th:text="${t.paymentMethod}">
+
+                            Cash
+
+                        </td>
+
+
+                        <td class="actions no-print">
+
+
+                            <a
+                                th:href="@{/business-accounting/view/{id}(id=${t.id})}"
+                                class="action-btn btn-view">
+
+                                View
+
+                            </a>
+
+
+                            <a
+                                th:href="@{/business-accounting/edit/{id}(id=${t.id})}"
+                                class="action-btn btn-edit">
+
+                                Edit
+
+                            </a>
+
+
+                            <a
+                                th:href="@{/business-accounting/delete/{id}(id=${t.id})}"
+                                class="action-btn btn-delete"
+                                onclick="return confirm('Are you sure you want to delete this transaction?');">
+
+                                Delete
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr
+                        th:if="${transactions == null || #lists.isEmpty(transactions)}">
+
+                        <td
+                            colspan="11"
+                            class="empty">
+
+                            No business transactions found.
+
+                            <br><br>
+
+                            Use the buttons above to record
+                            Purchase, Sale or Business Expense.
+
+                        </td>
+
+                    </tr>
+
+
+                    </tbody>
+
+
+                    <!-- TOTAL -->
+
+                    <tfoot
+                        th:if="${transactions != null && !#lists.isEmpty(transactions)}">
+
+                    <tr>
+
+                        <td
+                            colspan="8"
+                            style="text-align:right;font-weight:bold;">
+
+                            TOTAL SALES
+
+                        </td>
+
+                        <td
+                            class="positive">
+
+                            Rs.
+                            <span
+                                th:text="${totalSales}">
+
+                                0
+
+                            </span>
+
+                        </td>
+
+                        <td colspan="2"></td>
+
+                    </tr>
+
+                    </tfoot>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
