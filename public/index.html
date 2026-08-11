@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
@@ -52,6 +51,7 @@
         </div>
 
 
+
         <!-- CENTER -->
 
         <div class="center-area">
@@ -83,7 +83,9 @@
 
             </p>
 
+
         </div>
+
 
 
         <!-- FEATURES -->
@@ -137,6 +139,7 @@
 
 
         </div>
+
 
 
         <!-- FOOTER -->
@@ -195,6 +198,7 @@
             </div>
 
 
+
             <!-- TITLE -->
 
             <h2>
@@ -219,20 +223,16 @@
                 class="login-message error"
                 style="display:none;">
 
-                ❌ Invalid username or password.
-
             </div>
 
 
 
-            <!-- LOGOUT MESSAGE -->
+            <!-- LOGIN SUCCESS -->
 
             <div
-                id="logoutMessage"
+                id="loginSuccess"
                 class="login-message success"
                 style="display:none;">
-
-                ✅ You have been logged out successfully.
 
             </div>
 
@@ -241,28 +241,25 @@
             <!-- LOGIN FORM -->
 
             <form
-                action="/login"
-                method="post"
                 id="loginForm">
 
 
-                <!-- USERNAME -->
+                <!-- EMAIL -->
 
                 <div class="input-box">
 
 
                     <label for="username">
 
-                        Username
+                        Admin Email
 
                     </label>
 
 
                     <input
-                        type="text"
+                        type="email"
                         id="username"
-                        name="username"
-                        placeholder="Enter Username"
+                        placeholder="Enter Admin Email"
                         autocomplete="username"
                         required>
 
@@ -289,7 +286,6 @@
                         <input
                             type="password"
                             id="password"
-                            name="password"
                             placeholder="Enter Password"
                             autocomplete="current-password"
                             required>
@@ -321,7 +317,7 @@
 
                         <input
                             type="checkbox"
-                            name="remember-me">
+                            id="rememberMe">
 
 
                         Remember Me
@@ -330,7 +326,10 @@
                     </label>
 
 
-                    <span class="forgot">
+
+                    <span
+                        class="forgot"
+                        id="forgotPassword">
 
                         Forgot Password?
 
@@ -345,7 +344,8 @@
 
                 <button
                     type="submit"
-                    class="login-btn">
+                    class="login-btn"
+                    id="loginButton">
 
                     🔐 Login
 
@@ -372,7 +372,7 @@
                 <button
                     type="button"
                     class="member-btn"
-                    onclick="memberLogin()">
+                    id="memberLoginButton">
 
                     👤 Member Login
 
@@ -407,94 +407,180 @@
 
 
 <!-- =====================================================
-     JAVASCRIPT
+     FIREBASE LOGIN
      ===================================================== -->
 
-<script>
+<script type="module">
 
 
-/* =====================================================
-   CLOCK
-   ===================================================== */
+    /* =====================================================
+       FIREBASE IMPORTS
+       ===================================================== */
 
-function updateClock() {
-
-
-    const now = new Date();
-
-
-    const hours =
-        String(now.getHours()).padStart(2, "0");
+    import {
+        initializeApp
+    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
 
-    const minutes =
-        String(now.getMinutes()).padStart(2, "0");
+    import {
+        getAuth,
+        signInWithEmailAndPassword,
+        setPersistence,
+        browserLocalPersistence,
+        browserSessionPersistence,
+        sendPasswordResetEmail
+    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 
-    const seconds =
-        String(now.getSeconds()).padStart(2, "0");
+
+    /* =====================================================
+       FIREBASE CONFIGURATION
+       ===================================================== */
+
+    const firebaseConfig = {
+
+        apiKey:
+            "AIzaSyCgoHbsPZA1ZgCPEZ3Wv-vuZ1fuJx-V4fw",
+
+        authDomain:
+            "fundsphere-erp.firebaseapp.com",
+
+        projectId:
+            "fundsphere-erp",
+
+        storageBucket:
+            "fundsphere-erp.firebasestorage.app",
+
+        messagingSenderId:
+            "787063389083",
+
+        appId:
+            "1:787063389083:web:5c2057a276064be2d5bf3e",
+
+        measurementId:
+            "G-B5ZZ0479MK"
+
+    };
 
 
-    const timeElement =
-        document.getElementById("time");
+
+    /* =====================================================
+       INITIALIZE FIREBASE
+       ===================================================== */
+
+    const app =
+        initializeApp(firebaseConfig);
 
 
-    if (timeElement) {
-
-        timeElement.innerText =
-            hours + ":" +
-            minutes + ":" +
-            seconds;
-
-    }
+    const auth =
+        getAuth(app);
 
 
-    const dateElement =
-        document.getElementById("date");
+
+    /* =====================================================
+       CLOCK
+       ===================================================== */
+
+    function updateClock() {
 
 
-    if (dateElement) {
+        const now =
+            new Date();
 
 
-        dateElement.innerText =
-            now.toLocaleDateString(
-                "en-US",
-                {
-                    weekday: "long",
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric"
-                }
+        const hours =
+            String(
+                now.getHours()
+            ).padStart(
+                2,
+                "0"
             );
 
+
+        const minutes =
+            String(
+                now.getMinutes()
+            ).padStart(
+                2,
+                "0"
+            );
+
+
+        const seconds =
+            String(
+                now.getSeconds()
+            ).padStart(
+                2,
+                "0"
+            );
+
+
+        const timeElement =
+            document.getElementById(
+                "time"
+            );
+
+
+        if (timeElement) {
+
+            timeElement.innerText =
+                hours +
+                ":" +
+                minutes +
+                ":" +
+                seconds;
+
+        }
+
+
+        const dateElement =
+            document.getElementById(
+                "date"
+            );
+
+
+        if (dateElement) {
+
+            dateElement.innerText =
+                now.toLocaleDateString(
+                    "en-US",
+                    {
+                        weekday: "long",
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric"
+                    }
+                );
+
+        }
+
     }
 
-}
+
+    updateClock();
 
 
-updateClock();
-
-
-setInterval(
-    updateClock,
-    1000
-);
+    setInterval(
+        updateClock,
+        1000
+    );
 
 
 
-/* =====================================================
-   SHOW / HIDE PASSWORD
-   ===================================================== */
+    /* =====================================================
+       SHOW / HIDE PASSWORD
+       ===================================================== */
 
-const togglePassword =
-    document.getElementById("togglePassword");
-
-
-const password =
-    document.getElementById("password");
+    const togglePassword =
+        document.getElementById(
+            "togglePassword"
+        );
 
 
-if (togglePassword && password) {
+    const passwordInput =
+        document.getElementById(
+            "password"
+        );
 
 
     togglePassword.addEventListener(
@@ -502,10 +588,13 @@ if (togglePassword && password) {
         function () {
 
 
-            if (password.type === "password") {
+            if (
+                passwordInput.type ===
+                "password"
+            ) {
 
 
-                password.type =
+                passwordInput.type =
                     "text";
 
 
@@ -516,31 +605,436 @@ if (togglePassword && password) {
             } else {
 
 
-                password.type =
+                passwordInput.type =
                     "password";
 
 
                 togglePassword.innerText =
                     "👁";
 
-
             }
-
 
         }
     );
 
-}
+
+
+    /* =====================================================
+       MESSAGE FUNCTIONS
+       ===================================================== */
+
+    function showError(message) {
+
+
+        const errorBox =
+            document.getElementById(
+                "loginError"
+            );
+
+
+        const successBox =
+            document.getElementById(
+                "loginSuccess"
+            );
+
+
+        successBox.style.display =
+            "none";
+
+
+        errorBox.innerText =
+            "❌ " + message;
+
+
+        errorBox.style.display =
+            "block";
+
+    }
 
 
 
-/* =====================================================
-   MEMBER LOGIN
-   ===================================================== */
+    function showSuccess(message) {
 
-function memberLogin() {
-    window.location.href = "member-login.html";
-}
+
+        const errorBox =
+            document.getElementById(
+                "loginError"
+            );
+
+
+        const successBox =
+            document.getElementById(
+                "loginSuccess"
+            );
+
+
+        errorBox.style.display =
+            "none";
+
+
+        successBox.innerText =
+            "✅ " + message;
+
+
+        successBox.style.display =
+            "block";
+
+    }
+
+
+
+    /* =====================================================
+       ADMIN LOGIN
+       ===================================================== */
+
+    const loginForm =
+        document.getElementById(
+            "loginForm"
+        );
+
+
+    loginForm.addEventListener(
+        "submit",
+        async function (event) {
+
+
+            event.preventDefault();
+
+
+            const email =
+                document
+                    .getElementById(
+                        "username"
+                    )
+                    .value
+                    .trim();
+
+
+            const password =
+                document
+                    .getElementById(
+                        "password"
+                    )
+                    .value;
+
+
+            const rememberMe =
+                document
+                    .getElementById(
+                        "rememberMe"
+                    )
+                    .checked;
+
+
+            const loginButton =
+                document.getElementById(
+                    "loginButton"
+                );
+
+
+            /* =========================================
+               VALIDATION
+               ========================================= */
+
+            if (
+                !email ||
+                !password
+            ) {
+
+                showError(
+                    "Please enter Admin email and password."
+                );
+
+                return;
+
+            }
+
+
+
+            try {
+
+
+                /* =====================================
+                   DISABLE BUTTON
+                   ===================================== */
+
+                loginButton.disabled =
+                    true;
+
+
+                loginButton.innerText =
+                    "⏳ Logging in...";
+
+
+
+                /* =====================================
+                   PERSISTENCE
+                   ===================================== */
+
+                if (rememberMe) {
+
+
+                    await setPersistence(
+                        auth,
+                        browserLocalPersistence
+                    );
+
+
+                } else {
+
+
+                    await setPersistence(
+                        auth,
+                        browserSessionPersistence
+                    );
+
+                }
+
+
+
+                /* =====================================
+                   FIREBASE AUTHENTICATION
+                   ===================================== */
+
+                const userCredential =
+                    await signInWithEmailAndPassword(
+                        auth,
+                        email,
+                        password
+                    );
+
+
+                const user =
+                    userCredential.user;
+
+
+
+                console.log(
+                    "Firebase login successful:",
+                    user.email
+                );
+
+
+
+                /* =====================================
+                   SUCCESS MESSAGE
+                   ===================================== */
+
+                showSuccess(
+                    "Login successful. Opening Dashboard..."
+                );
+
+
+
+                /* =====================================
+                   OPEN DASHBOARD
+                   ===================================== */
+
+                setTimeout(
+                    function () {
+
+
+                        window.location.href =
+                            "/dashboard.html";
+
+
+                    },
+                    700
+                );
+
+
+            } catch (error) {
+
+
+                console.error(
+                    "Firebase Login Error:",
+                    error
+                );
+
+
+                let message =
+                    "Login failed.";
+
+
+                /* =====================================
+                   FIREBASE ERROR HANDLING
+                   ===================================== */
+
+                switch (error.code) {
+
+
+                    case
+                        "auth/invalid-credential":
+
+                        message =
+                            "Invalid email or password.";
+
+                        break;
+
+
+                    case
+                        "auth/invalid-email":
+
+                        message =
+                            "Please enter a valid email address.";
+
+                        break;
+
+
+                    case
+                        "auth/user-not-found":
+
+                        message =
+                            "Admin account not found.";
+
+                        break;
+
+
+                    case
+                        "auth/wrong-password":
+
+                        message =
+                            "Incorrect password.";
+
+                        break;
+
+
+                    case
+                        "auth/too-many-requests":
+
+                        message =
+                            "Too many login attempts. Please try again later.";
+
+                        break;
+
+
+                    case
+                        "auth/network-request-failed":
+
+                        message =
+                            "Internet connection problem.";
+
+                        break;
+
+
+                    default:
+
+                        message =
+                            error.message ||
+                            "Unable to login.";
+
+                        break;
+
+                }
+
+
+
+                showError(
+                    message
+                );
+
+
+                loginButton.disabled =
+                    false;
+
+
+                loginButton.innerText =
+                    "🔐 Login";
+
+            }
+
+        }
+    );
+
+
+
+    /* =====================================================
+       FORGOT PASSWORD
+       ===================================================== */
+
+    document
+        .getElementById(
+            "forgotPassword"
+        )
+        .addEventListener(
+            "click",
+            async function () {
+
+
+                const email =
+                    document
+                        .getElementById(
+                            "username"
+                        )
+                        .value
+                        .trim();
+
+
+                if (!email) {
+
+
+                    showError(
+                        "First enter your Admin email."
+                    );
+
+
+                    return;
+
+                }
+
+
+
+                try {
+
+
+                    await sendPasswordResetEmail(
+                        auth,
+                        email
+                    );
+
+
+                    showSuccess(
+                        "Password reset email has been sent."
+                    );
+
+
+                } catch (error) {
+
+
+                    console.error(
+                        error
+                    );
+
+
+                    showError(
+                        "Unable to send password reset email."
+                    );
+
+                }
+
+            }
+        );
+
+
+
+    /* =====================================================
+       MEMBER LOGIN
+       ===================================================== */
+
+    document
+        .getElementById(
+            "memberLoginButton"
+        )
+        .addEventListener(
+            "click",
+            function () {
+
+
+                window.location.href =
+                    "/member-login.html";
+
+            }
+        );
 
 
 </script>
