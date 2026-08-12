@@ -15,4 +15,4 @@ RUN ./mvnw clean package -DskipTests
 
 EXPOSE 8080
 
-ENTRYPOINT ["sh", "-c", "java -jar target/fundsphere-erp-0.0.1-SNAPSHOT.jar --server.port=${PORT:-8080} --server.address=0.0.0.0 --spring.datasource.url=jdbc:mysql://${MYSQLHOST}:${MYSQLPORT}/${MYSQLDATABASE}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC --spring.datasource.username=${MYSQLUSER} --spring.datasource.password=${MYSQLPASSWORD} --spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver"]
+ENTRYPOINT ["sh", "-c", "java -jar target/fundsphere-erp-0.0.1-SNAPSHOT.jar --server.port=${PORT:-8080} --server.address=0.0.0.0 --spring.datasource.url=\"jdbc:mysql://${MYSQLHOST}:${MYSQLPORT}/${MYSQLDATABASE}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC\" --spring.datasource.username=\"${MYSQLUSER}\" --spring.datasource.password=\"${MYSQLPASSWORD}\" --spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver"]
