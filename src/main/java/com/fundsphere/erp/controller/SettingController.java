@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -22,9 +21,7 @@ import com.fundsphere.erp.entity.Setting;
 import com.fundsphere.erp.service.SettingService;
 
 @Controller
-public class SettingController
-        implements WebMvcConfigurer {
-
+public class SettingController implements WebMvcConfigurer {
 
     @Autowired
     private SettingService settingService;
@@ -40,18 +37,14 @@ public class SettingController
         Setting setting =
                 settingService.getSettings();
 
-
         if (setting == null) {
-
             setting = new Setting();
         }
-
 
         model.addAttribute(
                 "setting",
                 setting
         );
-
 
         return "settings";
     }
@@ -71,22 +64,13 @@ public class SettingController
                     value = "logoFile",
                     required = false
             )
-            MultipartFile logoFile,
+            org.springframework.web.multipart.MultipartFile logoFile,
 
             Model model) {
 
-
         try {
 
-
-            // =========================================
-            // FUND PERCENTAGE VALIDATION
-            // =========================================
-
-            settingService
-                    .validateFundPercentages(
-                            setting
-                    );
+            settingService.validateFundPercentages(setting);
 
 
             // =========================================
@@ -96,13 +80,10 @@ public class SettingController
             if (logoFile != null
                     && !logoFile.isEmpty()) {
 
-
                 String originalFileName =
                         logoFile.getOriginalFilename();
 
-
                 String extension = "";
-
 
                 if (originalFileName != null
                         && originalFileName.contains(".")) {
@@ -116,11 +97,10 @@ public class SettingController
                                     .toLowerCase();
                 }
 
-
                 String newFileName =
                         UUID.randomUUID()
                                 .toString()
-                                + extension;
+                        + extension;
 
 
                 Path uploadDirectory =
@@ -160,39 +140,32 @@ public class SettingController
             // SAVE SETTINGS
             // =========================================
 
-            settingService
-                    .saveSettings(setting);
-
+            settingService.saveSettings(setting);
 
             return "redirect:/settings?saved=true";
 
 
         } catch (IllegalArgumentException e) {
 
-
             model.addAttribute(
                     "setting",
                     setting
             );
-
 
             model.addAttribute(
                     "errorMessage",
                     e.getMessage()
             );
 
-
             return "settings";
 
 
         } catch (IOException e) {
 
-
             model.addAttribute(
                     "setting",
                     setting
             );
-
 
             model.addAttribute(
                     "errorMessage",
@@ -200,25 +173,21 @@ public class SettingController
                     + e.getMessage()
             );
 
-
             return "settings";
 
 
         } catch (Exception e) {
-
 
             model.addAttribute(
                     "setting",
                     setting
             );
 
-
             model.addAttribute(
                     "errorMessage",
                     "Settings save failed: "
                     + e.getMessage()
             );
-
 
             return "settings";
         }
@@ -232,7 +201,6 @@ public class SettingController
     @Override
     public void addResourceHandlers(
             ResourceHandlerRegistry registry) {
-
 
         registry
                 .addResourceHandler(
@@ -252,31 +220,25 @@ public class SettingController
     public String factoryReset(
             Model model) {
 
-
         try {
 
-
             settingService.factoryReset();
-
 
             return "redirect:/settings?reset=true";
 
 
         } catch (Exception e) {
 
-
             model.addAttribute(
                     "setting",
                     settingService.getSettings()
             );
-
 
             model.addAttribute(
                     "errorMessage",
                     "Factory Reset failed: "
                     + e.getMessage()
             );
-
 
             return "settings";
         }

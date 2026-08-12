@@ -11,6 +11,7 @@
 
     <title>FundSphere ERP | Ledger</title>
 
+
     <style>
 
         * {
@@ -20,60 +21,421 @@
         body {
             margin: 0;
             font-family: Arial, Helvetica, sans-serif;
-            background: #f4f7fb;
+            background: #f5f7fb;
             color: #1f2937;
         }
 
+
+        /* =====================================================
+           SIDEBAR — SAME AS DASHBOARD
+           ===================================================== */
+
+        .sidebar {
+
+            position: fixed;
+
+            left: 0;
+
+            top: 0;
+
+            width: 235px;
+
+            height: 100vh;
+
+            background: #0877d1;
+
+            color: white;
+
+            padding: 15px 15px;
+
+            overflow-y: auto;
+
+            scrollbar-width: none;
+
+            z-index: 1000;
+        }
+
+
+        .sidebar::-webkit-scrollbar {
+            display: none;
+        }
+
+
+        .logo-area {
+
+            text-align: center;
+
+            padding: 2px 0 15px;
+        }
+
+
+        .logo-area img {
+
+            width: 70px;
+
+            height: 70px;
+
+            object-fit: contain;
+
+            background: white;
+
+            border-radius: 12px;
+
+            padding: 5px;
+        }
+
+
+        .logo-area h2 {
+
+            margin: 7px 0 0;
+
+            font-size: 19px;
+        }
+
+
+        .logo-area p {
+
+            margin: 2px 0;
+
+            font-size: 11px;
+
+            opacity: .85;
+        }
+
+
+        .menu {
+
+            margin-top: 4px;
+        }
+
+
+        .menu a {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            color: white;
+
+            text-decoration: none;
+
+            padding: 9px 12px;
+
+            border-radius: 7px;
+
+            margin-bottom: 2px;
+
+            font-size: 13px;
+        }
+
+
+        .menu a:hover,
+
+        .menu a.active {
+
+            background: white;
+
+            color: #0877d1;
+        }
+
+
+        .menu-icon {
+
+            width: 22px;
+
+            min-width: 22px;
+
+            text-align: center;
+        }
+
+
+        /* ================= LOGOUT ================= */
+
+        .logout-form {
+
+            margin-top: 10px;
+
+            padding-top: 9px;
+
+            border-top:
+                1px solid
+                rgba(255,255,255,.25);
+        }
+
+
+        .logout-button {
+
+            width: 100%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: flex-start;
+
+            gap: 10px;
+
+            padding: 9px 12px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: #dc2626;
+
+            color: white;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+
+        .logout-button:hover {
+
+            background: #b91c1c;
+        }
+
+
+        .logout-icon {
+
+            width: 22px;
+
+            min-width: 22px;
+
+            text-align: center;
+        }
+
+
+        /* =====================================================
+           MAIN
+           ===================================================== */
+
+        .main {
+
+            margin-left: 235px;
+
+            min-height: 100vh;
+        }
+
+
+        /* =====================================================
+           TOPBAR — SAME AS DASHBOARD
+           ===================================================== */
+
+        .topbar {
+
+            min-height: 75px;
+
+            background: white;
+
+            border-bottom:
+                1px solid
+                #e5e7eb;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 12px 30px;
+        }
+
+
+        .search {
+
+            width: 350px;
+        }
+
+
+        .search input {
+
+            width: 100%;
+
+            padding: 12px 18px;
+
+            border:
+                1px solid
+                #e5e7eb;
+
+            border-radius: 25px;
+
+            outline: none;
+
+            font-size: 14px;
+        }
+
+
+        .user-area {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 18px;
+        }
+
+
+        .notification {
+
+            font-size: 22px;
+
+            color: #555;
+        }
+
+
+        .user {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+
+        .user-icon {
+
+            width: 38px;
+
+            height: 38px;
+
+            border-radius: 50%;
+
+            background: #e9f7ef;
+
+            color: #159447;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-weight: bold;
+        }
+
+
+        .user-info strong {
+
+            display: block;
+
+            font-size: 13px;
+        }
+
+
+        .user-info span {
+
+            font-size: 11px;
+
+            color: #777;
+        }
+
+
+        .role-badge {
+
+            display: inline-block;
+
+            margin-top: 3px;
+
+            padding: 3px 7px;
+
+            border-radius: 10px;
+
+            background: #e0f2fe;
+
+            color: #0369a1;
+
+            font-size: 10px;
+
+            font-weight: bold;
+        }
+
+
+        /* =====================================================
+           PAGE
+           ===================================================== */
+
         .page {
+
             max-width: 1550px;
+
             margin: 20px auto;
+
             padding: 0 18px;
         }
+
 
         /* =====================================================
            HEADER
            ===================================================== */
 
         .header {
-            background: linear-gradient(
-                135deg,
-                #0877d1,
-                #075da8
-            );
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0877d1,
+                    #075da8
+                );
 
             color: white;
+
             padding: 23px 27px;
 
             border-radius: 12px 12px 0 0;
 
             display: flex;
+
             justify-content: space-between;
+
             align-items: center;
 
             gap: 15px;
         }
 
+
         .header h1 {
+
             margin: 0;
+
             font-size: 27px;
         }
 
+
         .header p {
+
             margin: 7px 0 0;
+
             font-size: 14px;
+
             opacity: .9;
         }
 
+
         .header-buttons {
+
             display: flex;
+
             gap: 8px;
+
             flex-wrap: wrap;
         }
 
+
         .btn {
+
             display: inline-block;
+
             border: none;
+
             text-decoration: none;
+
             cursor: pointer;
 
             padding: 10px 15px;
@@ -81,46 +443,41 @@
             border-radius: 7px;
 
             font-weight: bold;
+
             font-size: 13px;
         }
 
+
         .btn-print {
+
             background: white;
+
             color: #075da8;
         }
 
-        .btn-dashboard {
-            background: #064d8e;
-            color: white;
-        }
-
-        .btn-filter {
-            background: #0877d1;
-            color: white;
-        }
-
-        .btn-all {
-            background: #e2e8f0;
-            color: #334155;
-        }
 
         /* =====================================================
            CONTENT
            ===================================================== */
 
         .content {
+
             background: white;
+
             padding: 25px;
 
             box-shadow:
-                0 4px 15px rgba(0,0,0,.07);
+                0 4px 15px
+                rgba(0,0,0,.07);
         }
+
 
         /* =====================================================
            FILTER
            ===================================================== */
 
         .filter-box {
+
             background: #f8fafc;
 
             border: 1px solid #e5e7eb;
@@ -132,14 +489,21 @@
             margin-bottom: 22px;
         }
 
+
         .filter-title {
+
             color: #075da8;
+
             font-size: 16px;
+
             font-weight: bold;
+
             margin-bottom: 14px;
         }
 
+
         .filter-form {
+
             display: grid;
 
             grid-template-columns:
@@ -150,20 +514,31 @@
             align-items: end;
         }
 
+
         .filter-group {
+
             display: flex;
+
             flex-direction: column;
+
             gap: 5px;
         }
 
+
         .filter-group label {
+
             font-size: 11px;
+
             color: #64748b;
+
             font-weight: bold;
         }
 
+
         .filter-form input,
+
         .filter-form select {
+
             width: 100%;
 
             padding: 11px 12px;
@@ -179,27 +554,55 @@
             background: white;
         }
 
+
         .filter-form input:focus,
+
         .filter-form select:focus {
+
             border-color: #0877d1;
         }
 
+
         .filter-actions {
+
             display: flex;
+
             gap: 8px;
+
             align-items: center;
         }
 
+
         .filter-actions .btn {
+
             flex: 1;
+
             text-align: center;
         }
+
+
+        .btn-filter {
+
+            background: #0877d1;
+
+            color: white;
+        }
+
+
+        .btn-all {
+
+            background: #e2e8f0;
+
+            color: #334155;
+        }
+
 
         /* =====================================================
            SUMMARY
            ===================================================== */
 
         .summary {
+
             display: grid;
 
             grid-template-columns:
@@ -210,7 +613,9 @@
             margin-bottom: 28px;
         }
 
+
         .summary-card {
+
             background: #f8fafc;
 
             border: 1px solid #e2e8f0;
@@ -222,34 +627,49 @@
             text-align: center;
         }
 
+
         .summary-label {
+
             color: #64748b;
+
             font-size: 12px;
+
             margin-bottom: 8px;
         }
 
+
         .summary-value {
+
             font-size: 23px;
+
             font-weight: bold;
         }
 
+
         .credit {
+
             color: #15803d;
         }
 
+
         .debit {
+
             color: #dc2626;
         }
 
+
         .balance {
+
             color: #075da8;
         }
 
+
         /* =====================================================
-           SECTION
+           SECTION TITLE
            ===================================================== */
 
         .section-title {
+
             font-size: 20px;
 
             font-weight: bold;
@@ -264,11 +684,13 @@
             margin-bottom: 15px;
         }
 
+
         /* =====================================================
            TABLE
            ===================================================== */
 
         .table-wrapper {
+
             overflow-x: auto;
 
             border:
@@ -277,7 +699,9 @@
             border-radius: 8px;
         }
 
+
         table {
+
             width: 100%;
 
             border-collapse:
@@ -286,12 +710,17 @@
             min-width: 1200px;
         }
 
+
         thead {
+
             background: #075da8;
+
             color: white;
         }
 
+
         th {
+
             padding: 12px 10px;
 
             text-align: left;
@@ -301,7 +730,9 @@
             white-space: nowrap;
         }
 
+
         td {
+
             padding: 11px 10px;
 
             border-bottom:
@@ -312,33 +743,49 @@
             vertical-align: middle;
         }
 
+
         tbody tr:hover {
+
             background: #f8fafc;
         }
 
+
         .amount-credit {
+
             color: #15803d;
+
             font-weight: bold;
+
             white-space: nowrap;
         }
+
 
         .amount-debit {
+
             color: #dc2626;
+
             font-weight: bold;
+
             white-space: nowrap;
         }
 
+
         .amount-balance {
+
             color: #075da8;
+
             font-weight: bold;
+
             white-space: nowrap;
         }
+
 
         /* =====================================================
            BADGES
            ===================================================== */
 
         .badge {
+
             display: inline-block;
 
             padding: 5px 9px;
@@ -352,54 +799,79 @@
             white-space: nowrap;
         }
 
+
         .badge-contribution {
+
             background: #dcfce7;
+
             color: #166534;
         }
 
+
         .badge-business {
+
             background: #dbeafe;
+
             color: #1d4ed8;
         }
 
+
         .badge-emergency {
+
             background: #fee2e2;
+
             color: #991b1b;
         }
 
+
         .badge-expense {
+
             background: #ffedd5;
+
             color: #c2410c;
         }
 
+
         .badge-other {
+
             background: #e2e8f0;
+
             color: #334155;
         }
+
 
         /* =====================================================
            MEMBER
            ===================================================== */
 
         .member-code {
+
             color: #075da8;
+
             font-weight: bold;
         }
 
+
         .member-name {
+
             color: #475569;
         }
 
+
         .reference {
+
             font-weight: bold;
+
             color: #334155;
         }
+
 
         /* =====================================================
            EMPTY
            ===================================================== */
 
         .empty {
+
             text-align: center;
 
             padding: 45px 20px;
@@ -407,11 +879,13 @@
             color: #64748b;
         }
 
+
         /* =====================================================
            INFO
            ===================================================== */
 
         .info-box {
+
             margin-top: 20px;
 
             padding: 15px;
@@ -430,72 +904,113 @@
             line-height: 1.7;
         }
 
+
         /* =====================================================
            PRINT
            ===================================================== */
 
         .print-header {
+
             display: none;
         }
+
 
         @media print {
 
             @page {
+
                 size: landscape;
+
                 margin: 10mm;
             }
 
+
             body {
+
                 background: white;
             }
 
-            .page {
-                max-width: none;
-                margin: 0;
-                padding: 0;
-            }
+
+            .sidebar,
+
+            .topbar,
 
             .header,
+
             .filter-box,
+
             .no-print {
+
                 display: none !important;
             }
 
-            .content {
-                box-shadow: none;
+
+            .main {
+
+                margin-left: 0;
+            }
+
+
+            .page {
+
+                max-width: none;
+
+                margin: 0;
+
                 padding: 0;
             }
 
+
+            .content {
+
+                box-shadow: none;
+
+                padding: 0;
+            }
+
+
             .print-header {
+
                 display: block;
+
                 text-align: center;
+
                 margin-bottom: 15px;
             }
 
-            .print-header h1 {
-                margin: 0;
-            }
 
             .table-wrapper {
+
                 overflow: visible;
             }
 
+
             table {
+
                 min-width: 0;
             }
 
+
             th,
+
             td {
+
                 border: 1px solid #999;
+
                 font-size: 9px;
+
                 padding: 5px;
             }
 
+
             .summary {
+
                 grid-template-columns:
                     repeat(3, 1fr);
             }
+
         }
+
 
         /* =====================================================
            RESPONSIVE
@@ -504,67 +1019,176 @@
         @media(max-width:1100px) {
 
             .filter-form {
+
                 grid-template-columns:
                     repeat(2, 1fr);
             }
+
         }
+
 
         @media(max-width:850px) {
 
             .summary {
+
                 grid-template-columns:
                     1fr;
             }
 
+
             .header {
+
                 flex-direction: column;
+
                 align-items: flex-start;
             }
 
+
             .header-buttons {
+
                 width: 100%;
             }
 
+
             .header-buttons .btn {
+
                 flex: 1;
+
                 text-align: center;
             }
 
+
             .filter-form {
+
                 grid-template-columns: 1fr;
             }
 
+
             .filter-actions {
+
                 width: 100%;
             }
+
         }
+
+
+        /* =====================================================
+           SAME DASHBOARD MOBILE SIDEBAR
+           ===================================================== */
+
+        @media(max-width:750px) {
+
+            .sidebar {
+
+                width: 70px;
+
+                padding: 15px 8px;
+            }
+
+
+            .logo-area h2,
+
+            .logo-area p,
+
+            .menu-text,
+
+            .logout-text {
+
+                display: none;
+            }
+
+
+            .logo-area img {
+
+                width: 48px;
+
+                height: 48px;
+            }
+
+
+            .menu a {
+
+                justify-content: center;
+            }
+
+
+            .logout-button {
+
+                justify-content: center;
+            }
+
+
+            .main {
+
+                margin-left: 70px;
+            }
+
+
+            .topbar {
+
+                padding: 10px 15px;
+            }
+
+
+            .search {
+
+                width: 200px;
+            }
+
+        }
+
 
         @media(max-width:550px) {
 
             .page {
+
                 margin: 10px auto;
+
                 padding: 0 8px;
             }
 
+
             .content {
+
                 padding: 15px;
             }
 
+
             .header {
+
                 padding: 18px;
             }
 
+
             .header h1 {
+
                 font-size: 22px;
             }
 
+
             .filter-actions {
+
                 flex-direction: column;
             }
 
+
             .filter-actions .btn {
+
                 width: 100%;
             }
+
+
+            .search {
+
+                width: 140px;
+            }
+
+
+            .user-info {
+
+                display: none;
+            }
+
         }
 
     </style>
@@ -575,59 +1199,354 @@
 <body>
 
 
-<div class="page">
+<!-- =====================================================
+     SIDEBAR — DASHBOARD والی SAME SIDEBAR
+     ===================================================== -->
+
+<aside class="sidebar">
 
 
-    <!-- =====================================================
-         HEADER
-         ===================================================== -->
+    <div class="logo-area">
 
-    <div class="header">
-
-        <div>
-
-            <h1>
-                📒 Ledger
-            </h1>
-
-            <p>
-                FundSphere ERP — Complete Financial Ledger
-            </p>
-
-        </div>
+        <img
+            src="/images/logo.png"
+            alt="FundSphere ERP Logo">
 
 
-        <div class="header-buttons">
-
-            <button
-                type="button"
-                class="btn btn-print"
-                onclick="window.print()">
-
-                🖨 Print / PDF
-
-            </button>
+        <h2>
+            FundSphere ERP
+        </h2>
 
 
-            <a
-                href="/dashboard"
-                class="btn btn-dashboard">
-
-                ← Dashboard
-
-            </a>
-
-        </div>
+        <p>
+            Management System
+        </p>
 
     </div>
 
 
-    <div class="content">
+    <nav class="menu">
 
 
-        <!-- =====================================================
-             PRINT HEADER
-             ===================================================== -->
+        <!-- DASHBOARD -->
+
+        <a href="/dashboard">
+
+            <span class="menu-icon">
+                ▣
+            </span>
+
+            <span class="menu-text">
+                Dashboard
+            </span>
+
+        </a>
+
+
+        <!-- MEMBERS -->
+
+        <a href="/members">
+
+            <span class="menu-icon">
+                👥
+            </span>
+
+            <span class="menu-text">
+                Members
+            </span>
+
+        </a>
+
+
+        <!-- CONTRIBUTIONS -->
+
+        <a href="/contributions">
+
+            <span class="menu-icon">
+                💳
+            </span>
+
+            <span class="menu-text">
+                Contributions
+            </span>
+
+        </a>
+
+
+        <!-- BUSINESS FUND -->
+
+        <a href="/business-fund">
+
+            <span class="menu-icon">
+                💼
+            </span>
+
+            <span class="menu-text">
+                Business Fund
+            </span>
+
+        </a>
+
+
+        <!-- BUSINESS ACCOUNTING -->
+
+        <a href="/business-accounting">
+
+            <span class="menu-icon">
+                📊
+            </span>
+
+            <span class="menu-text">
+                Business Accounting
+            </span>
+
+        </a>
+
+
+        <!-- EMERGENCY FUND -->
+
+        <a href="/emergency-fund">
+
+            <span class="menu-icon">
+                ❤️
+            </span>
+
+            <span class="menu-text">
+                Emergency Fund
+            </span>
+
+        </a>
+
+
+        <!-- EXPENSES -->
+
+        <a href="/expenses">
+
+            <span class="menu-icon">
+                📊
+            </span>
+
+            <span class="menu-text">
+                Expenses
+            </span>
+
+        </a>
+
+
+        <!-- PROFIT -->
+
+        <a href="/profit">
+
+            <span class="menu-icon">
+                💰
+            </span>
+
+            <span class="menu-text">
+                Profit
+            </span>
+
+        </a>
+
+
+        <!-- LEDGER -->
+
+        <a href="/ledger"
+           class="active">
+
+            <span class="menu-icon">
+                📒
+            </span>
+
+            <span class="menu-text">
+                Ledger
+            </span>
+
+        </a>
+
+
+        <!-- REPORTS -->
+
+        <a href="/reports">
+
+            <span class="menu-icon">
+                📑
+            </span>
+
+            <span class="menu-text">
+                Reports
+            </span>
+
+        </a>
+
+
+        <!-- USER MANAGEMENT -->
+
+        <a
+            href="/user-management"
+            th:if="${isAdmin}">
+
+            <span class="menu-icon">
+                👤
+            </span>
+
+            <span class="menu-text">
+                User Management
+            </span>
+
+        </a>
+
+
+        <!-- SETTINGS -->
+
+        <a
+            href="/settings"
+            th:if="${isAdmin}">
+
+            <span class="menu-icon">
+                ⚙
+            </span>
+
+            <span class="menu-text">
+                Settings
+            </span>
+
+        </a>
+
+
+    </nav>
+
+
+    <!-- LOGOUT -->
+
+    <form
+        class="logout-form"
+        th:action="@{/logout}"
+        method="post">
+
+
+        <input
+            type="hidden"
+            th:name="${_csrf.parameterName}"
+            th:value="${_csrf.token}">
+
+
+        <button
+            type="submit"
+            class="logout-button"
+            onclick="return confirm('Are you sure you want to logout?');">
+
+
+            <span class="logout-icon">
+                🚪
+            </span>
+
+
+            <span class="logout-text">
+                Logout
+            </span>
+
+
+        </button>
+
+    </form>
+
+
+</aside>
+
+
+<!-- =====================================================
+     MAIN
+     ===================================================== -->
+
+<div class="main">
+
+
+    <!-- =====================================================
+         TOPBAR — DASHBOARD SAME
+         ===================================================== -->
+
+    <header class="topbar">
+
+
+        <div class="search">
+
+            <input
+                type="text"
+                placeholder="🔍  Search...">
+
+        </div>
+
+
+        <div class="user-area">
+
+
+            <div class="notification">
+                🔔
+            </div>
+
+
+            <div class="user">
+
+
+                <div class="user-icon">
+
+                    <span
+                        th:text="${currentUsername != null
+                                  && !currentUsername.isEmpty()
+                                  ? #strings.substring(currentUsername,0,1).toUpperCase()
+                                  : 'A'}">
+
+                        A
+
+                    </span>
+
+                </div>
+
+
+                <div class="user-info">
+
+
+                    <strong
+                        th:text="${currentUsername != null
+                                  ? currentUsername
+                                  : 'Administrator'}">
+
+                        Administrator
+
+                    </strong>
+
+
+                    <span
+                        class="role-badge"
+                        th:text="${currentRole != null
+                                  ? currentRole
+                                  : 'Super Admin'}">
+
+                        Super Admin
+
+                    </span>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </header>
+
+
+    <!-- =====================================================
+         PAGE
+         ===================================================== -->
+
+    <div class="page">
+
+
+        <!-- PRINT HEADER -->
 
         <div class="print-header">
 
@@ -642,694 +1561,250 @@
         </div>
 
 
-        <!-- =====================================================
-             FILTER
-             ===================================================== -->
+        <!-- =================================================
+             HEADER
+             ================================================= -->
 
-        <div class="filter-box no-print">
+        <div class="header">
 
-            <div class="filter-title">
+            <div>
 
-                🔎 Ledger Filters
+                <h1>
+                    📒 Ledger
+                </h1>
+
+                <p>
+                    FundSphere ERP — Complete Financial Ledger
+                </p>
 
             </div>
 
 
-            <form
-                class="filter-form"
-                method="get"
-                action="/ledger">
+            <div class="header-buttons">
 
+                <button
+                    type="button"
+                    class="btn btn-print"
+                    onclick="window.print()">
 
-                <!-- MEMBER -->
+                    🖨 Print / PDF
 
-                <div class="filter-group">
-
-                    <label>
-                        Member
-                    </label>
-
-                    <select name="memberCode">
-
-                        <option
-                            value=""
-                            th:selected="${selectedMember == null || selectedMember == ''}">
-
-                            All Members
-
-                        </option>
-
-
-                        <option
-                            th:each="m : ${members}"
-                            th:value="${m.code}"
-                            th:selected="${selectedMember != null && selectedMember.equalsIgnoreCase(m.code)}"
-                            th:text="${m.code + ' - ' + m.name}">
-
-                            FSP-000001 - Member
-
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <!-- SEARCH -->
-
-                <div class="filter-group">
-
-                    <label>
-                        Search
-                    </label>
-
-                    <input
-                        type="text"
-                        name="search"
-                        th:value="${search}"
-                        placeholder="Search transaction, member, description...">
-
-                </div>
-
-
-                <!-- FUND -->
-
-                <div class="filter-group">
-
-                    <label>
-                        Fund
-                    </label>
-
-                    <select name="fundType">
-
-                        <option
-                            value=""
-                            th:selected="${selectedFund == null || selectedFund == ''}">
-
-                            All Funds
-
-                        </option>
-
-
-                        <option
-                            value="Contribution"
-                            th:selected="${selectedFund != null && selectedFund.equalsIgnoreCase('Contribution')}">
-
-                            Contribution
-
-                        </option>
-
-
-                        <option
-                            value="Business Fund"
-                            th:selected="${selectedFund != null && selectedFund.equalsIgnoreCase('Business Fund')}">
-
-                            Business Fund
-
-                        </option>
-
-
-                        <option
-                            value="Emergency Fund"
-                            th:selected="${selectedFund != null && selectedFund.equalsIgnoreCase('Emergency Fund')}">
-
-                            Emergency Fund
-
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <!-- FROM DATE -->
-
-                <div class="filter-group">
-
-                    <label>
-                        From Date
-                    </label>
-
-                    <input
-                        type="date"
-                        name="fromDate"
-                        th:value="${fromDate}">
-
-                </div>
-
-
-                <!-- TO DATE -->
-
-                <div class="filter-group">
-
-                    <label>
-                        To Date
-                    </label>
-
-                    <input
-                        type="date"
-                        name="toDate"
-                        th:value="${toDate}">
-
-                </div>
-
-
-                <!-- ACTIONS -->
-
-                <div
-                    class="filter-actions"
-                    style="grid-column:1 / -1;">
-
-
-                    <button
-                        type="submit"
-                        class="btn btn-filter">
-
-                        🔍 Apply Filters
-
-                    </button>
-
-
-                    <a
-                        href="/ledger"
-                        class="btn btn-all">
-
-                        🔄 Clear Filters
-
-                    </a>
-
-                </div>
-
-
-            </form>
-
-        </div>
-
-
-        <!-- =====================================================
-             SUMMARY
-             ===================================================== -->
-
-        <div class="summary">
-
-
-            <!-- CREDIT -->
-
-            <div class="summary-card">
-
-                <div class="summary-label">
-                    Total Credit
-                </div>
-
-                <div class="summary-value credit">
-
-                    Rs.
-
-                    <span
-                        th:text="${#numbers.formatDecimal(totalCredit != null ? totalCredit : 0, 1, 2)}">
-
-                        0.00
-
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <!-- DEBIT -->
-
-            <div class="summary-card">
-
-                <div class="summary-label">
-                    Total Debit
-                </div>
-
-                <div class="summary-value debit">
-
-                    Rs.
-
-                    <span
-                        th:text="${#numbers.formatDecimal(totalDebit != null ? totalDebit : 0, 1, 2)}">
-
-                        0.00
-
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <!-- BALANCE -->
-
-            <div class="summary-card">
-
-                <div class="summary-label">
-                    Closing Balance
-                </div>
-
-                <div
-                    class="summary-value balance"
-                    th:classappend="${closingBalance != null && closingBalance < 0 ? 'debit' : ''}">
-
-                    Rs.
-
-                    <span
-                        th:text="${#numbers.formatDecimal(closingBalance != null ? closingBalance : 0, 1, 2)}">
-
-                        0.00
-
-                    </span>
-
-                </div>
+                </button>
 
             </div>
 
         </div>
 
 
-        <!-- =====================================================
-             LEDGER TITLE
-             ===================================================== -->
+        <div class="content">
 
-        <div class="section-title">
 
+            <!-- =================================================
+                 FILTER
+                 ================================================= -->
 
-            📋
+            <div class="filter-box no-print">
 
+                <div class="filter-title">
 
-            <span
-                th:if="${selectedMember == null || selectedMember == ''}">
+                    🔎 Ledger Filters
 
-                All Financial Transactions
+                </div>
 
-            </span>
 
+                <form
+                    class="filter-form"
+                    method="get"
+                    action="/ledger">
 
-            <span
-                th:if="${selectedMember != null && selectedMember != ''}">
 
-                Member Ledger:
+                    <!-- MEMBER -->
 
-                <strong
-                    th:text="${selectedMember}">
+                    <div class="filter-group">
 
-                    Member
+                        <label>
+                            Member
+                        </label>
 
-                </strong>
 
-            </span>
+                        <select name="memberCode">
 
+                            <option
+                                value=""
+                                th:selected="${selectedMember == null || selectedMember == ''}">
 
-        </div>
+                                All Members
 
+                            </option>
 
-        <!-- =====================================================
-             LEDGER TABLE
-             ===================================================== -->
 
-        <div class="table-wrapper">
+                            <option
+                                th:each="m : ${members}"
+                                th:value="${m.code}"
+                                th:selected="${selectedMember != null && selectedMember.equalsIgnoreCase(m.code)}"
+                                th:text="${m.code + ' - ' + m.name}">
 
-            <table>
+                                FSP-000001 - Member
 
+                            </option>
 
-                <thead>
+                        </select>
 
-                <tr>
+                    </div>
 
-                    <th>
-                        #
-                    </th>
 
-                    <th>
-                        Date
-                    </th>
+                    <!-- SEARCH -->
 
-                    <th>
-                        Reference
-                    </th>
+                    <div class="filter-group">
 
-                    <th>
-                        Source
-                    </th>
+                        <label>
+                            Search
+                        </label>
 
-                    <th>
-                        Type
-                    </th>
 
-                    <th>
-                        Fund
-                    </th>
+                        <input
+                            type="text"
+                            name="search"
+                            th:value="${search}"
+                            placeholder="Search transaction, member, description...">
 
-                    <th>
-                        Member Code
-                    </th>
-
-                    <th>
-                        Member Name
-                    </th>
-
-                    <th>
-                        Description
-                    </th>
-
-                    <th>
-                        Credit
-                    </th>
-
-                    <th>
-                        Debit
-                    </th>
-
-                    <th>
-                        Balance
-                    </th>
-
-                </tr>
-
-                </thead>
-
-
-                <tbody>
-
-
-                <!-- =================================================
-                     LEDGER ROWS
-                     ================================================= -->
-
-                <tr
-                    th:each="entry, stat : ${ledgerRows}">
-
-
-                    <!-- NUMBER -->
-
-                    <td
-                        th:text="${stat.count}">
-
-                        1
-
-                    </td>
-
-
-                    <!-- DATE -->
-
-                    <td
-                        th:text="${entry.date != null ? entry.date : '-'}">
-
-                        -
-
-                    </td>
-
-
-                    <!-- REFERENCE -->
-
-                    <td>
-
-                        <strong
-                            class="reference"
-                            th:text="${entry.reference != null && entry.reference != '' ? entry.reference : '-'}">
-
-                            -
-
-                        </strong>
-
-                    </td>
-
-
-                    <!-- SOURCE -->
-
-                    <td>
-
-
-                        <span
-                            th:if="${entry.source == 'CONTRIBUTION'}"
-                            class="badge badge-contribution">
-
-                            CONTRIBUTION
-
-                        </span>
-
-
-                        <span
-                            th:if="${entry.source == 'BUSINESS_FUND'}"
-                            class="badge badge-business">
-
-                            BUSINESS FUND
-
-                        </span>
-
-
-                        <span
-                            th:if="${entry.source == 'EMERGENCY_FUND'}"
-                            class="badge badge-emergency">
-
-                            EMERGENCY FUND
-
-                        </span>
-
-
-                        <span
-                            th:if="${entry.source == 'EXPENSE'}"
-                            class="badge badge-expense">
-
-                            EXPENSE
-
-                        </span>
-
-
-                        <span
-                            th:if="${entry.source != 'CONTRIBUTION'
-                                && entry.source != 'BUSINESS_FUND'
-                                && entry.source != 'EMERGENCY_FUND'
-                                && entry.source != 'EXPENSE'}"
-                            class="badge badge-other"
-                            th:text="${entry.source != null && entry.source != '' ? entry.source : 'OTHER'}">
-
-                            OTHER
-
-                        </span>
-
-                    </td>
-
-
-                    <!-- TYPE -->
-
-                    <td
-                        th:text="${entry.type != null && entry.type != '' ? entry.type : '-'}">
-
-                        -
-
-                    </td>
+                    </div>
 
 
                     <!-- FUND -->
 
-                    <td
-                        th:text="${entry.fund != null && entry.fund != '' ? entry.fund : '-'}">
+                    <div class="filter-group">
 
-                        -
+                        <label>
+                            Fund
+                        </label>
 
-                    </td>
 
+                        <select name="fundType">
 
-                    <!-- MEMBER CODE -->
 
-                    <td>
+                            <option
+                                value=""
+                                th:selected="${selectedFund == null || selectedFund == ''}">
 
-                        <span
-                            class="member-code"
-                            th:text="${entry.memberCode != null && entry.memberCode != '' ? entry.memberCode : '-'}">
+                                All Funds
 
-                            -
+                            </option>
 
-                        </span>
 
-                    </td>
+                            <option
+                                value="Contribution"
+                                th:selected="${selectedFund != null && selectedFund.equalsIgnoreCase('Contribution')}">
 
+                                Contribution
 
-                    <!-- MEMBER NAME -->
+                            </option>
 
-                    <td>
 
-                        <span
-                            class="member-name"
-                            th:text="${entry.memberName != null && entry.memberName != '' ? entry.memberName : '-'}">
+                            <option
+                                value="Business Fund"
+                                th:selected="${selectedFund != null && selectedFund.equalsIgnoreCase('Business Fund')}">
 
-                            -
+                                Business Fund
 
-                        </span>
+                            </option>
 
-                    </td>
 
+                            <option
+                                value="Emergency Fund"
+                                th:selected="${selectedFund != null && selectedFund.equalsIgnoreCase('Emergency Fund')}">
 
-                    <!-- DESCRIPTION -->
+                                Emergency Fund
 
-                    <td
-                        th:text="${entry.description != null && entry.description != '' ? entry.description : '-'}">
+                            </option>
 
-                        -
+                        </select>
 
-                    </td>
+                    </div>
 
 
-                    <!-- CREDIT -->
+                    <!-- FROM DATE -->
 
-                    <td
-                        class="amount-credit">
+                    <div class="filter-group">
 
+                        <label>
+                            From Date
+                        </label>
 
-                        <span
-                            th:if="${entry.credit != null && entry.credit > 0}">
 
-                            Rs.
+                        <input
+                            type="date"
+                            name="fromDate"
+                            th:value="${fromDate}">
 
-                            <span
-                                th:text="${#numbers.formatDecimal(entry.credit, 1, 2)}">
+                    </div>
 
-                                0.00
 
-                            </span>
+                    <!-- TO DATE -->
 
-                        </span>
+                    <div class="filter-group">
 
+                        <label>
+                            To Date
+                        </label>
 
-                        <span
-                            th:if="${entry.credit == null || entry.credit <= 0}">
 
-                            -
+                        <input
+                            type="date"
+                            name="toDate"
+                            th:value="${toDate}">
 
-                        </span>
+                    </div>
 
 
-                    </td>
+                    <!-- ACTIONS -->
 
+                    <div
+                        class="filter-actions"
+                        style="grid-column:1 / -1;">
 
-                    <!-- DEBIT -->
 
-                    <td
-                        class="amount-debit">
+                        <button
+                            type="submit"
+                            class="btn btn-filter">
 
+                            🔍 Apply Filters
 
-                        <span
-                            th:if="${entry.debit != null && entry.debit > 0}">
+                        </button>
 
-                            Rs.
 
-                            <span
-                                th:text="${#numbers.formatDecimal(entry.debit, 1, 2)}">
+                        <a
+                            href="/ledger"
+                            class="btn btn-all">
 
-                                0.00
+                            🔄 Clear Filters
 
-                            </span>
+                        </a>
 
-                        </span>
 
+                    </div>
 
-                        <span
-                            th:if="${entry.debit == null || entry.debit <= 0}">
 
-                            -
+                </form>
 
-                        </span>
+            </div>
 
 
-                    </td>
+            <!-- =================================================
+                 SUMMARY
+                 ================================================= -->
 
+            <div class="summary">
 
-                    <!-- BALANCE -->
 
-                    <td
-                        class="amount-balance">
+                <div class="summary-card">
 
+                    <div class="summary-label">
+                        Total Credit
+                    </div>
 
-                        <span
-                            th:if="${entry.balance != null}">
 
-                            Rs.
-
-                            <span
-                                th:text="${#numbers.formatDecimal(entry.balance, 1, 2)}">
-
-                                0.00
-
-                            </span>
-
-                        </span>
-
-
-                        <span
-                            th:if="${entry.balance == null}">
-
-                            Rs. 0.00
-
-                        </span>
-
-
-                    </td>
-
-
-                </tr>
-
-
-                <!-- =================================================
-                     EMPTY
-                     ================================================= -->
-
-                <tr
-                    th:if="${ledgerRows == null || #lists.isEmpty(ledgerRows)}">
-
-
-                    <td
-                        colspan="12"
-                        class="empty">
-
-                        📭
-
-                        <br><br>
-
-                        No ledger transactions found.
-
-                        <br>
-
-                        Try changing your filters or add
-                        financial transactions first.
-
-                    </td>
-
-                </tr>
-
-
-                </tbody>
-
-
-                <!-- =================================================
-                     TOTALS
-                     ================================================= -->
-
-                <tfoot
-                    th:if="${ledgerRows != null && !#lists.isEmpty(ledgerRows)}">
-
-
-                <tr>
-
-
-                    <td
-                        colspan="9"
-                        style="
-                            text-align:right;
-                            font-weight:bold;
-                        ">
-
-                        TOTAL
-
-                    </td>
-
-
-                    <!-- TOTAL CREDIT -->
-
-                    <td
-                        class="amount-credit">
+                    <div class="summary-value credit">
 
                         Rs.
 
@@ -1340,13 +1815,19 @@
 
                         </span>
 
-                    </td>
+                    </div>
+
+                </div>
 
 
-                    <!-- TOTAL DEBIT -->
+                <div class="summary-card">
 
-                    <td
-                        class="amount-debit">
+                    <div class="summary-label">
+                        Total Debit
+                    </div>
+
+
+                    <div class="summary-value debit">
 
                         Rs.
 
@@ -1357,13 +1838,21 @@
 
                         </span>
 
-                    </td>
+                    </div>
+
+                </div>
 
 
-                    <!-- CLOSING -->
+                <div class="summary-card">
 
-                    <td
-                        class="amount-balance">
+                    <div class="summary-label">
+                        Closing Balance
+                    </div>
+
+
+                    <div
+                        class="summary-value balance"
+                        th:classappend="${closingBalance != null && closingBalance < 0 ? 'debit' : ''}">
 
                         Rs.
 
@@ -1374,92 +1863,519 @@
 
                         </span>
 
-                    </td>
+                    </div>
+
+                </div>
 
 
-                </tr>
+            </div>
 
 
-                </tfoot>
+            <!-- =================================================
+                 LEDGER TITLE
+                 ================================================= -->
+
+            <div class="section-title">
 
 
-            </table>
-
-        </div>
+                📋
 
 
-        <!-- =====================================================
-             ACCOUNTING RULE
-             ===================================================== -->
+                <span
+                    th:if="${selectedMember == null || selectedMember == ''}">
 
-        <div class="info-box">
+                    All Financial Transactions
 
-
-            <strong>
-                📌 Ledger Calculation:
-            </strong>
+                </span>
 
 
-            <br>
+                <span
+                    th:if="${selectedMember != null && selectedMember != ''}">
+
+                    Member Ledger:
+
+                    <strong
+                        th:text="${selectedMember}">
+
+                        Member
+
+                    </strong>
+
+                </span>
 
 
-            Member Contributions are recorded as
-            <strong>Credit</strong>.
+            </div>
 
 
-            <br>
+            <!-- =================================================
+                 LEDGER TABLE
+                 ================================================= -->
+
+            <div class="table-wrapper">
+
+                <table>
 
 
-            Business Income and Profit are recorded as
-            <strong>Credit</strong>.
+                    <thead>
+
+                    <tr>
+
+                        <th>#</th>
+
+                        <th>Date</th>
+
+                        <th>Reference</th>
+
+                        <th>Source</th>
+
+                        <th>Type</th>
+
+                        <th>Fund</th>
+
+                        <th>Member Code</th>
+
+                        <th>Member Name</th>
+
+                        <th>Description</th>
+
+                        <th>Credit</th>
+
+                        <th>Debit</th>
+
+                        <th>Balance</th>
+
+                    </tr>
+
+                    </thead>
 
 
-            <br>
+                    <tbody>
 
 
-            Business Withdrawals are recorded as
-            <strong>Debit</strong>.
+                    <tr
+                        th:each="entry, stat : ${ledgerRows}">
 
 
-            <br>
+                        <td
+                            th:text="${stat.count}">
+
+                            1
+
+                        </td>
 
 
-            Emergency Fund Income / Deposit is recorded as
-            <strong>Credit</strong>.
+                        <td
+                            th:text="${entry.date != null ? entry.date : '-'}">
+
+                            -
+
+                        </td>
 
 
-            <br>
+                        <td>
+
+                            <strong
+                                class="reference"
+                                th:text="${entry.reference != null && entry.reference != '' ? entry.reference : '-'}">
+
+                                -
+
+                            </strong>
+
+                        </td>
 
 
-            Emergency Fund Withdrawals are recorded as
-            <strong>Debit</strong>.
+                        <!-- SOURCE -->
+
+                        <td>
 
 
-            <br>
+                            <span
+                                th:if="${entry.source == 'CONTRIBUTION'}"
+                                class="badge badge-contribution">
+
+                                CONTRIBUTION
+
+                            </span>
 
 
-            General Expenses are recorded as
-            <strong>Debit</strong>.
+                            <span
+                                th:if="${entry.source == 'BUSINESS_FUND'}"
+                                class="badge badge-business">
+
+                                BUSINESS FUND
+
+                            </span>
 
 
-            <br>
+                            <span
+                                th:if="${entry.source == 'EMERGENCY_FUND'}"
+                                class="badge badge-emergency">
+
+                                EMERGENCY FUND
+
+                            </span>
 
 
-            Running Balance =
-            <strong>
-                Total Credit − Total Debit
-            </strong>.
+                            <span
+                                th:if="${entry.source == 'EXPENSE'}"
+                                class="badge badge-expense">
+
+                                EXPENSE
+
+                            </span>
 
 
-            <br><br>
+                            <span
+                                th:if="${entry.source != 'CONTRIBUTION'
+                                    && entry.source != 'BUSINESS_FUND'
+                                    && entry.source != 'EMERGENCY_FUND'
+                                    && entry.source != 'EXPENSE'}"
+                                class="badge badge-other"
+                                th:text="${entry.source != null && entry.source != '' ? entry.source : 'OTHER'}">
+
+                                OTHER
+
+                            </span>
+
+                        </td>
 
 
-            <strong>
-                Note:
-            </strong>
+                        <!-- TYPE -->
 
-            Contribution allocations are not counted again
-            as separate transactions in the ledger.
+                        <td
+                            th:text="${entry.type != null && entry.type != '' ? entry.type : '-'}">
+
+                            -
+
+                        </td>
+
+
+                        <!-- FUND -->
+
+                        <td
+                            th:text="${entry.fund != null && entry.fund != '' ? entry.fund : '-'}">
+
+                            -
+
+                        </td>
+
+
+                        <!-- MEMBER CODE -->
+
+                        <td>
+
+                            <span
+                                class="member-code"
+                                th:text="${entry.memberCode != null && entry.memberCode != '' ? entry.memberCode : '-'}">
+
+                                -
+
+                            </span>
+
+                        </td>
+
+
+                        <!-- MEMBER NAME -->
+
+                        <td>
+
+                            <span
+                                class="member-name"
+                                th:text="${entry.memberName != null && entry.memberName != '' ? entry.memberName : '-'}">
+
+                                -
+
+                            </span>
+
+                        </td>
+
+
+                        <!-- DESCRIPTION -->
+
+                        <td
+                            th:text="${entry.description != null && entry.description != '' ? entry.description : '-'}">
+
+                            -
+
+                        </td>
+
+
+                        <!-- CREDIT -->
+
+                        <td class="amount-credit">
+
+
+                            <span
+                                th:if="${entry.credit != null && entry.credit > 0}">
+
+                                Rs.
+
+                                <span
+                                    th:text="${#numbers.formatDecimal(entry.credit, 1, 2)}">
+
+                                    0.00
+
+                                </span>
+
+                            </span>
+
+
+                            <span
+                                th:if="${entry.credit == null || entry.credit <= 0}">
+
+                                -
+
+                            </span>
+
+
+                        </td>
+
+
+                        <!-- DEBIT -->
+
+                        <td class="amount-debit">
+
+
+                            <span
+                                th:if="${entry.debit != null && entry.debit > 0}">
+
+                                Rs.
+
+                                <span
+                                    th:text="${#numbers.formatDecimal(entry.debit, 1, 2)}">
+
+                                    0.00
+
+                                </span>
+
+                            </span>
+
+
+                            <span
+                                th:if="${entry.debit == null || entry.debit <= 0}">
+
+                                -
+
+                            </span>
+
+
+                        </td>
+
+
+                        <!-- BALANCE -->
+
+                        <td class="amount-balance">
+
+
+                            <span
+                                th:if="${entry.balance != null}">
+
+                                Rs.
+
+                                <span
+                                    th:text="${#numbers.formatDecimal(entry.balance, 1, 2)}">
+
+                                    0.00
+
+                                </span>
+
+                            </span>
+
+
+                            <span
+                                th:if="${entry.balance == null}">
+
+                                Rs. 0.00
+
+                            </span>
+
+
+                        </td>
+
+
+                    </tr>
+
+
+                    <!-- EMPTY -->
+
+                    <tr
+                        th:if="${ledgerRows == null || #lists.isEmpty(ledgerRows)}">
+
+
+                        <td
+                            colspan="12"
+                            class="empty">
+
+                            📭
+
+                            <br><br>
+
+                            No ledger transactions found.
+
+                            <br>
+
+                            Try changing your filters or add
+                            financial transactions first.
+
+                        </td>
+
+                    </tr>
+
+
+                    </tbody>
+
+
+                    <!-- TOTALS -->
+
+                    <tfoot
+                        th:if="${ledgerRows != null && !#lists.isEmpty(ledgerRows)}">
+
+
+                    <tr>
+
+
+                        <td
+                            colspan="9"
+                            style="
+                                text-align:right;
+                                font-weight:bold;
+                            ">
+
+                            TOTAL
+
+                        </td>
+
+
+                        <td class="amount-credit">
+
+                            Rs.
+
+                            <span
+                                th:text="${#numbers.formatDecimal(totalCredit != null ? totalCredit : 0, 1, 2)}">
+
+                                0.00
+
+                            </span>
+
+                        </td>
+
+
+                        <td class="amount-debit">
+
+                            Rs.
+
+                            <span
+                                th:text="${#numbers.formatDecimal(totalDebit != null ? totalDebit : 0, 1, 2)}">
+
+                                0.00
+
+                            </span>
+
+                        </td>
+
+
+                        <td class="amount-balance">
+
+                            Rs.
+
+                            <span
+                                th:text="${#numbers.formatDecimal(closingBalance != null ? closingBalance : 0, 1, 2)}">
+
+                                0.00
+
+                            </span>
+
+                        </td>
+
+
+                    </tr>
+
+
+                    </tfoot>
+
+
+                </table>
+
+            </div>
+
+
+            <!-- =================================================
+                 ACCOUNTING RULE
+                 ================================================= -->
+
+            <div class="info-box">
+
+
+                <strong>
+                    📌 Ledger Calculation:
+                </strong>
+
+
+                <br>
+
+
+                Member Contributions are recorded as
+                <strong>Credit</strong>.
+
+
+                <br>
+
+
+                Business Income and Profit are recorded as
+                <strong>Credit</strong>.
+
+
+                <br>
+
+
+                Business Withdrawals are recorded as
+                <strong>Debit</strong>.
+
+
+                <br>
+
+
+                Emergency Fund Income / Deposit is recorded as
+                <strong>Credit</strong>.
+
+
+                <br>
+
+
+                Emergency Fund Withdrawals are recorded as
+                <strong>Debit</strong>.
+
+
+                <br>
+
+
+                General Expenses are recorded as
+                <strong>Debit</strong>.
+
+
+                <br>
+
+
+                Running Balance =
+                <strong>
+                    Total Credit − Total Debit
+                </strong>.
+
+
+                <br><br>
+
+
+                <strong>
+                    Note:
+                </strong>
+
+                Contribution allocations are not counted again
+                as separate transactions in the ledger.
+
+
+            </div>
+
 
         </div>
 

@@ -1263,24 +1263,26 @@
 
             <div>
 
-                <img
-                    th:if="${organizationLogo != null
-                            && !organizationLogo.isEmpty()}"
-                    class="organization-logo"
-                    th:src="${organizationLogo}"
-                    alt="Organization Logo">
+    <img
+        th:if="${organizationLogo != null
+                && !#strings.isEmpty(organizationLogo)}"
+        class="organization-logo"
+        th:src="@{${organizationLogo}}"
+        alt="Organization Logo"
+        onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='flex';">
 
 
-                <div
-                    th:if="${organizationLogo == null
-                            || organizationLogo.isEmpty()}"
-                    class="organization-logo-placeholder">
+    <div
+        id="logoFallback"
+        th:if="${organizationLogo == null
+                || #strings.isEmpty(organizationLogo)}"
+        class="organization-logo-placeholder">
 
-                    F
+        F
 
-                </div>
+    </div>
 
-            </div>
+</div>
 
 
             <!-- ORGANIZATION INFORMATION -->

@@ -4,27 +4,149 @@
 <head>
 
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <title>FundSphere ERP | Settings</title>
 
-    <title>
-        FundSphere ERP | Settings
-    </title>
-
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <style>
 
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            margin: 0;
             font-family: Arial, Helvetica, sans-serif;
             background: #f4f7fb;
             color: #1f2937;
         }
+
+        /* ================= LAYOUT ================= */
+
+        .wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ================= SIDEBAR ================= */
+
+        .sidebar {
+            width: 250px;
+            background: #075da8;
+            color: white;
+            min-height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .logo {
+            padding: 22px 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255,255,255,.15);
+        }
+
+        .logo img {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+            border-radius: 8px;
+            background: white;
+        }
+
+        .logo h2 {
+            font-size: 18px;
+            white-space: nowrap;
+        }
+
+        .menu {
+            list-style: none;
+            padding: 15px 10px;
+        }
+
+        .menu li {
+            margin-bottom: 5px;
+        }
+
+        .menu li a {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 12px 14px;
+            color: white;
+            text-decoration: none;
+            border-radius: 7px;
+            font-size: 14px;
+            transition: .2s;
+        }
+
+        .menu li a i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .menu li a:hover {
+            background: rgba(255,255,255,.12);
+        }
+
+        .menu li.active a {
+            background: white;
+            color: #075da8;
+            font-weight: bold;
+        }
+
+        /* ================= MAIN ================= */
+
+        .main-content {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            min-height: 100vh;
+        }
+
+        /* ================= TOPBAR ================= */
+
+        .topbar {
+            height: 70px;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            position: sticky;
+            top: 0;
+            z-index: 900;
+        }
+
+        .topbar h1 {
+            font-size: 22px;
+            color: #111827;
+        }
+
+        .dashboard-btn {
+            text-decoration: none;
+            background: #075da8;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 7px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .dashboard-btn:hover {
+            background: #064d8e;
+        }
+
+        /* ================= PAGE ================= */
 
         .page {
             max-width: 1100px;
@@ -38,15 +160,14 @@
             background: #0877d1;
             color: white;
             padding: 24px 28px;
-            border-radius: 12px 12px 0 0;
-
+            border-radius: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 15px;
         }
 
-        .header h1 {
+        .header h2 {
             margin: 0;
             font-size: 27px;
         }
@@ -56,14 +177,14 @@
             opacity: .9;
         }
 
-        .dashboard-btn {
-            background: #075da8;
-            color: white;
-            text-decoration: none;
+        .print-btn {
+            background: white;
+            color: #0877d1;
+            border: none;
             padding: 10px 17px;
             border-radius: 7px;
             font-weight: bold;
-            font-size: 14px;
+            cursor: pointer;
         }
 
         /* ================= CONTENT ================= */
@@ -71,8 +192,9 @@
         .content {
             background: white;
             padding: 28px;
-            border-radius: 0 0 12px 12px;
+            border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,.08);
+            margin-top: 20px;
         }
 
         /* ================= ALERT ================= */
@@ -119,8 +241,6 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 18px;
         }
-
-        /* ================= FIELD ================= */
 
         .field {
             margin-bottom: 5px;
@@ -205,7 +325,7 @@
             word-break: break-all;
         }
 
-        /* ================= PERCENTAGE ================= */
+        /* ================= PERCENTAGES ================= */
 
         .percentage-grid {
             display: grid;
@@ -265,7 +385,7 @@
             line-height: 1.6;
         }
 
-        /* ================= SAVE BUTTONS ================= */
+        /* ================= BUTTONS ================= */
 
         .buttons {
             display: flex;
@@ -300,7 +420,7 @@
             font-weight: bold;
         }
 
-        /* ================= FACTORY RESET ================= */
+        /* ================= RESET ================= */
 
         .reset-section {
             margin-top: 45px;
@@ -351,12 +471,71 @@
 
         @media(max-width:900px) {
 
+            .sidebar {
+                width: 220px;
+            }
+
+            .main-content {
+                margin-left: 220px;
+                width: calc(100% - 220px);
+            }
+
             .percentage-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
+
         }
 
         @media(max-width:700px) {
+
+            .sidebar {
+                width: 65px;
+            }
+
+            .logo {
+                justify-content: center;
+                padding: 15px 5px;
+            }
+
+            .logo h2 {
+                display: none;
+            }
+
+            .logo img {
+                width: 40px;
+                height: 40px;
+            }
+
+            .menu {
+                padding: 12px 6px;
+            }
+
+            .menu li a {
+                justify-content: center;
+                padding: 13px 5px;
+            }
+
+            .menu li a span {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 65px;
+                width: calc(100% - 65px);
+            }
+
+            .topbar {
+                padding: 0 15px;
+            }
+
+            .topbar h1 {
+                font-size: 18px;
+            }
+
+            .dashboard-btn {
+                padding: 8px 10px;
+                font-size: 11px;
+            }
 
             .page {
                 margin: 10px auto;
@@ -389,6 +568,7 @@
                 width: 100%;
                 text-align: center;
             }
+
         }
 
         @media(max-width:400px) {
@@ -396,6 +576,39 @@
             .percentage-grid {
                 grid-template-columns: 1fr;
             }
+
+        }
+
+        /* ================= PRINT ================= */
+
+        @media print {
+
+            .sidebar,
+            .topbar,
+            .print-btn,
+            .reset-section {
+                display: none !important;
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            body {
+                background: white;
+            }
+
+            .page {
+                max-width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            .content {
+                box-shadow: none;
+            }
+
         }
 
     </style>
@@ -406,371 +619,565 @@
 <body>
 
 
-<div class="page">
+<div class="wrapper">
 
 
-    <!-- ================= HEADER ================= -->
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
 
-    <div class="header">
+    <aside class="sidebar">
 
-        <div>
+
+        <div class="logo">
+
+            <img
+                src="/images/logo.png"
+                alt="FundSphere Logo">
+
+            <h2>
+                FundSphere ERP
+            </h2>
+
+        </div>
+
+
+        <ul class="menu">
+
+
+            <li>
+
+                <a href="/dashboard">
+
+                    <i class="fas fa-home"></i>
+
+                    <span>
+                        Dashboard
+                    </span>
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="/members">
+
+                    <i class="fas fa-users"></i>
+
+                    <span>
+                        Members
+                    </span>
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="/contributions">
+
+                    <i class="fas fa-hand-holding-dollar"></i>
+
+                    <span>
+                        Contributions
+                    </span>
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="/business-accounting">
+
+                    <i class="fas fa-chart-line"></i>
+
+                    <span>
+                        Business Accounting
+                    </span>
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="/emergency-fund">
+
+                    <i class="fas fa-heart"></i>
+
+                    <span>
+                        Emergency Fund
+                    </span>
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="/expenses">
+
+                    <i class="fas fa-money-bill-wave"></i>
+
+                    <span>
+                        Expenses
+                    </span>
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="/profit">
+
+                    <i class="fas fa-coins"></i>
+
+                    <span>
+                        Profit
+                    </span>
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="/ledger">
+
+                    <i class="fas fa-book"></i>
+
+                    <span>
+                        Ledger
+                    </span>
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="/reports">
+
+                    <i class="fas fa-file-lines"></i>
+
+                    <span>
+                        Reports
+                    </span>
+
+                </a>
+
+            </li>
+
+
+            <!-- SETTINGS ACTIVE -->
+
+            <li class="active">
+
+                <a href="/settings">
+
+                    <i class="fas fa-gear"></i>
+
+                    <span>
+                        Settings
+                    </span>
+
+                </a>
+
+            </li>
+
+
+        </ul>
+
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
 
             <h1>
                 System Settings
             </h1>
 
-            <p>
-                FundSphere ERP — Organization & Fund Configuration
-            </p>
 
-        </div>
+            <a
+                href="/dashboard"
+                class="dashboard-btn">
 
+                <i class="fas fa-home"></i>
 
-        <a
-            href="/dashboard"
-            class="dashboard-btn">
+                Dashboard
 
-            ← Dashboard
+            </a>
 
-        </a>
-
-    </div>
+        </header>
 
 
-    <div class="content">
+
+        <!-- =================================================
+             PAGE
+        ================================================== -->
+
+        <div class="page">
 
 
-        <!-- ================= SUCCESS ================= -->
+            <!-- HEADER -->
 
-        <div
-            th:if="${param.saved}"
-            class="success">
+            <div class="header">
 
-            ✓ Settings saved successfully.
+                <div>
 
-        </div>
+                    <h2>
+                        System Settings
+                    </h2>
 
+                    <p>
+                        FundSphere ERP — Organization & Fund Configuration
+                    </p>
 
-        <!-- ================= RESET SUCCESS ================= -->
-
-        <div
-            th:if="${param.reset}"
-            class="success">
-
-            ✓ Factory Reset completed successfully.
-            FundSphere ERP is now in a fresh state.
-
-        </div>
-
-
-        <!-- ================= ERROR ================= -->
-
-        <div
-            th:if="${errorMessage != null}"
-            class="error"
-            th:text="${errorMessage}">
-
-            Error
-
-        </div>
-
-
-        <!-- ================================================= -->
-        <!-- SETTINGS FORM -->
-        <!-- ================================================= -->
-
-        <form
-            th:action="@{/settings/save}"
-            th:object="${setting}"
-            method="post"
-            enctype="multipart/form-data"
-            onsubmit="return validateSettings();">
-
-
-            <input
-                type="hidden"
-                th:field="*{id}">
-
-
-            <!-- ================================================= -->
-            <!-- ORGANIZATION INFORMATION -->
-            <!-- ================================================= -->
-
-            <div class="section">
-
-                <div class="section-title">
-                    Organization Information
                 </div>
 
 
-                <div class="grid">
+                <button
+                    type="button"
+                    class="print-btn"
+                    onclick="window.print()">
 
+                    🖨 Print
 
-                    <!-- ORGANIZATION NAME -->
+                </button>
 
-                    <div class="field">
+            </div>
 
-                        <label>
-                            Organization Name
-                        </label>
 
-                        <input
-                            type="text"
-                            th:field="*{organizationName}"
-                            placeholder="Enter organization name"
-                            maxlength="255">
 
-                    </div>
+            <!-- CONTENT -->
 
+            <div class="content">
 
-                    <!-- SHORT NAME -->
 
-                    <div class="field">
+                <!-- SUCCESS -->
 
-                        <label>
-                            Short Name
-                        </label>
+                <div
+                    th:if="${param.saved}"
+                    class="success">
 
-                        <input
-                            type="text"
-                            th:field="*{shortName}"
-                            placeholder="Enter short name"
-                            maxlength="100">
+                    ✓ Settings saved successfully.
 
-                    </div>
+                </div>
 
 
-                    <!-- TAGLINE -->
+                <!-- RESET SUCCESS -->
 
-                    <div
-                        class="field"
-                        style="grid-column:1 / -1;">
+                <div
+                    th:if="${param.reset}"
+                    class="success">
 
-                        <label>
-                            Tagline
-                        </label>
+                    ✓ Factory Reset completed successfully.
+                    FundSphere ERP is now in a fresh state.
 
-                        <input
-                            type="text"
-                            th:field="*{tagline}"
-                            placeholder="Enter organization tagline"
-                            maxlength="255">
+                </div>
 
-                    </div>
 
+                <!-- ERROR -->
 
-                    <!-- PHONE -->
+                <div
+                    th:if="${errorMessage != null}"
+                    class="error"
+                    th:text="${errorMessage}">
 
-                    <div class="field">
+                    Error
 
-                        <label>
-                            Phone
-                        </label>
+                </div>
 
-                        <input
-                            type="text"
-                            th:field="*{phone}"
-                            placeholder="Enter phone number"
-                            maxlength="50">
 
-                    </div>
 
+                <!-- =================================================
+                     SETTINGS FORM
+                ================================================== -->
 
-                    <!-- EMAIL -->
+                <form
+                    th:action="@{/settings/save}"
+                    th:object="${setting}"
+                    method="post"
+                    enctype="multipart/form-data"
+                    onsubmit="return validateSettings();">
 
-                    <div class="field">
 
-                        <label>
-                            Email
-                        </label>
+                    <input
+                        type="hidden"
+                        th:field="*{id}">
 
-                        <input
-                            type="email"
-                            th:field="*{email}"
-                            placeholder="Enter email address"
-                            maxlength="255">
 
-                    </div>
 
+                    <!-- ORGANIZATION -->
 
-                    <!-- WEBSITE -->
+                    <div class="section">
 
-                    <div class="field">
 
-                        <label>
-                            Website
-                        </label>
+                        <div class="section-title">
 
-                        <input
-                            type="text"
-                            th:field="*{website}"
-                            placeholder="https://example.com"
-                            maxlength="255">
+                            Organization Information
 
-                    </div>
+                        </div>
 
 
-                    <!-- REGISTRATION NUMBER -->
+                        <div class="grid">
 
-                    <div class="field">
 
-                        <label>
-                            Registration No.
-                        </label>
+                            <div class="field">
 
-                        <input
-                            type="text"
-                            th:field="*{registrationNo}"
-                            placeholder="Enter registration number"
-                            maxlength="100">
+                                <label>
+                                    Organization Name
+                                </label>
 
-                    </div>
-
-
-                    <!-- ADDRESS -->
-
-                    <div
-                        class="field"
-                        style="grid-column:1 / -1;">
-
-                        <label>
-                            Address
-                        </label>
-
-                        <textarea
-                            th:field="*{address}"
-                            placeholder="Enter organization address"
-                            maxlength="1000"></textarea>
-
-                    </div>
-
-
-                    <!-- DISTRICT -->
-
-                    <div class="field">
-
-                        <label>
-                            District
-                        </label>
-
-                        <input
-                            type="text"
-                            th:field="*{district}"
-                            placeholder="Enter district"
-                            maxlength="100">
-
-                    </div>
-
-
-                    <!-- PROVINCE -->
-
-                    <div class="field">
-
-                        <label>
-                            Province
-                        </label>
-
-                        <input
-                            type="text"
-                            th:field="*{province}"
-                            placeholder="Enter province"
-                            maxlength="100">
-
-                    </div>
-
-
-                    <!-- COUNTRY -->
-
-                    <div class="field">
-
-                        <label>
-                            Country
-                        </label>
-
-                        <input
-                            type="text"
-                            th:field="*{country}"
-                            placeholder="Enter country"
-                            maxlength="100">
-
-                    </div>
-
-
-                    <!-- ================================================= -->
-                    <!-- LOGO UPLOAD -->
-                    <!-- ================================================= -->
-
-                    <div
-                        class="field"
-                        style="grid-column:1 / -1;">
-
-                        <label>
-                            Organization Logo
-                        </label>
-
-
-                        <div class="logo-upload-box">
-
-
-                            <!-- CURRENT LOGO -->
-
-                            <div
-                                th:if="${setting.logoPath != null
-                                        && !#strings.isEmpty(setting.logoPath)}">
-
-                                <img
-                                    th:src="${setting.logoPath}"
-                                    alt="Organization Logo"
-                                    class="logo-preview">
+                                <input
+                                    type="text"
+                                    th:field="*{organizationName}"
+                                    placeholder="Enter organization name"
+                                    maxlength="255">
 
                             </div>
 
 
-                            <!-- NO LOGO -->
+                            <div class="field">
 
-                            <div
-                                th:unless="${setting.logoPath != null
-                                            && !#strings.isEmpty(setting.logoPath)}"
-                                class="no-logo">
+                                <label>
+                                    Short Name
+                                </label>
 
-                                No Logo Uploaded
-
-                            </div>
-
-
-                            <!-- FILE -->
-
-                            <input
-                                type="file"
-                                name="logoFile"
-                                id="logoFile"
-                                class="file-input"
-                                accept="image/png,image/jpeg,image/jpg,image/webp">
-
-
-                            <!-- CURRENT PATH -->
-
-                            <div
-                                class="logo-path"
-                                th:if="${setting.logoPath != null
-                                        && !#strings.isEmpty(setting.logoPath)}">
-
-                                Current Logo:
-
-                                <span
-                                    th:text="${setting.logoPath}">
-
-                                    /uploads/logo.png
-
-                                </span>
+                                <input
+                                    type="text"
+                                    th:field="*{shortName}"
+                                    placeholder="Enter short name"
+                                    maxlength="100">
 
                             </div>
 
 
-                            <div class="logo-path">
+                            <div
+                                class="field"
+                                style="grid-column:1 / -1;">
 
-                                Supported formats:
-                                PNG, JPG, JPEG, WEBP
+                                <label>
+                                    Tagline
+                                </label>
+
+                                <input
+                                    type="text"
+                                    th:field="*{tagline}"
+                                    placeholder="Enter organization tagline"
+                                    maxlength="255">
+
+                            </div>
+
+
+                            <div class="field">
+
+                                <label>
+                                    Phone
+                                </label>
+
+                                <input
+                                    type="text"
+                                    th:field="*{phone}"
+                                    placeholder="Enter phone number"
+                                    maxlength="50">
+
+                            </div>
+
+
+                            <div class="field">
+
+                                <label>
+                                    Email
+                                </label>
+
+                                <input
+                                    type="email"
+                                    th:field="*{email}"
+                                    placeholder="Enter email address"
+                                    maxlength="255">
+
+                            </div>
+
+
+                            <div class="field">
+
+                                <label>
+                                    Website
+                                </label>
+
+                                <input
+                                    type="text"
+                                    th:field="*{website}"
+                                    placeholder="https://example.com"
+                                    maxlength="255">
+
+                            </div>
+
+
+                            <div class="field">
+
+                                <label>
+                                    Registration No.
+                                </label>
+
+                                <input
+                                    type="text"
+                                    th:field="*{registrationNo}"
+                                    placeholder="Enter registration number"
+                                    maxlength="100">
+
+                            </div>
+
+
+                            <div
+                                class="field"
+                                style="grid-column:1 / -1;">
+
+                                <label>
+                                    Address
+                                </label>
+
+                                <textarea
+                                    th:field="*{address}"
+                                    placeholder="Enter organization address"
+                                    maxlength="1000"></textarea>
+
+                            </div>
+
+
+                            <div class="field">
+
+                                <label>
+                                    District
+                                </label>
+
+                                <input
+                                    type="text"
+                                    th:field="*{district}"
+                                    placeholder="Enter district"
+                                    maxlength="100">
+
+                            </div>
+
+
+                            <div class="field">
+
+                                <label>
+                                    Province
+                                </label>
+
+                                <input
+                                    type="text"
+                                    th:field="*{province}"
+                                    placeholder="Enter province"
+                                    maxlength="100">
+
+                            </div>
+
+
+                            <div class="field">
+
+                                <label>
+                                    Country
+                                </label>
+
+                                <input
+                                    type="text"
+                                    th:field="*{country}"
+                                    placeholder="Enter country"
+                                    maxlength="100">
+
+                            </div>
+
+
+
+                            <!-- LOGO -->
+
+                            <div
+                                class="field"
+                                style="grid-column:1 / -1;">
+
+                                <label>
+                                    Organization Logo
+                                </label>
+
+
+                                <div class="logo-upload-box">
+
+
+                                    <div
+                                        th:if="${setting.logoPath != null && !#strings.isEmpty(setting.logoPath)}">
+
+                                        <img
+                                            th:src="${setting.logoPath}"
+                                            alt="Organization Logo"
+                                            class="logo-preview">
+
+                                    </div>
+
+
+                                    <div
+                                        th:unless="${setting.logoPath != null && !#strings.isEmpty(setting.logoPath)}"
+                                        class="no-logo">
+
+                                        No Logo Uploaded
+
+                                    </div>
+
+
+                                    <input
+                                        type="file"
+                                        name="logoFile"
+                                        id="logoFile"
+                                        class="file-input"
+                                        accept="image/png,image/jpeg,image/jpg,image/webp">
+
+
+                                    <div
+                                        class="logo-path"
+                                        th:if="${setting.logoPath != null && !#strings.isEmpty(setting.logoPath)}">
+
+                                        Current Logo:
+
+                                        <span
+                                            th:text="${setting.logoPath}">
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="logo-path">
+
+                                        Supported formats:
+                                        PNG, JPG, JPEG, WEBP
+
+                                    </div>
+
+
+                                </div>
 
                             </div>
 
@@ -780,352 +1187,358 @@
                     </div>
 
 
-                </div>
 
-            </div>
+                    <!-- SYSTEM -->
 
-
-            <!-- ================================================= -->
-            <!-- SYSTEM SETTINGS -->
-            <!-- ================================================= -->
-
-            <div class="section">
-
-                <div class="section-title">
-                    System Settings
-                </div>
+                    <div class="section">
 
 
-                <div class="grid">
+                        <div class="section-title">
+
+                            System Settings
+
+                        </div>
 
 
-                    <div class="field">
-
-                        <label>
-                            Currency
-                        </label>
-
-                        <select
-                            th:field="*{currency}">
-
-                            <option value="Rs.">
-                                Rs. — Pakistani Rupee
-                            </option>
-
-                            <option value="$">
-                                $ — US Dollar
-                            </option>
-
-                            <option value="£">
-                                £ — British Pound
-                            </option>
-
-                            <option value="€">
-                                € — Euro
-                            </option>
-
-                        </select>
-
-                    </div>
+                        <div class="grid">
 
 
-                    <div class="field">
+                            <div class="field">
 
-                        <label>
-                            Date Format
-                        </label>
+                                <label>
+                                    Currency
+                                </label>
 
-                        <select
-                            th:field="*{dateFormat}">
+                                <select
+                                    th:field="*{currency}">
 
-                            <option value="yyyy-MM-dd">
-                                YYYY-MM-DD
-                            </option>
+                                    <option value="Rs.">
+                                        Rs. — Pakistani Rupee
+                                    </option>
 
-                            <option value="dd-MM-yyyy">
-                                DD-MM-YYYY
-                            </option>
+                                    <option value="$">
+                                        $ — US Dollar
+                                    </option>
 
-                            <option value="dd/MM/yyyy">
-                                DD/MM/YYYY
-                            </option>
+                                    <option value="£">
+                                        £ — British Pound
+                                    </option>
 
-                        </select>
+                                    <option value="€">
+                                        € — Euro
+                                    </option>
 
-                    </div>
+                                </select>
 
-                </div>
-
-            </div>
-
-
-            <!-- ================================================= -->
-            <!-- FUND DISTRIBUTION -->
-            <!-- ================================================= -->
-
-            <div class="section">
-
-                <div class="section-title">
-                    Fund Distribution
-                </div>
+                            </div>
 
 
-                <div class="percentage-grid">
+                            <div class="field">
+
+                                <label>
+                                    Date Format
+                                </label>
+
+                                <select
+                                    th:field="*{dateFormat}">
+
+                                    <option value="yyyy-MM-dd">
+                                        YYYY-MM-DD
+                                    </option>
+
+                                    <option value="dd-MM-yyyy">
+                                        DD-MM-YYYY
+                                    </option>
+
+                                    <option value="dd/MM/yyyy">
+                                        DD/MM/YYYY
+                                    </option>
+
+                                </select>
+
+                            </div>
 
 
-                    <div class="percentage-box">
-
-                        <label>
-                            Business Fund %
-                        </label>
-
-                        <input
-                            type="number"
-                            id="businessPercent"
-                            th:field="*{businessPercent}"
-                            min="0"
-                            max="100"
-                            step="1"
-                            oninput="calculateTotal()">
+                        </div>
 
                     </div>
 
 
-                    <div class="percentage-box">
 
-                        <label>
-                            Emergency Fund %
-                        </label>
+                    <!-- FUND DISTRIBUTION -->
 
-                        <input
-                            type="number"
-                            id="emergencyPercent"
-                            th:field="*{emergencyPercent}"
-                            min="0"
-                            max="100"
-                            step="1"
-                            oninput="calculateTotal()">
+                    <div class="section">
+
+
+                        <div class="section-title">
+
+                            Fund Distribution
+
+                        </div>
+
+
+                        <div class="percentage-grid">
+
+
+                            <div class="percentage-box">
+
+                                <label>
+                                    Business Fund %
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="businessPercent"
+                                    th:field="*{businessPercent}"
+                                    min="0"
+                                    max="100"
+                                    step="1"
+                                    oninput="calculateTotal()">
+
+                            </div>
+
+
+                            <div class="percentage-box">
+
+                                <label>
+                                    Emergency Fund %
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="emergencyPercent"
+                                    th:field="*{emergencyPercent}"
+                                    min="0"
+                                    max="100"
+                                    step="1"
+                                    oninput="calculateTotal()">
+
+                            </div>
+
+
+                            <div class="percentage-box">
+
+                                <label>
+                                    Education Fund %
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="educationPercent"
+                                    th:field="*{educationPercent}"
+                                    min="0"
+                                    max="100"
+                                    step="1"
+                                    oninput="calculateTotal()">
+
+                            </div>
+
+
+                            <div class="percentage-box">
+
+                                <label>
+                                    Welfare Fund %
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="welfarePercent"
+                                    th:field="*{welfarePercent}"
+                                    min="0"
+                                    max="100"
+                                    step="1"
+                                    oninput="calculateTotal()">
+
+                            </div>
+
+
+                            <div class="percentage-box">
+
+                                <label>
+                                    Administration %
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="administrationPercent"
+                                    th:field="*{administrationPercent}"
+                                    min="0"
+                                    max="100"
+                                    step="1"
+                                    oninput="calculateTotal()">
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div
+                            id="totalBox"
+                            class="total-box">
+
+                            Total Distribution:
+
+                            <span id="percentageTotal">
+                                0
+                            </span>%
+
+                        </div>
+
+
+                        <div class="info">
+
+                            <strong>Important:</strong>
+
+                            Fund distribution must always equal
+                            <strong>100%</strong>.
+
+                            <br>
+
+                            The system will not save settings if
+                            the total percentage is not exactly 100%.
+
+                        </div>
+
 
                     </div>
 
 
-                    <div class="percentage-box">
 
-                        <label>
-                            Education Fund %
-                        </label>
+                    <!-- SAVE -->
 
-                        <input
-                            type="number"
-                            id="educationPercent"
-                            th:field="*{educationPercent}"
-                            min="0"
-                            max="100"
-                            step="1"
-                            oninput="calculateTotal()">
+                    <div class="buttons">
 
-                    </div>
+                        <button
+                            type="submit"
+                            class="save-btn">
+
+                            Save Settings
+
+                        </button>
 
 
-                    <div class="percentage-box">
+                        <a
+                            href="/dashboard"
+                            class="cancel-btn">
 
-                        <label>
-                            Welfare Fund %
-                        </label>
+                            Cancel
 
-                        <input
-                            type="number"
-                            id="welfarePercent"
-                            th:field="*{welfarePercent}"
-                            min="0"
-                            max="100"
-                            step="1"
-                            oninput="calculateTotal()">
+                        </a>
 
                     </div>
-
-
-                    <div class="percentage-box">
-
-                        <label>
-                            Administration %
-                        </label>
-
-                        <input
-                            type="number"
-                            id="administrationPercent"
-                            th:field="*{administrationPercent}"
-                            min="0"
-                            max="100"
-                            step="1"
-                            oninput="calculateTotal()">
-
-                    </div>
-
-                </div>
-
-
-                <div
-                    id="totalBox"
-                    class="total-box">
-
-                    Total Distribution:
-
-                    <span id="percentageTotal">
-                        0
-                    </span>%
-
-                </div>
-
-
-                <div class="info">
-
-                    <strong>Important:</strong>
-
-                    Fund distribution must always equal
-                    <strong>100%</strong>.
-
-                    <br>
-
-                    The system will not save settings if
-                    the total percentage is not exactly 100%.
-
-                </div>
-
-            </div>
-
-
-            <!-- ================================================= -->
-            <!-- SAVE SETTINGS -->
-            <!-- ================================================= -->
-
-            <div class="buttons">
-
-                <button
-                    type="submit"
-                    class="save-btn">
-
-                    Save Settings
-
-                </button>
-
-
-                <a
-                    href="/dashboard"
-                    class="cancel-btn">
-
-                    Cancel
-
-                </a>
-
-            </div>
-
-
-        </form>
-
-
-        <!-- ================================================= -->
-        <!-- SYSTEM MAINTENANCE -->
-        <!-- ================================================= -->
-
-        <div class="section reset-section">
-
-
-            <div class="section-title">
-
-                System Maintenance
-
-            </div>
-
-
-            <div class="reset-box">
-
-
-                <div class="reset-title">
-
-                    ⚠ Factory Reset
-
-                </div>
-
-
-                <div class="reset-text">
-
-                    Factory Reset will permanently delete
-                    all operational data from FundSphere ERP
-                    and return the system to a fresh state.
-
-                </div>
-
-
-                <div class="reset-list">
-
-                    • Members
-                    <br>
-
-                    • Contributions
-                    <br>
-
-                    • Business Fund Transactions
-                    <br>
-
-                    • Emergency Fund Transactions
-                    <br>
-
-                    • Expenses
-                    <br>
-
-                    • Settings
-                    <br>
-
-                    • Other operational records
-
-                </div>
-
-
-                <div class="reset-text">
-
-                    <strong>
-                        ⚠ WARNING: This action cannot be undone.
-                    </strong>
-
-                    <br><br>
-
-                    Your Admin/Login account is not included
-                    in this reset.
-
-                </div>
-
-
-                <!-- ========================================= -->
-                <!-- RESET FORM -->
-                <!-- ========================================= -->
-
-                <form
-                    th:action="@{/settings/factory-reset}"
-                    method="post"
-                    onsubmit="return confirmFactoryReset();">
-
-
-                    <button
-                        type="submit"
-                        class="reset-btn">
-
-                        ⚠ Factory Reset
-
-                    </button>
 
 
                 </form>
 
 
+
+                <!-- =================================================
+                     FACTORY RESET
+                ================================================== -->
+
+                <div class="section reset-section">
+
+
+                    <div class="section-title">
+
+                        System Maintenance
+
+                    </div>
+
+
+                    <div class="reset-box">
+
+
+                        <div class="reset-title">
+
+                            ⚠ Factory Reset
+
+                        </div>
+
+
+                        <div class="reset-text">
+
+                            Factory Reset will permanently delete
+                            all operational data from FundSphere ERP
+                            and return the system to a fresh state.
+
+                        </div>
+
+
+                        <div class="reset-list">
+
+                            • Members
+                            <br>
+
+                            • Contributions
+                            <br>
+
+                            • Business Fund Transactions
+                            <br>
+
+                            • Emergency Fund Transactions
+                            <br>
+
+                            • Expenses
+                            <br>
+
+                            • Settings
+                            <br>
+
+                            • Other operational records
+
+                        </div>
+
+
+                        <div class="reset-text">
+
+                            <strong>
+                                ⚠ WARNING: This action cannot be undone.
+                            </strong>
+
+                            <br><br>
+
+                            Your Admin/Login account is not included
+                            in this reset.
+
+                        </div>
+
+
+                        <form
+                            th:action="@{/settings/factory-reset}"
+                            method="post"
+                            onsubmit="return confirmFactoryReset();">
+
+
+                            <button
+                                type="submit"
+                                class="reset-btn">
+
+                                ⚠ Factory Reset
+
+                            </button>
+
+
+                        </form>
+
+
+                    </div>
+
+                </div>
+
+
             </div>
+
 
         </div>
 
 
-    </div>
+    </main>
+
 
 </div>
+
 
 
 <script>
@@ -1133,87 +1546,49 @@
 
 /* =====================================================
    CALCULATE FUND PERCENTAGE
-   ===================================================== */
+===================================================== */
 
 function calculateTotal() {
 
-
     const business =
-        parseInt(
-            document.getElementById(
-                "businessPercent"
-            ).value
-        ) || 0;
-
+        parseInt(document.getElementById("businessPercent").value) || 0;
 
     const emergency =
-        parseInt(
-            document.getElementById(
-                "emergencyPercent"
-            ).value
-        ) || 0;
-
+        parseInt(document.getElementById("emergencyPercent").value) || 0;
 
     const education =
-        parseInt(
-            document.getElementById(
-                "educationPercent"
-            ).value
-        ) || 0;
-
+        parseInt(document.getElementById("educationPercent").value) || 0;
 
     const welfare =
-        parseInt(
-            document.getElementById(
-                "welfarePercent"
-            ).value
-        ) || 0;
-
+        parseInt(document.getElementById("welfarePercent").value) || 0;
 
     const administration =
-        parseInt(
-            document.getElementById(
-                "administrationPercent"
-            ).value
-        ) || 0;
-
+        parseInt(document.getElementById("administrationPercent").value) || 0;
 
     const total =
-        business
-        + emergency
-        + education
-        + welfare
-        + administration;
+        business +
+        emergency +
+        education +
+        welfare +
+        administration;
 
-
-    document.getElementById(
-        "percentageTotal"
-    ).innerText = total;
-
+    document.getElementById("percentageTotal").innerText = total;
 
     const box =
-        document.getElementById(
-            "totalBox"
-        );
-
+        document.getElementById("totalBox");
 
     box.classList.remove(
         "total-ok",
         "total-error"
     );
 
-
     if (total === 100) {
 
-        box.classList.add(
-            "total-ok"
-        );
+        box.classList.add("total-ok");
 
     } else {
 
-        box.classList.add(
-            "total-error"
-        );
+        box.classList.add("total-error");
 
     }
 
@@ -1222,58 +1597,31 @@ function calculateTotal() {
 
 /* =====================================================
    VALIDATE SETTINGS
-   ===================================================== */
+===================================================== */
 
 function validateSettings() {
 
-
     const business =
-        parseInt(
-            document.getElementById(
-                "businessPercent"
-            ).value
-        ) || 0;
-
+        parseInt(document.getElementById("businessPercent").value) || 0;
 
     const emergency =
-        parseInt(
-            document.getElementById(
-                "emergencyPercent"
-            ).value
-        ) || 0;
-
+        parseInt(document.getElementById("emergencyPercent").value) || 0;
 
     const education =
-        parseInt(
-            document.getElementById(
-                "educationPercent"
-            ).value
-        ) || 0;
-
+        parseInt(document.getElementById("educationPercent").value) || 0;
 
     const welfare =
-        parseInt(
-            document.getElementById(
-                "welfarePercent"
-            ).value
-        ) || 0;
-
+        parseInt(document.getElementById("welfarePercent").value) || 0;
 
     const administration =
-        parseInt(
-            document.getElementById(
-                "administrationPercent"
-            ).value
-        ) || 0;
-
+        parseInt(document.getElementById("administrationPercent").value) || 0;
 
     const total =
-        business
-        + emergency
-        + education
-        + welfare
-        + administration;
-
+        business +
+        emergency +
+        education +
+        welfare +
+        administration;
 
     if (total !== 100) {
 
@@ -1287,24 +1635,21 @@ function validateSettings() {
         return false;
     }
 
-
     return true;
 
 }
 
 
 /* =====================================================
-   FACTORY RESET CONFIRMATION
-   ===================================================== */
+   FACTORY RESET
+===================================================== */
 
 function confirmFactoryReset() {
-
 
     const firstConfirm =
         confirm(
             "⚠ WARNING!\n\n"
-            + "Factory Reset will permanently delete "
-            + "ALL ERP operational data.\n\n"
+            + "Factory Reset will permanently delete ALL ERP operational data.\n\n"
             + "Members\n"
             + "Contributions\n"
             + "Business Fund\n"
@@ -1316,21 +1661,15 @@ function confirmFactoryReset() {
             + "Do you want to continue?"
         );
 
-
     if (!firstConfirm) {
-
         return false;
-
     }
-
 
     const secondConfirm =
         prompt(
             "FINAL CONFIRMATION\n\n"
-            + "Type RESET exactly to permanently "
-            + "delete all operational data:"
+            + "Type RESET exactly to permanently delete all operational data:"
         );
-
 
     if (secondConfirm !== "RESET") {
 
@@ -1340,9 +1679,7 @@ function confirmFactoryReset() {
         );
 
         return false;
-
     }
-
 
     return true;
 
@@ -1351,7 +1688,7 @@ function confirmFactoryReset() {
 
 /* =====================================================
    PAGE LOAD
-   ===================================================== */
+===================================================== */
 
 document.addEventListener(
     "DOMContentLoaded",

@@ -19,19 +19,224 @@
         body {
             margin: 0;
             font-family: Arial, Helvetica, sans-serif;
-            background: #f4f7fb;
+            background: #f5f7fb;
             color: #1f2937;
         }
 
-        .page {
-            max-width: 1250px;
-            margin: 25px auto;
-            padding: 0 20px;
+        /* =====================================================
+           SIDEBAR — SAME AS DASHBOARD
+           ===================================================== */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 235px;
+            height: 100vh;
+            background: #0877d1;
+            color: white;
+            padding: 15px 15px;
+            overflow-y: auto;
+            scrollbar-width: none;
+            z-index: 1000;
         }
 
-        /* ================= HEADER ================= */
+        .sidebar::-webkit-scrollbar {
+            display: none;
+        }
 
-        .header {
+        .logo-area {
+            text-align: center;
+            padding: 2px 0 15px;
+        }
+
+        .logo-area img {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            background: white;
+            border-radius: 12px;
+            padding: 5px;
+        }
+
+        .logo-area h2 {
+            margin: 7px 0 0;
+            font-size: 19px;
+        }
+
+        .logo-area p {
+            margin: 2px 0;
+            font-size: 11px;
+            opacity: .85;
+        }
+
+        .menu {
+            margin-top: 4px;
+        }
+
+        .menu a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+            padding: 9px 12px;
+            border-radius: 7px;
+            margin-bottom: 2px;
+            font-size: 13px;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            background: white;
+            color: #0877d1;
+        }
+
+        .menu-icon {
+            width: 22px;
+            min-width: 22px;
+            text-align: center;
+        }
+
+        /* =====================================================
+           LOGOUT
+           ===================================================== */
+
+        .logout-form {
+            margin-top: 10px;
+            padding-top: 9px;
+            border-top: 1px solid rgba(255,255,255,.25);
+        }
+
+        .logout-button {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
+            padding: 9px 12px;
+            border: none;
+            border-radius: 7px;
+            background: #dc2626;
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .logout-button:hover {
+            background: #b91c1c;
+        }
+
+        .logout-icon {
+            width: 22px;
+            min-width: 22px;
+            text-align: center;
+        }
+
+        /* =====================================================
+           MAIN
+           ===================================================== */
+
+        .main {
+            margin-left: 235px;
+            min-height: 100vh;
+        }
+
+        /* =====================================================
+           TOPBAR — SAME AS DASHBOARD
+           ===================================================== */
+
+        .topbar {
+            min-height: 75px;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 30px;
+        }
+
+        .search {
+            width: 350px;
+        }
+
+        .search input {
+            width: 100%;
+            padding: 12px 18px;
+            border: 1px solid #e5e7eb;
+            border-radius: 25px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .search input:focus {
+            border-color: #0877d1;
+        }
+
+        .user-area {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .notification {
+            font-size: 22px;
+            color: #555;
+        }
+
+        .user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #e9f7ef;
+            color: #159447;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .user-info strong {
+            display: block;
+            font-size: 13px;
+        }
+
+        .user-info span {
+            font-size: 11px;
+            color: #777;
+        }
+
+        .role-badge {
+            display: inline-block;
+            margin-top: 3px;
+            padding: 3px 7px;
+            border-radius: 10px;
+            background: #e0f2fe;
+            color: #0369a1;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        /* =====================================================
+           CONTENT
+           ===================================================== */
+
+        .content {
+            padding: 30px;
+        }
+
+        /* =====================================================
+           HEADER
+           ===================================================== */
+
+        .page-header {
             background: #0877d1;
             color: white;
             padding: 22px 28px;
@@ -40,16 +245,18 @@
             justify-content: space-between;
             align-items: center;
             gap: 15px;
+            margin-bottom: 22px;
         }
 
-        .header h1 {
+        .page-header h1 {
             margin: 0;
             font-size: 27px;
         }
 
-        .header p {
+        .page-header p {
             margin: 7px 0 0;
             opacity: .9;
+            font-size: 14px;
         }
 
         .header-buttons {
@@ -65,23 +272,20 @@
             font-size: 14px;
         }
 
-        .dashboard-btn {
-            background: #075da8;
-            color: white;
-        }
-
         .add-btn {
             background: white;
             color: #075da8;
         }
 
-        /* ================= SUMMARY CARDS ================= */
+        /* =====================================================
+           SUMMARY CARDS
+           ===================================================== */
 
         .summary {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 18px;
-            margin-top: 20px;
+            margin-bottom: 22px;
         }
 
         .summary-card {
@@ -115,11 +319,12 @@
             color: #0877d1;
         }
 
-        /* ================= TABLE CARD ================= */
+        /* =====================================================
+           TABLE CARD
+           ===================================================== */
 
         .table-card {
             background: white;
-            margin-top: 22px;
             padding: 22px;
             border-radius: 10px;
             box-shadow: 0 3px 12px rgba(0,0,0,.06);
@@ -151,7 +356,9 @@
             border-color: #0877d1;
         }
 
-        /* ================= TABLE ================= */
+        /* =====================================================
+           TABLE
+           ===================================================== */
 
         .table-wrapper {
             width: 100%;
@@ -165,12 +372,11 @@
         }
 
         th {
-            background: #f1f5f9;
-            color: #374151;
+            background: #075da8;
+            color: white;
             text-align: left;
             padding: 13px 10px;
             font-size: 13px;
-            border-bottom: 2px solid #e5e7eb;
             white-space: nowrap;
         }
 
@@ -181,7 +387,7 @@
             vertical-align: middle;
         }
 
-        tr:hover {
+        tbody tr:hover {
             background: #f8fafc;
         }
 
@@ -214,7 +420,9 @@
             white-space: nowrap;
         }
 
-        /* ================= ACTIONS ================= */
+        /* =====================================================
+           ACTIONS
+           ===================================================== */
 
         .actions {
             display: flex;
@@ -250,7 +458,9 @@
             opacity: .8;
         }
 
-        /* ================= EMPTY ================= */
+        /* =====================================================
+           EMPTY
+           ===================================================== */
 
         .empty {
             text-align: center;
@@ -263,7 +473,9 @@
             margin-bottom: 10px;
         }
 
-        /* ================= PRINT ================= */
+        /* =====================================================
+           PRINT
+           ===================================================== */
 
         .print-area {
             margin-top: 18px;
@@ -280,7 +492,9 @@
             font-weight: bold;
         }
 
-        /* ================= RESPONSIVE ================= */
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
 
         @media(max-width:1000px) {
 
@@ -290,13 +504,50 @@
 
         }
 
-        @media(max-width:700px) {
+        @media(max-width:750px) {
 
-            .page {
-                padding: 0 10px;
+            .sidebar {
+                width: 70px;
+                padding: 15px 8px;
             }
 
-            .header {
+            .logo-area h2,
+            .logo-area p,
+            .menu-text,
+            .logout-text {
+                display: none;
+            }
+
+            .logo-area img {
+                width: 48px;
+                height: 48px;
+            }
+
+            .menu a {
+                justify-content: center;
+            }
+
+            .logout-button {
+                justify-content: center;
+            }
+
+            .main {
+                margin-left: 70px;
+            }
+
+            .topbar {
+                padding: 10px 15px;
+            }
+
+            .search {
+                width: 200px;
+            }
+
+            .content {
+                padding: 20px 12px;
+            }
+
+            .page-header {
                 flex-direction: column;
                 align-items: flex-start;
             }
@@ -310,10 +561,6 @@
                 text-align: center;
             }
 
-            .summary {
-                grid-template-columns: 1fr;
-            }
-
             .table-header {
                 flex-direction: column;
                 align-items: flex-start;
@@ -325,7 +572,29 @@
 
         }
 
-        /* ================= PRINT STYLE ================= */
+        @media(max-width:550px) {
+
+            .summary {
+                grid-template-columns: 1fr;
+            }
+
+            .search {
+                width: 140px;
+            }
+
+            .user-info {
+                display: none;
+            }
+
+            .notification {
+                display: none;
+            }
+
+        }
+
+        /* =====================================================
+           PRINT STYLE
+           ===================================================== */
 
         @media print {
 
@@ -333,23 +602,21 @@
                 background: white;
             }
 
-            .page {
-                max-width: 100%;
-                margin: 0;
-                padding: 0;
-            }
-
-            .header {
-                background: white;
-                color: black;
-                border: 1px solid #ccc;
-            }
-
-            .header-buttons,
+            .sidebar,
+            .topbar,
+            .page-header,
             .search-box,
             .actions,
             .print-area {
                 display: none !important;
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .content {
+                padding: 0;
             }
 
             .summary-card,
@@ -371,412 +638,763 @@
 
 <body>
 
-<div class="page">
+
+<!-- =====================================================
+     SIDEBAR — SAME DASHBOARD SIDEBAR
+     ===================================================== -->
+
+<aside class="sidebar">
 
 
-    <!-- ================================================= -->
-    <!-- HEADER -->
-    <!-- ================================================= -->
+    <!-- LOGO -->
 
-    <div class="header">
+    <div class="logo-area">
 
-        <div>
+        <img
+            src="/images/logo.png"
+            alt="FundSphere ERP Logo">
 
-            <h1>
-                ❤️ Emergency Fund
-            </h1>
+        <h2>
+            FundSphere ERP
+        </h2>
 
-            <p>
-                FundSphere ERP — Emergency Fund Management
-            </p>
-
-        </div>
-
-
-        <div class="header-buttons">
-
-            <a href="/dashboard"
-               class="header-btn dashboard-btn">
-
-                ← Dashboard
-
-            </a>
-
-
-            <a href="/emergency-fund/new"
-               class="header-btn add-btn">
-
-                + Add Transaction
-
-            </a>
-
-        </div>
+        <p>
+            Management System
+        </p>
 
     </div>
 
 
-    <!-- ================================================= -->
-    <!-- SUMMARY -->
-    <!-- ================================================= -->
+    <!-- MENU -->
 
-    <div class="summary">
+    <nav class="menu">
 
 
-        <!-- TOTAL TRANSACTIONS -->
+        <!-- DASHBOARD -->
 
-        <div class="summary-card">
+        <a href="/dashboard">
 
-            <div class="summary-title">
-                Total Transactions
-            </div>
+            <span class="menu-icon">
+                ▣
+            </span>
 
-            <div class="summary-value"
-                 th:text="${totalTransactions}">
+            <span class="menu-text">
+                Dashboard
+            </span>
 
-                0
-
-            </div>
-
-        </div>
+        </a>
 
 
-        <!-- TOTAL INCOME -->
+        <!-- MEMBERS -->
 
-        <div class="summary-card">
+        <a href="/members">
 
-            <div class="summary-title">
-                Emergency Fund Income
-            </div>
+            <span class="menu-icon">
+                👥
+            </span>
 
-            <div class="summary-value income">
+            <span class="menu-text">
+                Members
+            </span>
 
-                Rs.
-                <span th:text="${totalIncome}">
-                    0.00
-                </span>
-
-            </div>
-
-        </div>
+        </a>
 
 
-        <!-- TOTAL WITHDRAWAL -->
+        <!-- CONTRIBUTIONS -->
 
-        <div class="summary-card">
+        <a href="/contributions">
 
-            <div class="summary-title">
-                Total Withdrawal
-            </div>
+            <span class="menu-icon">
+                💳
+            </span>
 
-            <div class="summary-value withdrawal">
+            <span class="menu-text">
+                Contributions
+            </span>
 
-                Rs.
-                <span th:text="${totalWithdrawal}">
-                    0.00
-                </span>
-
-            </div>
-
-        </div>
+        </a>
 
 
-        <!-- CURRENT BALANCE -->
+        <!-- BUSINESS FUND -->
 
-        <div class="summary-card">
+        <a href="/business-fund">
 
-            <div class="summary-title">
-                Current Balance
-            </div>
+            <span class="menu-icon">
+                💼
+            </span>
 
-            <div class="summary-value balance">
+            <span class="menu-text">
+                Business Fund
+            </span>
 
-                Rs.
-                <span th:text="${currentBalance}">
-                    0.00
-                </span>
-
-            </div>
-
-        </div>
-
-    </div>
+        </a>
 
 
-    <!-- ================================================= -->
-    <!-- TRANSACTIONS -->
-    <!-- ================================================= -->
+        <!-- BUSINESS ACCOUNTING -->
 
-    <div class="table-card">
+        <a href="/business-accounting">
+
+            <span class="menu-icon">
+                📊
+            </span>
+
+            <span class="menu-text">
+                Business Accounting
+            </span>
+
+        </a>
 
 
-        <div class="table-header">
+        <!-- EMERGENCY FUND ACTIVE -->
 
-            <h2>
-                Emergency Fund Transactions
-            </h2>
+        <a
+            href="/emergency-fund"
+            class="active">
 
+            <span class="menu-icon">
+                ❤️
+            </span>
+
+            <span class="menu-text">
+                Emergency Fund
+            </span>
+
+        </a>
+
+
+        <!-- EXPENSES -->
+
+        <a href="/expenses">
+
+            <span class="menu-icon">
+                📊
+            </span>
+
+            <span class="menu-text">
+                Expenses
+            </span>
+
+        </a>
+
+
+        <!-- PROFIT -->
+
+        <a href="/profit">
+
+            <span class="menu-icon">
+                💰
+            </span>
+
+            <span class="menu-text">
+                Profit
+            </span>
+
+        </a>
+
+
+        <!-- LEDGER -->
+
+        <a href="/ledger">
+
+            <span class="menu-icon">
+                📒
+            </span>
+
+            <span class="menu-text">
+                Ledger
+            </span>
+
+        </a>
+
+
+        <!-- REPORTS -->
+
+        <a href="/reports">
+
+            <span class="menu-icon">
+                📑
+            </span>
+
+            <span class="menu-text">
+                Reports
+            </span>
+
+        </a>
+
+
+        <!-- USER MANAGEMENT -->
+
+        <a
+            href="/user-management"
+            th:if="${isAdmin}">
+
+            <span class="menu-icon">
+                👤
+            </span>
+
+            <span class="menu-text">
+                User Management
+            </span>
+
+        </a>
+
+
+        <!-- SETTINGS -->
+
+        <a
+            href="/settings"
+            th:if="${isAdmin}">
+
+            <span class="menu-icon">
+                ⚙
+            </span>
+
+            <span class="menu-text">
+                Settings
+            </span>
+
+        </a>
+
+
+    </nav>
+
+
+    <!-- LOGOUT -->
+
+    <form
+        class="logout-form"
+        th:action="@{/logout}"
+        method="post">
+
+        <input
+            type="hidden"
+            th:name="${_csrf.parameterName}"
+            th:value="${_csrf.token}">
+
+        <button
+            type="submit"
+            class="logout-button"
+            onclick="return confirm('Are you sure you want to logout?');">
+
+            <span class="logout-icon">
+                🚪
+            </span>
+
+            <span class="logout-text">
+                Logout
+            </span>
+
+        </button>
+
+    </form>
+
+
+</aside>
+
+
+
+<!-- =====================================================
+     MAIN
+     ===================================================== -->
+
+<div class="main">
+
+
+    <!-- =====================================================
+         TOPBAR
+         ===================================================== -->
+
+    <header class="topbar">
+
+
+        <div class="search">
 
             <input
                 type="text"
-                id="searchBox"
-                class="search-box"
-                placeholder="Search member / transaction...">
+                placeholder="🔍  Search...">
 
         </div>
 
 
-        <div class="table-wrapper">
+        <div class="user-area">
 
-            <table id="transactionTable">
 
-                <thead>
+            <div class="notification">
+                🔔
+            </div>
 
-                <tr>
 
-                    <th>
-                        ID
-                    </th>
+            <div class="user">
 
-                    <th>
-                        Transaction No.
-                    </th>
 
-                    <th>
-                        Date
-                    </th>
+                <div class="user-icon">
 
-                    <th>
-                        Type
-                    </th>
+                    <span
+                        th:text="${currentUsername != null
+                                  && !currentUsername.isEmpty()
+                                  ? #strings.substring(currentUsername,0,1).toUpperCase()
+                                  : 'A'}">
 
-                    <th>
-                        Member
-                    </th>
+                        A
 
-                    <th>
-                        Description
-                    </th>
+                    </span>
 
-                    <th>
-                        Payment
-                    </th>
+                </div>
 
-                    <th>
-                        Amount
-                    </th>
 
-                    <th>
-                        Actions
-                    </th>
+                <div class="user-info">
 
-                </tr>
+                    <strong
+                        th:text="${currentUsername != null
+                                  ? currentUsername
+                                  : 'Administrator'}">
 
-                </thead>
+                        Administrator
 
+                    </strong>
 
-                <tbody>
 
+                    <span
+                        class="role-badge"
+                        th:text="${currentRole != null
+                                  ? currentRole
+                                  : 'Super Admin'}">
 
-                <!-- ================================================= -->
-                <!-- TRANSACTION ROW -->
-                <!-- ================================================= -->
+                        Super Admin
 
-                <tr th:each="transaction : ${transactions}">
+                    </span>
 
+                </div>
 
-                    <td th:text="${transaction.id}">
-                        1
-                    </td>
 
+            </div>
 
-                    <td>
 
-                        <span class="transaction-no"
-                              th:text="${transaction.transactionNo}">
+        </div>
 
-                            EMG-000001
 
-                        </span>
+    </header>
 
-                    </td>
 
 
-                    <td th:text="${transaction.transactionDate}">
-                        2026-08-08
-                    </td>
+    <!-- =====================================================
+         CONTENT
+         ===================================================== -->
 
+    <main class="content">
 
-                    <td>
 
-                        <span
-                            class="type-badge withdrawal-badge"
-                            th:if="${transaction.transactionType == 'Withdrawal'}">
+        <!-- =================================================
+             PAGE HEADER
+             ================================================= -->
 
-                            Withdrawal
+        <div class="page-header">
 
-                        </span>
 
+            <div>
 
-                        <span
-                            class="type-badge income-badge"
-                            th:if="${transaction.transactionType != 'Withdrawal'}"
-                            th:text="${transaction.transactionType}">
+                <h1>
+                    ❤️ Emergency Fund
+                </h1>
 
-                            Income
+                <p>
+                    FundSphere ERP — Emergency Fund Management
+                </p>
 
-                        </span>
+            </div>
 
-                    </td>
 
+            <div class="header-buttons">
 
-                    <td>
 
-                        <strong
-                            th:text="${transaction.memberCode}">
+                <a
+                    href="/emergency-fund/new"
+                    class="header-btn add-btn">
 
-                            FSP-000001
+                    + Add Transaction
 
-                        </strong>
+                </a>
 
-                        <br>
 
-                        <span
-                            th:text="${transaction.memberName}">
+            </div>
 
-                            Member Name
 
-                        </span>
+        </div>
 
-                    </td>
 
 
-                    <td th:text="${transaction.description}">
+        <!-- =================================================
+             SUMMARY
+             ================================================= -->
 
-                        Emergency assistance
+        <div class="summary">
 
-                    </td>
 
+            <!-- TOTAL TRANSACTIONS -->
 
-                    <td th:text="${transaction.paymentMethod}">
+            <div class="summary-card">
 
-                        Cash
+                <div class="summary-title">
+                    Total Transactions
+                </div>
 
-                    </td>
+                <div
+                    class="summary-value"
+                    th:text="${totalTransactions}">
 
+                    0
 
-                    <td class="amount">
+                </div>
 
-                        Rs.
+            </div>
 
-                        <span th:text="${transaction.amount}">
 
-                            0.00
+            <!-- TOTAL INCOME -->
 
-                        </span>
+            <div class="summary-card">
 
-                    </td>
+                <div class="summary-title">
+                    Emergency Fund Income
+                </div>
 
+                <div class="summary-value income">
 
-                    <!-- ACTIONS -->
+                    Rs.
 
-                    <td>
+                    <span th:text="${totalIncome}">
+                        0.00
+                    </span>
 
-                        <div class="actions">
+                </div>
 
+            </div>
 
-                            <a
-                                th:href="@{/emergency-fund/view/{id}(id=${transaction.id})}"
-                                class="action-btn view-btn">
 
-                                View
+            <!-- TOTAL WITHDRAWAL -->
 
-                            </a>
+            <div class="summary-card">
 
+                <div class="summary-title">
+                    Total Withdrawal
+                </div>
 
-                            <a
-                                th:href="@{/emergency-fund/edit/{id}(id=${transaction.id})}"
-                                class="action-btn edit-btn">
+                <div class="summary-value withdrawal">
 
-                                Edit
+                    Rs.
 
-                            </a>
+                    <span th:text="${totalWithdrawal}">
+                        0.00
+                    </span>
 
+                </div>
 
-                            <a
-                                th:href="@{/emergency-fund/delete/{id}(id=${transaction.id})}"
-                                class="action-btn delete-btn"
-                                onclick="return confirmDelete();">
+            </div>
 
-                                Delete
 
-                            </a>
+            <!-- CURRENT BALANCE -->
 
+            <div class="summary-card">
 
-                        </div>
+                <div class="summary-title">
+                    Current Balance
+                </div>
 
-                    </td>
+                <div class="summary-value balance">
 
-                </tr>
+                    Rs.
 
+                    <span th:text="${currentBalance}">
+                        0.00
+                    </span>
 
-                <!-- ================================================= -->
-                <!-- EMPTY -->
-                <!-- ================================================= -->
+                </div>
 
-                <tr th:if="${#lists.isEmpty(transactions)}">
+            </div>
 
-                    <td colspan="9">
 
-                        <div class="empty">
+        </div>
 
-                            <div class="empty-icon">
-                                ❤️
-                            </div>
 
-                            <strong>
-                                No Emergency Fund transactions found.
+
+        <!-- =================================================
+             TRANSACTIONS
+             ================================================= -->
+
+        <div class="table-card">
+
+
+            <div class="table-header">
+
+
+                <h2>
+                    Emergency Fund Transactions
+                </h2>
+
+
+                <input
+                    type="text"
+                    id="searchBox"
+                    class="search-box"
+                    placeholder="Search member / transaction...">
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+
+                <table id="transactionTable">
+
+
+                    <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Transaction No.</th>
+
+                        <th>Date</th>
+
+                        <th>Type</th>
+
+                        <th>Member</th>
+
+                        <th>Description</th>
+
+                        <th>Payment</th>
+
+                        <th>Amount</th>
+
+                        <th>Actions</th>
+
+                    </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                    <!-- TRANSACTION ROW -->
+
+                    <tr
+                        th:each="transaction : ${transactions}">
+
+
+                        <td
+                            th:text="${transaction.id}">
+
+                            1
+
+                        </td>
+
+
+                        <td>
+
+                            <span
+                                class="transaction-no"
+                                th:text="${transaction.transactionNo}">
+
+                                EMG-000001
+
+                            </span>
+
+                        </td>
+
+
+                        <td
+                            th:text="${transaction.transactionDate}">
+
+                            2026-08-08
+
+                        </td>
+
+
+                        <td>
+
+
+                            <span
+                                class="type-badge withdrawal-badge"
+                                th:if="${transaction.transactionType == 'Withdrawal'}">
+
+                                Withdrawal
+
+                            </span>
+
+
+                            <span
+                                class="type-badge income-badge"
+                                th:if="${transaction.transactionType != 'Withdrawal'}"
+                                th:text="${transaction.transactionType}">
+
+                                Income
+
+                            </span>
+
+
+                        </td>
+
+
+                        <td>
+
+                            <strong
+                                th:text="${transaction.memberCode}">
+
+                                FSP-000001
+
                             </strong>
 
                             <br>
 
-                            Emergency Fund withdrawals will appear here.
+                            <span
+                                th:text="${transaction.memberName}">
 
-                        </div>
+                                Member Name
 
-                    </td>
+                            </span>
 
-                </tr>
+                        </td>
 
 
-                </tbody>
+                        <td
+                            th:text="${transaction.description}">
 
-            </table>
+                            Emergency assistance
+
+                        </td>
+
+
+                        <td
+                            th:text="${transaction.paymentMethod}">
+
+                            Cash
+
+                        </td>
+
+
+                        <td class="amount">
+
+                            Rs.
+
+                            <span
+                                th:text="${transaction.amount}">
+
+                                0.00
+
+                            </span>
+
+                        </td>
+
+
+                        <!-- ACTIONS -->
+
+                        <td>
+
+                            <div class="actions">
+
+
+                                <a
+                                    th:href="@{/emergency-fund/view/{id}(id=${transaction.id})}"
+                                    class="action-btn view-btn">
+
+                                    View
+
+                                </a>
+
+
+                                <a
+                                    th:href="@{/emergency-fund/edit/{id}(id=${transaction.id})}"
+                                    class="action-btn edit-btn">
+
+                                    Edit
+
+                                </a>
+
+
+                                <a
+                                    th:href="@{/emergency-fund/delete/{id}(id=${transaction.id})}"
+                                    class="action-btn delete-btn"
+                                    onclick="return confirmDelete();">
+
+                                    Delete
+
+                                </a>
+
+
+                            </div>
+
+                        </td>
+
+
+                    </tr>
+
+
+                    <!-- EMPTY -->
+
+                    <tr
+                        th:if="${#lists.isEmpty(transactions)}">
+
+
+                        <td colspan="9">
+
+
+                            <div class="empty">
+
+                                <div class="empty-icon">
+                                    ❤️
+                                </div>
+
+                                <strong>
+                                    No Emergency Fund transactions found.
+                                </strong>
+
+                                <br>
+
+                                Emergency Fund withdrawals will appear here.
+
+                            </div>
+
+
+                        </td>
+
+
+                    </tr>
+
+
+                    </tbody>
+
+
+                </table>
+
+
+            </div>
+
+
+            <!-- PRINT -->
+
+            <div class="print-area">
+
+                <button
+                    type="button"
+                    class="print-btn"
+                    onclick="window.print();">
+
+                    🖨 Print
+
+                </button>
+
+            </div>
+
 
         </div>
 
 
-        <!-- ================================================= -->
-        <!-- PRINT -->
-        <!-- ================================================= -->
-
-        <div class="print-area">
-
-            <button
-                type="button"
-                class="print-btn"
-                onclick="window.print();">
-
-                🖨 Print
-
-            </button>
-
-        </div>
-
-
-    </div>
+    </main>
 
 
 </div>
+
 
 
 <script>
@@ -792,35 +1410,24 @@ document
         "keyup",
         function() {
 
-
             const search =
                 this.value.toLowerCase();
 
-
             const rows =
-                document
-                    .querySelectorAll(
-                        "#transactionTable tbody tr"
-                    );
-
+                document.querySelectorAll(
+                    "#transactionTable tbody tr"
+                );
 
             rows.forEach(
                 function(row) {
 
-
                     const text =
                         row.innerText.toLowerCase();
 
-
-                    if (text.includes(search)) {
-
-                        row.style.display = "";
-
-                    } else {
-
-                        row.style.display = "none";
-
-                    }
+                    row.style.display =
+                        text.includes(search)
+                            ? ""
+                            : "none";
 
                 }
             );

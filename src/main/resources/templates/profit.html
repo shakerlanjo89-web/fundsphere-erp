@@ -22,39 +22,241 @@
         body {
             margin: 0;
             font-family: Arial, Helvetica, sans-serif;
-            background: #f4f7fb;
+            background: #f5f7fb;
             color: #1f2937;
         }
 
-        .page {
-            max-width: 1500px;
-            margin: 20px auto;
-            padding: 0 18px;
-        }
+        /* =====================================================
+           SIDEBAR — SAME AS DASHBOARD
+           ===================================================== */
 
-        /* ================= HEADER ================= */
-
-        .header {
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 235px;
+            height: 100vh;
             background: #0877d1;
             color: white;
+            padding: 15px 15px;
+            overflow-y: auto;
+            scrollbar-width: none;
+            z-index: 1000;
+        }
 
+        .sidebar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .logo-area {
+            text-align: center;
+            padding: 2px 0 15px;
+        }
+
+        .logo-area img {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            background: white;
+            border-radius: 12px;
+            padding: 5px;
+        }
+
+        .logo-area h2 {
+            margin: 7px 0 0;
+            font-size: 19px;
+        }
+
+        .logo-area p {
+            margin: 2px 0;
+            font-size: 11px;
+            opacity: .85;
+        }
+
+        .menu {
+            margin-top: 4px;
+        }
+
+        .menu a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+            padding: 9px 12px;
+            border-radius: 7px;
+            margin-bottom: 2px;
+            font-size: 13px;
+        }
+
+        .menu a:hover,
+        .menu a.active {
+            background: white;
+            color: #0877d1;
+        }
+
+        .menu-icon {
+            width: 22px;
+            min-width: 22px;
+            text-align: center;
+        }
+
+        /* =====================================================
+           LOGOUT
+           ===================================================== */
+
+        .logout-form {
+            margin-top: 10px;
+            padding-top: 9px;
+            border-top: 1px solid rgba(255,255,255,.25);
+        }
+
+        .logout-button {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
+            padding: 9px 12px;
+            border: none;
+            border-radius: 7px;
+            background: #dc2626;
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .logout-button:hover {
+            background: #b91c1c;
+        }
+
+        .logout-icon {
+            width: 22px;
+            min-width: 22px;
+            text-align: center;
+        }
+
+        /* =====================================================
+           MAIN
+           ===================================================== */
+
+        .main {
+            margin-left: 235px;
+            min-height: 100vh;
+        }
+
+        /* =====================================================
+           TOPBAR — SAME AS DASHBOARD
+           ===================================================== */
+
+        .topbar {
+            min-height: 75px;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 30px;
+        }
+
+        .search {
+            width: 350px;
+        }
+
+        .search input {
+            width: 100%;
+            padding: 12px 18px;
+            border: 1px solid #e5e7eb;
+            border-radius: 25px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .search input:focus {
+            border-color: #0877d1;
+        }
+
+        .user-area {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .notification {
+            font-size: 22px;
+            color: #555;
+        }
+
+        .user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #e9f7ef;
+            color: #159447;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .user-info strong {
+            display: block;
+            font-size: 13px;
+        }
+
+        .user-info span {
+            font-size: 11px;
+            color: #777;
+        }
+
+        .role-badge {
+            display: inline-block;
+            margin-top: 3px;
+            padding: 3px 7px;
+            border-radius: 10px;
+            background: #e0f2fe;
+            color: #0369a1;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        /* =====================================================
+           CONTENT
+           ===================================================== */
+
+        .content {
+            padding: 30px;
+        }
+
+        /* =====================================================
+           HEADER
+           ===================================================== */
+
+        .page-header {
+            background: #0877d1;
+            color: white;
             padding: 23px 27px;
-
-            border-radius: 12px 12px 0 0;
-
+            border-radius: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-
             gap: 15px;
+            margin-bottom: 22px;
         }
 
-        .header h1 {
+        .page-header h1 {
             margin: 0;
             font-size: 27px;
         }
 
-        .header p {
+        .page-header p {
             margin: 7px 0 0;
             font-size: 14px;
             opacity: .9;
@@ -71,11 +273,8 @@
             border: none;
             text-decoration: none;
             cursor: pointer;
-
             padding: 10px 15px;
-
             border-radius: 7px;
-
             font-weight: bold;
             font-size: 13px;
         }
@@ -90,52 +289,45 @@
             color: white;
         }
 
-        /* ================= CONTENT ================= */
+        /* =====================================================
+           CONTENT CARD
+           ===================================================== */
 
-        .content {
+        .card {
             background: white;
             padding: 25px;
-
-            box-shadow:
-                0 4px 15px rgba(0,0,0,.07);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,.07);
         }
 
-        /* ================= SUMMARY ================= */
+        /* =====================================================
+           SUMMARY
+           ===================================================== */
 
         .summary {
             display: grid;
-
-            grid-template-columns:
-                repeat(6, 1fr);
-
+            grid-template-columns: repeat(6, 1fr);
             gap: 14px;
-
             margin-bottom: 30px;
         }
 
         .summary-card {
             padding: 18px;
-
             border: 1px solid #e2e8f0;
-
             border-radius: 9px;
-
             background: #f8fafc;
-
             text-align: center;
         }
 
         .summary-label {
             font-size: 12px;
             color: #64748b;
-
             margin-bottom: 9px;
         }
 
         .summary-value {
             font-size: 20px;
             font-weight: bold;
-
             color: #075da8;
         }
 
@@ -167,7 +359,32 @@
             color: #dc2626 !important;
         }
 
-        /* ================= SECTION ================= */
+        /* =====================================================
+           PROFIT BOX
+           ===================================================== */
+
+        .profit-box {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .profit-box h3 {
+            margin: 0 0 10px;
+            color: #075da8;
+        }
+
+        .profit-equation {
+            font-size: 15px;
+            line-height: 1.9;
+            color: #334155;
+        }
+
+        /* =====================================================
+           SECTION
+           ===================================================== */
 
         .section {
             margin-bottom: 30px;
@@ -175,329 +392,253 @@
 
         .section-title {
             font-size: 19px;
-
             font-weight: bold;
-
             color: #075da8;
-
-            border-bottom:
-                2px solid #e5e7eb;
-
+            border-bottom: 2px solid #e5e7eb;
             padding-bottom: 10px;
-
             margin-bottom: 15px;
         }
 
-        /* ================= PROFIT BOX ================= */
-
-        .profit-box {
-
-            background: #eff6ff;
-
-            border: 1px solid #bfdbfe;
-
-            border-radius: 10px;
-
-            padding: 20px;
-
-            margin-bottom: 25px;
-
-        }
-
-        .profit-box h3 {
-
-            margin: 0 0 10px;
-
-            color: #075da8;
-
-        }
-
-        .profit-equation {
-
-            font-size: 15px;
-
-            line-height: 1.9;
-
-            color: #334155;
-
-        }
-
-        /* ================= TABLE ================= */
+        /* =====================================================
+           TABLE
+           ===================================================== */
 
         .table-wrapper {
-
             overflow-x: auto;
-
             border: 1px solid #e5e7eb;
-
             border-radius: 8px;
-
         }
 
         table {
-
             width: 100%;
-
             border-collapse: collapse;
-
             min-width: 1050px;
-
         }
 
         thead {
-
             background: #075da8;
-
             color: white;
-
         }
 
         th {
-
             padding: 12px 10px;
-
             text-align: left;
-
             font-size: 12px;
-
             white-space: nowrap;
-
         }
 
         td {
-
             padding: 11px 10px;
-
-            border-bottom:
-                1px solid #e5e7eb;
-
+            border-bottom: 1px solid #e5e7eb;
             font-size: 12px;
-
         }
 
         tbody tr:hover {
-
             background: #f8fafc;
-
         }
 
         .investment {
-
             color: #075da8;
-
             font-weight: bold;
-
         }
 
         .percent {
-
             color: #7c3aed;
-
             font-weight: bold;
-
         }
 
         .positive {
-
             color: #15803d;
-
             font-weight: bold;
-
         }
 
         .negative-text {
-
             color: #dc2626;
-
             font-weight: bold;
-
         }
 
         .expense-share {
-
             color: #dc2626;
-
             font-weight: bold;
-
         }
 
         .action {
-
             background: #e0f2fe;
-
             color: #0369a1;
-
             padding: 6px 9px;
-
             border-radius: 5px;
-
             text-decoration: none;
-
             font-size: 10px;
-
             font-weight: bold;
-
         }
 
-        /* ================= INFO ================= */
+        .action:hover {
+            opacity: .8;
+        }
+
+        /* =====================================================
+           INFO
+           ===================================================== */
 
         .info-box {
-
             margin-top: 20px;
-
             padding: 15px;
-
             background: #eff6ff;
-
             border: 1px solid #bfdbfe;
-
             border-radius: 8px;
-
             color: #075da8;
-
             font-size: 13px;
-
             line-height: 1.7;
-
         }
 
-        /* ================= EMPTY ================= */
+        /* =====================================================
+           EMPTY
+           ===================================================== */
 
         .empty {
-
             text-align: center;
-
             padding: 40px;
-
             color: #64748b;
-
         }
 
-        /* ================= PRINT ================= */
+        /* =====================================================
+           PRINT
+           ===================================================== */
 
         @media print {
 
             @page {
-
                 size: landscape;
-
                 margin: 10mm;
-
             }
 
             body {
-
                 background: white;
-
             }
 
-            .page {
-
-                max-width: none;
-
-                margin: 0;
-
-                padding: 0;
-
-            }
-
-            .header,
-
+            .sidebar,
+            .topbar,
+            .page-header,
             .no-print {
-
                 display: none !important;
+            }
 
+            .main {
+                margin-left: 0;
             }
 
             .content {
-
-                box-shadow: none;
-
                 padding: 0;
+            }
 
+            .card {
+                box-shadow: none;
+                padding: 0;
             }
 
             .table-wrapper {
-
                 overflow: visible;
-
             }
 
             table {
-
                 min-width: 0;
-
             }
 
             th,
-
             td {
-
                 border: 1px solid #999;
-
                 font-size: 9px;
-
                 padding: 5px;
-
             }
-
         }
 
-        /* ================= RESPONSIVE ================= */
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
 
         @media(max-width:1200px) {
 
             .summary {
-
-                grid-template-columns:
-                    repeat(3, 1fr);
-
+                grid-template-columns: repeat(3, 1fr);
             }
 
         }
 
-        @media(max-width:700px) {
+        @media(max-width:750px) {
 
-            .page {
-
-                margin: 10px auto;
-
-                padding: 0 8px;
-
+            .sidebar {
+                width: 70px;
+                padding: 15px 8px;
             }
 
-            .header {
+            .logo-area h2,
+            .logo-area p,
+            .menu-text,
+            .logout-text {
+                display: none;
+            }
 
-                flex-direction: column;
+            .logo-area img {
+                width: 48px;
+                height: 48px;
+            }
 
-                align-items: flex-start;
+            .menu a {
+                justify-content: center;
+            }
 
+            .logout-button {
+                justify-content: center;
+            }
+
+            .main {
+                margin-left: 70px;
+            }
+
+            .topbar {
+                padding: 10px 15px;
+            }
+
+            .search {
+                width: 200px;
             }
 
             .content {
-
-                padding: 15px;
-
+                padding: 20px 12px;
             }
 
             .summary {
-
                 grid-template-columns: 1fr;
+            }
 
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
             }
 
             .header-buttons {
-
                 width: 100%;
-
             }
 
             .header-buttons .btn {
-
                 flex: 1;
-
                 text-align: center;
+            }
 
+        }
+
+        @media(max-width:550px) {
+
+            .search {
+                width: 140px;
+            }
+
+            .user-info {
+                display: none;
+            }
+
+            .notification {
+                display: none;
             }
 
         }
@@ -506,510 +647,797 @@
 
 </head>
 
+
 <body>
 
-<div class="page">
+
+<!-- =====================================================
+     SIDEBAR — SAME AS DASHBOARD
+     ===================================================== -->
+
+<aside class="sidebar">
 
 
-    <!-- ================= HEADER ================= -->
+    <div class="logo-area">
 
-    <div class="header">
+        <img
+            src="/images/logo.png"
+            alt="FundSphere ERP Logo">
 
-        <div>
+        <h2>
+            FundSphere ERP
+        </h2>
 
-            <h1>
-                📈 Profit Management
-            </h1>
-
-            <p>
-                FundSphere ERP — Business Profit / Loss & Member Distribution
-            </p>
-
-        </div>
-
-
-        <div class="header-buttons no-print">
-
-            <button
-                type="button"
-                class="btn btn-print"
-                onclick="window.print()">
-
-                🖨 Print / PDF
-
-            </button>
-
-
-            <a
-                href="/dashboard"
-                class="btn btn-back">
-
-                ← Dashboard
-
-            </a>
-
-        </div>
+        <p>
+            Management System
+        </p>
 
     </div>
 
 
-    <div class="content">
+    <nav class="menu">
 
 
-        <!-- ================= SUMMARY ================= -->
+        <a href="/dashboard">
 
-        <div class="summary">
+            <span class="menu-icon">▣</span>
 
+            <span class="menu-text">
+                Dashboard
+            </span>
 
-            <!-- SALES -->
+        </a>
 
-            <div class="summary-card sales">
 
-                <div class="summary-label">
-                    Total Sales
-                </div>
+        <a href="/members">
 
-                <div class="summary-value">
+            <span class="menu-icon">👥</span>
 
-                    Rs.
+            <span class="menu-text">
+                Members
+            </span>
 
-                    <span
-                        th:text="${summary.totalSales}">
+        </a>
 
-                        0
 
-                    </span>
+        <a href="/contributions">
 
-                </div>
+            <span class="menu-icon">💳</span>
 
-            </div>
+            <span class="menu-text">
+                Contributions
+            </span>
 
+        </a>
 
-            <!-- PURCHASE -->
 
-            <div class="summary-card purchase">
+        <a href="/business-fund">
 
-                <div class="summary-label">
-                    Total Purchases
-                </div>
+            <span class="menu-icon">💼</span>
 
-                <div class="summary-value">
+            <span class="menu-text">
+                Business Fund
+            </span>
 
-                    Rs.
+        </a>
 
-                    <span
-                        th:text="${summary.totalPurchases}">
 
-                        0
+        <a href="/business-accounting">
 
-                    </span>
+            <span class="menu-icon">📊</span>
 
-                </div>
+            <span class="menu-text">
+                Business Accounting
+            </span>
 
-            </div>
+        </a>
 
 
-            <!-- COGS -->
+        <a href="/emergency-fund">
 
-            <div class="summary-card cogs">
+            <span class="menu-icon">❤️</span>
 
-                <div class="summary-label">
-                    Cost of Goods Sold
-                </div>
+            <span class="menu-text">
+                Emergency Fund
+            </span>
 
-                <div class="summary-value">
+        </a>
 
-                    Rs.
 
-                    <span
-                        th:text="${summary.costOfGoodsSold}">
+        <a href="/expenses">
 
-                        0
+            <span class="menu-icon">📊</span>
 
-                    </span>
+            <span class="menu-text">
+                Expenses
+            </span>
 
-                </div>
+        </a>
 
-            </div>
 
+        <!-- PROFIT ACTIVE -->
 
-            <!-- GROSS -->
+        <a
+            href="/profit"
+            class="active">
 
-            <div class="summary-card gross">
+            <span class="menu-icon">💰</span>
 
-                <div class="summary-label">
-                    Gross Profit / Loss
-                </div>
+            <span class="menu-text">
+                Profit
+            </span>
 
-                <div
-                    class="summary-value"
-                    th:classappend="${summary.grossProfitLoss < 0 ? ' negative' : ''}">
+        </a>
 
-                    Rs.
 
-                    <span
-                        th:text="${summary.grossProfitLoss}">
+        <a href="/ledger">
 
-                        0
+            <span class="menu-icon">📒</span>
 
-                    </span>
+            <span class="menu-text">
+                Ledger
+            </span>
 
-                </div>
+        </a>
 
-            </div>
 
+        <a href="/reports">
 
-            <!-- EXPENSE -->
+            <span class="menu-icon">📑</span>
 
-            <div class="summary-card expense">
+            <span class="menu-text">
+                Reports
+            </span>
 
-                <div class="summary-label">
-                    Business Expenses
-                </div>
+        </a>
 
-                <div class="summary-value">
 
-                    Rs.
+        <a
+            href="/user-management"
+            th:if="${isAdmin}">
 
-                    <span
-                        th:text="${summary.businessExpenses}">
+            <span class="menu-icon">👤</span>
 
-                        0
+            <span class="menu-text">
+                User Management
+            </span>
 
-                    </span>
+        </a>
 
-                </div>
 
-            </div>
+        <a
+            href="/settings"
+            th:if="${isAdmin}">
 
+            <span class="menu-icon">⚙</span>
 
-            <!-- NET -->
+            <span class="menu-text">
+                Settings
+            </span>
 
-            <div class="summary-card net">
+        </a>
 
-                <div class="summary-label">
-                    Net Profit / Loss
-                </div>
 
-                <div
-                    class="summary-value"
-                    th:classappend="${summary.netProfitLoss < 0 ? ' negative' : ''}">
+    </nav>
 
-                    Rs.
 
-                    <span
-                        th:text="${summary.netProfitLoss}">
+    <!-- LOGOUT -->
 
-                        0
+    <form
+        class="logout-form"
+        th:action="@{/logout}"
+        method="post">
 
-                    </span>
+        <input
+            type="hidden"
+            th:name="${_csrf.parameterName}"
+            th:value="${_csrf.token}">
 
-                </div>
+        <button
+            type="submit"
+            class="logout-button"
+            onclick="return confirm('Are you sure you want to logout?');">
 
-            </div>
+            <span class="logout-icon">
+                🚪
+            </span>
+
+            <span class="logout-text">
+                Logout
+            </span>
+
+        </button>
+
+    </form>
+
+
+</aside>
+
+
+
+<!-- =====================================================
+     MAIN
+     ===================================================== -->
+
+<div class="main">
+
+
+    <!-- TOPBAR -->
+
+    <header class="topbar">
+
+
+        <div class="search">
+
+            <input
+                type="text"
+                placeholder="🔍  Search...">
 
         </div>
 
 
-        <!-- ================= PROFIT CALCULATION ================= -->
+        <div class="user-area">
 
-        <div class="profit-box">
 
-            <h3>
-                📊 Profit Calculation
-            </h3>
+            <div class="notification">
+                🔔
+            </div>
 
-            <div class="profit-equation">
 
-                <strong>
-                    Gross Profit / Loss
-                </strong>
+            <div class="user">
 
-                =
 
-                Total Sales − Cost of Goods Sold
+                <div class="user-icon">
 
-                <br>
+                    <span
+                        th:text="${currentUsername != null
+                                  && !currentUsername.isEmpty()
+                                  ? #strings.substring(currentUsername,0,1).toUpperCase()
+                                  : 'A'}">
 
-                <strong>
-                    Net Profit / Loss
-                </strong>
+                        A
 
-                =
+                    </span>
 
-                Gross Profit / Loss − Business Expenses
+                </div>
 
-                <br>
 
-                <strong>
-                    Member Share
-                </strong>
+                <div class="user-info">
 
-                =
+                    <strong
+                        th:text="${currentUsername != null
+                                  ? currentUsername
+                                  : 'Administrator'}">
 
-                Member Business Investment ÷
-                Total Business Investment × 100
+                        Administrator
+
+                    </strong>
+
+
+                    <span
+                        class="role-badge"
+                        th:text="${currentRole != null
+                                  ? currentRole
+                                  : 'Super Admin'}">
+
+                        Super Admin
+
+                    </span>
+
+                </div>
+
 
             </div>
+
 
         </div>
 
 
-        <!-- ================= MEMBER PROFIT ================= -->
+    </header>
 
-        <div class="section">
 
-            <div class="section-title">
 
-                👥 Member-wise Profit / Loss Distribution
+    <!-- =====================================================
+         CONTENT
+         ===================================================== -->
+
+    <main class="content">
+
+
+        <!-- PAGE HEADER -->
+
+        <div class="page-header">
+
+
+            <div>
+
+                <h1>
+                    📈 Profit Management
+                </h1>
+
+                <p>
+                    FundSphere ERP — Business Profit / Loss & Member Distribution
+                </p>
 
             </div>
 
 
-            <div class="table-wrapper">
-
-                <table>
-
-                    <thead>
-
-                    <tr>
-
-                        <th>
-                            #
-                        </th>
-
-                        <th>
-                            Member Code
-                        </th>
-
-                        <th>
-                            Member Name
-                        </th>
-
-                        <th>
-                            Business Investment
-                        </th>
-
-                        <th>
-                            Investment %
-                        </th>
-
-                        <th>
-                            Profit / Loss Share
-                        </th>
-
-                        <th>
-                            Expense Share
-                        </th>
-
-                        <th>
-                            Net Profit / Loss
-                        </th>
-
-                        <th class="no-print">
-                            Details
-                        </th>
-
-                    </tr>
-
-                    </thead>
+            <div class="header-buttons no-print">
 
 
-                    <tbody>
+                <button
+                    type="button"
+                    class="btn btn-print"
+                    onclick="window.print()">
+
+                    🖨 Print / PDF
+
+                </button>
 
 
-                    <tr
-                        th:each="m, stat : ${memberProfitSummary}">
+            </div>
 
 
-                        <td
-                            th:text="${stat.count}">
-
-                            1
-
-                        </td>
+        </div>
 
 
-                        <td>
 
-                            <strong
-                                th:text="${m.memberCode}">
-
-                                FSP-001
-
-                            </strong>
-
-                        </td>
+        <div class="card">
 
 
-                        <td
-                            th:text="${m.memberName}">
+            <!-- =================================================
+                 SUMMARY
+                 ================================================= -->
 
-                            Member
-
-                        </td>
-
-
-                        <td class="investment">
-
-                            Rs.
-
-                            <span
-                                th:text="${m.investment}">
-
-                                0
-
-                            </span>
-
-                        </td>
+            <div class="summary">
 
 
-                        <td class="percent">
+                <div class="summary-card sales">
 
-                            <span
-                                th:text="${#numbers.formatDecimal(m.investmentPercent, 1, 2)}">
+                    <div class="summary-label">
+                        Total Sales
+                    </div>
 
-                                0.00
+                    <div class="summary-value">
 
-                            </span>%
+                        Rs.
 
-                        </td>
+                        <span
+                            th:text="${summary.totalSales}">
+
+                            0
+
+                        </span>
+
+                    </div>
+
+                </div>
 
 
-                        <td>
+                <div class="summary-card purchase">
 
-                            <span
-                                th:class="${m.profitLossShare >= 0 ? 'positive' : 'negative-text'}">
+                    <div class="summary-label">
+                        Total Purchases
+                    </div>
+
+                    <div class="summary-value">
+
+                        Rs.
+
+                        <span
+                            th:text="${summary.totalPurchases}">
+
+                            0
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="summary-card cogs">
+
+                    <div class="summary-label">
+                        Cost of Goods Sold
+                    </div>
+
+                    <div class="summary-value">
+
+                        Rs.
+
+                        <span
+                            th:text="${summary.costOfGoodsSold}">
+
+                            0
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="summary-card gross">
+
+                    <div class="summary-label">
+                        Gross Profit / Loss
+                    </div>
+
+                    <div
+                        class="summary-value"
+                        th:classappend="${summary.grossProfitLoss < 0 ? ' negative' : ''}">
+
+                        Rs.
+
+                        <span
+                            th:text="${summary.grossProfitLoss}">
+
+                            0
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="summary-card expense">
+
+                    <div class="summary-label">
+                        Business Expenses
+                    </div>
+
+                    <div class="summary-value">
+
+                        Rs.
+
+                        <span
+                            th:text="${summary.businessExpenses}">
+
+                            0
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="summary-card net">
+
+                    <div class="summary-label">
+                        Net Profit / Loss
+                    </div>
+
+                    <div
+                        class="summary-value"
+                        th:classappend="${summary.netProfitLoss < 0 ? ' negative' : ''}">
+
+                        Rs.
+
+                        <span
+                            th:text="${summary.netProfitLoss}">
+
+                            0
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PROFIT CALCULATION
+                 ================================================= -->
+
+            <div class="profit-box">
+
+                <h3>
+                    📊 Profit Calculation
+                </h3>
+
+                <div class="profit-equation">
+
+                    <strong>
+                        Gross Profit / Loss
+                    </strong>
+
+                    =
+
+                    Total Sales − Cost of Goods Sold
+
+                    <br>
+
+                    <strong>
+                        Net Profit / Loss
+                    </strong>
+
+                    =
+
+                    Gross Profit / Loss − Business Expenses
+
+                    <br>
+
+                    <strong>
+                        Member Share
+                    </strong>
+
+                    =
+
+                    Member Business Investment ÷
+                    Total Business Investment × 100
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 MEMBER PROFIT
+                 ================================================= -->
+
+            <div class="section">
+
+
+                <div class="section-title">
+
+                    👥 Member-wise Profit / Loss Distribution
+
+                </div>
+
+
+                <div class="table-wrapper">
+
+
+                    <table>
+
+
+                        <thead>
+
+                        <tr>
+
+                            <th>#</th>
+
+                            <th>Member Code</th>
+
+                            <th>Member Name</th>
+
+                            <th>Business Investment</th>
+
+                            <th>Investment %</th>
+
+                            <th>Profit / Loss Share</th>
+
+                            <th>Expense Share</th>
+
+                            <th>Net Profit / Loss</th>
+
+                            <th class="no-print">
+                                Details
+                            </th>
+
+                        </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+
+                        <tr
+                            th:each="m, stat : ${memberProfitSummary}">
+
+
+                            <td
+                                th:text="${stat.count}">
+
+                                1
+
+                            </td>
+
+
+                            <td>
+
+                                <strong
+                                    th:text="${m.memberCode}">
+
+                                    FSP-001
+
+                                </strong>
+
+                            </td>
+
+
+                            <td
+                                th:text="${m.memberName}">
+
+                                Member
+
+                            </td>
+
+
+                            <td class="investment">
 
                                 Rs.
 
                                 <span
-                                    th:text="${#numbers.formatDecimal(m.profitLossShare, 1, 2)}">
+                                    th:text="${m.investment}">
+
+                                    0
+
+                                </span>
+
+                            </td>
+
+
+                            <td class="percent">
+
+                                <span
+                                    th:text="${#numbers.formatDecimal(m.investmentPercent, 1, 2)}">
+
+                                    0.00
+
+                                </span>%
+
+                            </td>
+
+
+                            <td>
+
+                                <span
+                                    th:class="${m.profitLossShare >= 0
+                                               ? 'positive'
+                                               : 'negative-text'}">
+
+                                    Rs.
+
+                                    <span
+                                        th:text="${#numbers.formatDecimal(m.profitLossShare, 1, 2)}">
+
+                                        0.00
+
+                                    </span>
+
+                                </span>
+
+                            </td>
+
+
+                            <td class="expense-share">
+
+                                Rs.
+
+                                <span
+                                    th:text="${#numbers.formatDecimal(m.expenseShare, 1, 2)}">
 
                                     0.00
 
                                 </span>
 
-                            </span>
-
-                        </td>
+                            </td>
 
 
-                        <td class="expense-share">
-
-                            Rs.
-
-                            <span
-                                th:text="${#numbers.formatDecimal(m.expenseShare, 1, 2)}">
-
-                                0.00
-
-                            </span>
-
-                        </td>
-
-
-                        <td>
-
-                            <span
-                                th:class="${m.netProfitLoss >= 0 ? 'positive' : 'negative-text'}">
-
-                                Rs.
+                            <td>
 
                                 <span
-                                    th:text="${#numbers.formatDecimal(m.netProfitLoss, 1, 2)}">
+                                    th:class="${m.netProfitLoss >= 0
+                                               ? 'positive'
+                                               : 'negative-text'}">
 
-                                    0.00
+                                    Rs.
+
+                                    <span
+                                        th:text="${#numbers.formatDecimal(m.netProfitLoss, 1, 2)}">
+
+                                        0.00
+
+                                    </span>
 
                                 </span>
 
-                            </span>
-
-                        </td>
+                            </td>
 
 
-                        <td class="no-print">
+                            <td class="no-print">
 
-                            <a
-                                th:href="@{/profit/member(memberCode=${m.memberCode})}"
-                                class="action">
+                                <a
+                                    th:href="@{/profit/member(memberCode=${m.memberCode})}"
+                                    class="action">
 
-                                View
+                                    View
 
-                            </a>
+                                </a>
 
-                        </td>
-
-                    </tr>
+                            </td>
 
 
-                    <tr
-                        th:if="${memberProfitSummary == null || #lists.isEmpty(memberProfitSummary)}">
-
-                        <td
-                            colspan="9"
-                            class="empty">
-
-                            No member business investment records found.
-
-                            <br><br>
-
-                            Member profit is automatically calculated
-                            from Business Fund investment.
-
-                        </td>
-
-                    </tr>
+                        </tr>
 
 
-                    </tbody>
+                        <tr
+                            th:if="${memberProfitSummary == null
+                                    || #lists.isEmpty(memberProfitSummary)}">
 
-                </table>
+                            <td
+                                colspan="9"
+                                class="empty">
+
+                                No member business investment records found.
+
+                                <br><br>
+
+                                Member profit is automatically calculated
+                                from Business Fund investment.
+
+                            </td>
+
+                        </tr>
+
+
+                        </tbody>
+
+
+                    </table>
+
+
+                </div>
+
+
+
+                <!-- INFO -->
+
+                <div class="info-box">
+
+                    <strong>
+                        Profit Distribution Rule:
+                    </strong>
+
+                    <br>
+
+                    Member Business Investment is taken only from
+                    <strong>Contribution.businessAmount</strong>.
+
+                    <br>
+
+                    Each member's Investment % is calculated against
+                    total Business Investment.
+
+                    <br>
+
+                    Gross Business Profit/Loss is distributed according
+                    to each member's Investment %.
+
+                    <br>
+
+                    Business Expenses are also distributed according
+                    to the same Investment %.
+
+                    <br>
+
+                    Final Member Net Profit/Loss =
+                    Profit/Loss Share − Expense Share.
+
+                </div>
+
 
             </div>
 
-
-            <!-- ================= INFO ================= -->
-
-            <div class="info-box">
-
-                <strong>
-                    Profit Distribution Rule:
-                </strong>
-
-                <br>
-
-                Member Business Investment is taken only from
-                <strong>Contribution.businessAmount</strong>.
-
-                <br>
-
-                Each member's Investment % is calculated against
-                total Business Investment.
-
-                <br>
-
-                Gross Business Profit/Loss is distributed according
-                to each member's Investment %.
-
-                <br>
-
-                Business Expenses are also distributed according
-                to the same Investment %.
-
-                <br>
-
-                Final Member Net Profit/Loss =
-                Profit/Loss Share − Expense Share.
-
-            </div>
 
         </div>
 
 
-    </div>
+    </main>
+
 
 </div>
+
 
 </body>
 
