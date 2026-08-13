@@ -38,7 +38,6 @@ uploads/
 .idea/
 *.class
 src/main/resources/firebase/*-adminsdk-*.jsonsrc/main/resources/application.properties
-src/main/resources/application.properties
 fundsphere_backup.sql
 .firebase/
 src/main/resources/firebase/
