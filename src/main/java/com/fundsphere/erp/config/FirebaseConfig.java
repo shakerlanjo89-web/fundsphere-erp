@@ -1,6 +1,8 @@
 package com.fundsphere.erp.config;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 import org.springframework.context.annotation.Configuration;
 
@@ -13,18 +15,14 @@ import jakarta.annotation.PostConstruct;
 @Configuration
 public class FirebaseConfig {
 
-    // =====================================================
-    // FIREBASE INITIALIZATION
-    // =====================================================
-
     @PostConstruct
     public void initializeFirebase() {
 
         try {
 
-            // =================================================
+            // =====================================================
             // CHECK IF FIREBASE IS ALREADY INITIALIZED
-            // =================================================
+            // =====================================================
 
             if (!FirebaseApp.getApps().isEmpty()) {
 
@@ -35,52 +33,74 @@ public class FirebaseConfig {
                 return;
             }
 
+            // =====================================================
+            // LOAD FIREBASE SERVICE ACCOUNT
+            // RAILWAY: FIREBASE_SERVICE_ACCOUNT_JSON
+            // LOCAL: CLASSpath JSON fallback
+            // =====================================================
 
-            // =================================================
-            // LOAD FIREBASE SERVICE ACCOUNT JSON
-            // =================================================
+            String firebaseJson =
+                    System.getenv("FIREBASE_SERVICE_ACCOUNT_JSON");
 
-            InputStream serviceAccount =
-                    getClass()
-                            .getClassLoader()
-                            .getResourceAsStream(
-                                "firebase/fundsphere-erp-firebase-adminsdk-fbsvc-4df97033a4.json"
-                            );
+            InputStream serviceAccount;
 
+            if (firebaseJson != null && !firebaseJson.trim().isEmpty()) {
+
+                System.out.println(
+                        "Loading Firebase credentials from environment variable."
+                );
+
+                serviceAccount =
+                        new ByteArrayInputStream(
+                                firebaseJson.getBytes(
+                                        StandardCharsets.UTF_8
+                                )
+                        );
+
+            } else {
+
+                System.out.println(
+                        "Loading Firebase credentials from local classpath."
+                );
+
+                serviceAccount =
+                        getClass()
+                                .getClassLoader()
+                                .getResourceAsStream(
+                                        "firebase/fundsphere-erp-firebase-adminsdk-fbsvc-4df97033a4.json"
+                                );
+            }
+
+            // =====================================================
+            // CHECK CREDENTIALS
+            // =====================================================
 
             if (serviceAccount == null) {
 
                 throw new IllegalStateException(
-                        "Firebase Service Account JSON file not found."
+                        "Firebase Service Account JSON not found. " +
+                        "Set FIREBASE_SERVICE_ACCOUNT_JSON in Railway Variables."
                 );
             }
 
-
-            // =================================================
+            // =====================================================
             // FIREBASE OPTIONS
-            // =================================================
+            // =====================================================
 
             FirebaseOptions options =
                     FirebaseOptions.builder()
-
                             .setCredentials(
-                                    GoogleCredentials
-                                            .fromStream(
-                                                    serviceAccount
-                                            )
+                                    GoogleCredentials.fromStream(
+                                            serviceAccount
+                                    )
                             )
-
                             .build();
 
-
-            // =================================================
+            // =====================================================
             // INITIALIZE FIREBASE
-            // =================================================
+            // =====================================================
 
-            FirebaseApp.initializeApp(
-                    options
-            );
-
+            FirebaseApp.initializeApp(options);
 
             System.out.println(
                     "================================================="
@@ -97,7 +117,6 @@ public class FirebaseConfig {
             System.out.println(
                     "================================================="
             );
-
 
         } catch (Exception e) {
 
